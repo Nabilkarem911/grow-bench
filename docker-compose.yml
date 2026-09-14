@@ -4,11 +4,19 @@ services:
     working_dir: /app
     volumes:
       - ./:/app
+      - grow_data:/data
     environment:
-      - TRAIN_SECONDS=${TRAIN_SECONDS:-240}
-      - THREADS=${THREADS:-2}
+      - TRAIN_SECONDS=${TRAIN_SECONDS:-28800}
+      - THREADS=${THREADS:-3}
+      - TARGET_CHARS=${TARGET_CHARS:-40000000}
+      - REPORT_EVERY=${REPORT_EVERY:-900}
+      - CKPT_EVERY=${CKPT_EVERY:-600}
+      - DATA_DIR=/data
       - REPORT_URL=${REPORT_URL:-}
       - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
       - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID:-}
-    command: sh -c "pip install --no-cache-dir -q numpy torch --index-url https://download.pytorch.org/whl/cpu && python -u /app/bench.py"
-    restart: "no"
+    command: sh -c "pip install --no-cache-dir -q numpy torch --index-url https://download.pytorch.org/whl/cpu && python -u /app/train.py"
+    restart: unless-stopped
+
+volumes:
+  grow_data:
