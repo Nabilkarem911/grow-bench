@@ -1,0 +1,14 @@
+services:
+  bench:
+    image: python:3.12-slim
+    working_dir: /app
+    volumes:
+      - ./:/app
+    environment:
+      - TRAIN_SECONDS=${TRAIN_SECONDS:-240}
+      - THREADS=${THREADS:-2}
+      - REPORT_URL=${REPORT_URL:-}
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID:-}
+    command: sh -c "pip install --no-cache-dir -q torch --index-url https://download.pytorch.org/whl/cpu && python -u /app/bench.py"
+    restart: "no"
