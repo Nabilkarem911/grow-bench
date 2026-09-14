@@ -306,7 +306,7 @@ def main():
 
         stage = "stopped" if STOP else "done"
         vl = val_loss()
-        samples = {p: generate(model, p, 100) for p in PROMPTS}
+        samples = {} if STOP else {p: generate(model, p, 100) for p in PROMPTS}
         res.update({
             "stage": stage,
             "resumed": resumed,
