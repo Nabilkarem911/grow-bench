@@ -9,7 +9,7 @@ import torch, torch.nn as nn, torch.nn.functional as F
 
 TRAIN_SECONDS = int(os.environ.get("TRAIN_SECONDS", "240"))
 THREADS = int(os.environ.get("THREADS", "2"))
-TARGET_CHARS = int(os.environ.get("TARGET_CHARS", "3000000"))
+TARGET_CHARS = int(os.environ.get("TARGET_CHARS", "1200000"))
 REPORT_URL = os.environ.get("REPORT_URL", "").strip()
 TG_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
 TG_CHAT = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
@@ -30,13 +30,13 @@ def report(payload: dict):
             print("report-warn:", e, flush=True)
     if TG_TOKEN and TG_CHAT:
         try:
-            txt = ("🧪 *grow-bench · م0* — قياس التدريب على CPU\n"
-                   f"params: {payload.get('params'):,}\n"
-                   f"tokens/sec: {payload.get('tokens_per_sec'):,}\n"
-                   f"loss: {payload.get('loss_first')} → {payload.get('loss_last')} "
-                   f"(عشوائي {payload.get('random_baseline_loss')})\n"
-                   f"ساعات لكل 100M توكن: {payload.get('hours_per_100M_tokens')}\n"
-                   f"threads: {payload.get('threads')} · مدة: {payload.get('train_seconds_actual')}s")
+            f = lambda k, d="—": (f"{payload.get(k):,}" if isinstance(payload.get(k), (int, float)) else d)
+            txt = ("🧪 grow-bench M0 — قياس تدريب على CPU\n"
+                   f"params: {f('params')}\n"
+                   f"tokens/sec: {f('tokens_per_sec')}\n"
+                   f"loss: {f('loss_first')} → {f('loss_last')} (عشوائي {f('random_baseline_loss')})\n"
+                   f"ساعات لكل 100M توكن: {f('hours_per_100M_tokens')}\n"
+                   f"مرحلة: {payload.get('stage')} · {payload.get('error','')}"[:900])
             data = urllib.parse.urlencode({"chat_id": TG_CHAT, "text": txt,
                                            "parse_mode": "Markdown"}).encode()
             urllib.request.urlopen(f"https://api.telegram.org/bot{TG_TOKEN}/sendMessage",
@@ -46,19 +46,44 @@ def report(payload: dict):
 
 
 def fetch_arabic(target=TARGET_CHARS):
-    """يحمّل نص عربي حقيقي من ويكيبيديا العربية (عام ومجاني)."""
-    out, calls = [], 0
-    while sum(len(x) for x in out) < target and calls < 60:
+    """نص عربي حقيقي: ويكيبيديا العربية باحترام قواعدها (طلب/ثانية)، مع بدائل."""
+    out, calls, last = [], 0, 0.0
+
+    def get(url, hdrs):
+        nonlocal last
+        wait = 1.2 - (time.time() - last)
+        if wait > 0:
+            time.sleep(wait)
+        last = time.time()
+        req = urllib.request.Request(url, headers=hdrs)
+        return urllib.request.urlopen(req, timeout=30).read()
+
+    while sum(len(x) for x in out) < target and calls < 120:
         calls += 1
         u = ("https://ar.wikipedia.org/w/api.php?action=query&generator=random"
              "&grnnamespace=0&grnlimit=20&prop=extracts&explaintext=1&format=json")
         try:
-            req = urllib.request.Request(u, headers={"User-Agent": "orcanox-bench/1.0"})
-            d = json.load(urllib.request.urlopen(req, timeout=25))
-            for p in d.get("query", {}).get("pages", {}).values():
-                out.append(p.get("extract", ""))
+            d = json.loads(get(u, {"User-Agent": "OrcanoxGrowBench/0.1 (research; contact@orcanox.xyz)"}))
+            for pg in d.get("query", {}).get("pages", {}).values():
+                out.append(pg.get("extract", ""))
         except Exception as e:
-            print("fetch-warn:", e, flush=True)
+            print("wiki-warn:", e, flush=True)
+
+    # لو لسه قليل: نكمّل من نصوص عربية أخرى
+    if sum(len(x) for x in out) < target // 2:
+        for extra in [
+            "https://ar.wikisource.org/w/api.php?action=query&generator=random&grnnamespace=0&grnlimit=20&prop=extracts&explaintext=1&format=json",
+            "https://ar.wikinews.org/w/api.php?action=query&generator=random&grnnamespace=0&grnlimit=20&prop=extracts&explaintext=1&format=json",
+        ]:
+            for _ in range(25):
+                try:
+                    d = json.loads(get(extra, {"User-Agent": "OrcanoxGrowBench/0.1 (research)"}))
+                    for pg in d.get("query", {}).get("pages", {}).values():
+                        out.append(pg.get("extract", ""))
+                except Exception as e:
+                    print("extra-warn:", e, flush=True)
+                if sum(len(x) for x in out) >= target:
+                    break
     return "".join(out)
 
 
@@ -110,7 +135,7 @@ def main():
         text = fetch_arabic()
         res["chars_ar"] = len(text)
         res["fetch_seconds"] = round(time.time() - t0, 1)
-        if len(text) < 200_000:
+        if len(text) < 250_000:
             res["stage"] = "failed"; res["error"] = f"data too small: {len(text)}"
             report(res); return
 
