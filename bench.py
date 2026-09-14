@@ -46,44 +46,25 @@ def report(payload: dict):
 
 
 def fetch_arabic(target=TARGET_CHARS):
-    """نص عربي حقيقي: ويكيبيديا العربية باحترام قواعدها (طلب/ثانية)، مع بدائل."""
-    out, calls, last = [], 0, 0.0
-
-    def get(url, hdrs):
-        nonlocal last
-        wait = 1.2 - (time.time() - last)
-        if wait > 0:
-            time.sleep(wait)
-        last = time.time()
-        req = urllib.request.Request(url, headers=hdrs)
-        return urllib.request.urlopen(req, timeout=30).read()
-
-    while sum(len(x) for x in out) < target and calls < 120:
-        calls += 1
-        u = ("https://ar.wikipedia.org/w/api.php?action=query&generator=random"
-             "&grnnamespace=0&grnlimit=20&prop=extracts&explaintext=1&format=json")
+    """نص عربي حقيقي: عينة من mC4 العربي عبر HuggingFace datasets-server (بدون auth)."""
+    out, offset = [], 0
+    base = ("https://datasets-server.huggingface.co/rows"
+            "?dataset=allenai/c4&config=ar&split=train&length=100")
+    while sum(len(x) for x in out) < target and offset < 2000:
+        url = f"{base}&offset={offset}"
         try:
-            d = json.loads(get(u, {"User-Agent": "OrcanoxGrowBench/0.1 (research; contact@orcanox.xyz)"}))
-            for pg in d.get("query", {}).get("pages", {}).values():
-                out.append(pg.get("extract", ""))
+            req = urllib.request.Request(url, headers={"User-Agent": "OrcanoxGrowBench/0.2"})
+            d = json.loads(urllib.request.urlopen(req, timeout=40).read())
+            rows = [r["row"]["text"] for r in d.get("rows", []) if r.get("row", {}).get("text")]
+            if not rows:
+                break
+            out.extend(rows)
+            offset += len(rows)
+            print(f"mc4: {offset} rows, {sum(len(x) for x in out)} chars", flush=True)
+            time.sleep(0.3)
         except Exception as e:
-            print("wiki-warn:", e, flush=True)
-
-    # لو لسه قليل: نكمّل من نصوص عربية أخرى
-    if sum(len(x) for x in out) < target // 2:
-        for extra in [
-            "https://ar.wikisource.org/w/api.php?action=query&generator=random&grnnamespace=0&grnlimit=20&prop=extracts&explaintext=1&format=json",
-            "https://ar.wikinews.org/w/api.php?action=query&generator=random&grnnamespace=0&grnlimit=20&prop=extracts&explaintext=1&format=json",
-        ]:
-            for _ in range(25):
-                try:
-                    d = json.loads(get(extra, {"User-Agent": "OrcanoxGrowBench/0.1 (research)"}))
-                    for pg in d.get("query", {}).get("pages", {}).values():
-                        out.append(pg.get("extract", ""))
-                except Exception as e:
-                    print("extra-warn:", e, flush=True)
-                if sum(len(x) for x in out) >= target:
-                    break
+            print("mc4-warn:", e, flush=True)
+            time.sleep(2)
     return "".join(out)
 
 
