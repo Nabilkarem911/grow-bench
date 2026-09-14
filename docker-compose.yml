@@ -15,7 +15,7 @@ services:
       - REPORT_URL=${REPORT_URL:-}
       - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
       - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID:-}
-    command: sh -c "pip install --no-cache-dir -q numpy torch --index-url https://download.pytorch.org/whl/cpu && python -u /app/train.py"
+    command: sh -c "pip install --no-cache-dir -q numpy torch --index-url https://download.pytorch.org/whl/cpu && exec python -u /app/train.py"
     restart: unless-stopped
 
 volumes:
