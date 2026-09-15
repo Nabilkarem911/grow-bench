@@ -5,7 +5,7 @@
 - سقف مكالمات/وقت + تقارير ntfy دورية + تقرير جودة نهائي.
 - stdlib فقط — لا يحتاج تثبيت حزم.
 """
-import hashlib, json, os, random, re, signal, time, urllib.request
+import hashlib, json, os, random, re, signal, time, urllib.parse, urllib.request
 
 DATA_DIR = os.environ.get("DATA_DIR", "/data")
 BASE_URL = os.environ.get("TEACHER_BASE_URL", "https://aihubmix.com/v1").rstrip("/")
