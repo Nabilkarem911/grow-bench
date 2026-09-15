@@ -1,8 +1,68 @@
 {
- "stage": "failed",
+ "stage": "done",
  "ckpt_in": "/data/checkpoint.pt",
- "out": "",
+ "out": "/data/ft",
  "train_seconds": 1500,
  "threads": 3,
- "error": "FileNotFoundError: [Errno 2] No such file or directory: ''"
+ "params": 4935680,
+ "resumed_ft": false,
+ "arch": {
+  "n_layer": 6,
+  "n_head": 8,
+  "n_embd": 256,
+  "block": 256,
+  "mlp_mult": 4,
+  "vocab": 256
+ },
+ "factory_train_bytes": 1573497,
+ "factory_val_bytes": 277676,
+ "eval_before": {
+  "val_mc4": {
+   "mean": 1.06319,
+   "std": 0.2275,
+   "windows_evaluated": 5515,
+   "tokens_evaluated": 1411840,
+   "method": "sweep-256/256"
+  },
+  "val_factory": {
+   "mean": 0.94561,
+   "std": 0.10049,
+   "windows_evaluated": 1084,
+   "tokens_evaluated": 277504,
+   "method": "sweep-256/256"
+  },
+  "loss_fixed_batch": 0.981422
+ },
+ "eval_after": {
+  "val_mc4": {
+   "mean": 1.22967,
+   "std": 0.26515,
+   "windows_evaluated": 5515,
+   "tokens_evaluated": 1411840,
+   "method": "sweep-256/256"
+  },
+  "val_factory": {
+   "mean": 0.80082,
+   "std": 0.1146,
+   "windows_evaluated": 1084,
+   "tokens_evaluated": 277504,
+   "method": "sweep-256/256"
+  },
+  "loss_fixed_batch": 1.132702
+ },
+ "samples": {
+  "في البدء كان": "ت هذه التعامل على العشاء بين رأسمالهم والحياة المبررة. ",
+  "اللغة العربية": " التي تتراث غير معرفة تحديات رأسمالية مثل \"النص\" والسما�",
+  "وفي صباح اليوم التالي": " الذي أصبحت أكثر أكثر تشبيها رأيًا. الالتزايد، كما أن ا�",
+  "قال العالم": "ية تعديل المستويات تفاصيلها الجوية والألحاسية للبدء م�",
+  "المدينة الكبيرة": " أمام التعامل على العشاء بيئة القواعد العربية والأجدار"
+ },
+ "steps": 711,
+ "tokens_seen": 2912256,
+ "tokens_per_sec": 1940,
+ "elapsed_seconds": 1501.5,
+ "loss_first": 0.9267,
+ "loss_last": 0.742,
+ "epochs_factory": 1.85,
+ "ft_ckpt_mb": 56.6
 }
