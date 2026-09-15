@@ -1,0 +1,41 @@
+{
+ "stage": "eval_hf",
+ "tag": "grown167",
+ "model": "F:/projects/grow/data/ready/grown_smollm2",
+ "device": "cuda",
+ "params": 167032512,
+ "size_mb": 637.2,
+ "val_chars": 806305,
+ "val_tokens": 742096,
+ "tokens_per_char": 0.92,
+ "windows": 2898,
+ "tokens_evaluated": 741888,
+ "loss_mean": 8.96387,
+ "loss_std": 0.52797,
+ "perplexity": 7815.57,
+ "batch_losses": [
+  8.404,
+  8.8033,
+  9.3745,
+  8.6372
+ ],
+ "samples": {
+  "في صباح اليوم التالي": {
+   "text": "في صباح اليوم التالي للسوء الوحيد\n\nالأمين التي اصباح سوء الوحيد ال",
+   "tok_per_sec": 40.3
+  },
+  "اللغة العربية هي": {
+   "text": "اللغة العربية هيلية للحقوق عملية في الحقيقية لحقيقية من الإث",
+   "tok_per_sec": 46.4
+  },
+  "قال العالم": {
+   "text": "قال العالم الطاهام\n\nSultan Al-Hakim Al-Tayyib Al-Ulama Al-Saleh Al-Hakkari Al-Q",
+   "tok_per_sec": 46.9
+  },
+  "المدينة الكبيرة": {
+   "text": "المدينة الكبيرة\nإن كنت المصر الليفية والإنتراكية.\nونطلقت ع",
+   "tok_per_sec": 46.3
+  }
+ },
+ "eval_seconds": 48.4
+}

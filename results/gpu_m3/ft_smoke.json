@@ -1,0 +1,80 @@
+{
+ "stage": "done",
+ "tag": "smoke",
+ "model": "Qwen/Qwen2.5-0.5B",
+ "device": "cuda",
+ "tokens_budget": 163840,
+ "gradient_checkpointing": true,
+ "params_base": 494032768,
+ "params_trainable": 8798208,
+ "train_tokens_available": 15900699,
+ "vocab": 151665,
+ "tokens_seen": 163840,
+ "steps": 160,
+ "loss_first": 6.3509,
+ "loss_last": 5.6549,
+ "elapsed_seconds": 45.5,
+ "tokens_per_sec": 3598.0,
+ "loss_trace": [
+  {
+   "step": 20,
+   "seen": 20480,
+   "loss": 6.3509,
+   "lr": 0.0001947,
+   "tps": 3310.0
+  },
+  {
+   "step": 40,
+   "seen": 40960,
+   "loss": 6.1511,
+   "lr": 0.0001743,
+   "tps": 3468.0
+  },
+  {
+   "step": 60,
+   "seen": 61440,
+   "loss": 6.1564,
+   "lr": 0.000142,
+   "tps": 3528.0
+  },
+  {
+   "step": 80,
+   "seen": 81920,
+   "loss": 5.8448,
+   "lr": 0.0001028,
+   "tps": 3557.0
+  },
+  {
+   "step": 100,
+   "seen": 102400,
+   "loss": 5.7518,
+   "lr": 6.32e-05,
+   "tps": 3572.0
+  },
+  {
+   "step": 120,
+   "seen": 122880,
+   "loss": 5.207,
+   "lr": 2.96e-05,
+   "tps": 3581.0
+  },
+  {
+   "step": 140,
+   "seen": 143360,
+   "loss": 5.3304,
+   "lr": 7.3e-06,
+   "tps": 3589.0
+  },
+  {
+   "step": 160,
+   "seen": 163840,
+   "loss": 5.6549,
+   "lr": 0.0,
+   "tps": 3598.0
+  }
+ ],
+ "compute_proxy_tokens_x_params": 80942328709120,
+ "vram_peak_mb": 3194,
+ "saved_to": "F:/projects/grow/data/ready/smoke",
+ "total_seconds": 76.1
+}

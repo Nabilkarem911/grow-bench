@@ -59,8 +59,12 @@ def deepen(model, positions):
     dev = ref.self_attn.o_proj.weight.device
     dt = ref.self_attn.o_proj.weight.dtype
     added = []
+    # ⚠️ بعض المعماريات (Qwen) عندها قايمة «نوع انتباه لكل طبقة» لازم تفضل متطابقة في الطول
+    lt = getattr(model.config, "layer_types", None)
     for pos in sorted(positions):
         pos = max(1, min(pos, len(L)))
+        if lt is not None:                     # نظيف: نكرّر نوع الجار في نفس المكان
+            lt.insert(pos, lt[min(pos, len(lt) - 1)])
         try:
             new = type(ref)(model.config, layer_idx=pos)   # transformers v5
         except TypeError:
