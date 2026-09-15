@@ -25,6 +25,7 @@ CORPUS_PATH = os.path.join(FDIR, "corpus_factory.txt")
 STATE_PATH = os.path.join(FDIR, "state.json")
 REPORT_PATH = os.path.join(FDIR, "report.json")
 STOP = False
+REPORT_DIAG = {"url_set": bool(REPORT_URL), "ntfy": "never", "tg": "never"}
 
 
 def _sig(*_):
@@ -74,12 +75,15 @@ def build_seeds():
 def report(payload, tg=True):
     body = json.dumps(payload, ensure_ascii=False)
     print("REPORT " + body, flush=True)
+    REPORT_DIAG["url_set"] = bool(REPORT_URL)
     if REPORT_URL:
         try:
             req = urllib.request.Request(REPORT_URL, data=body.encode("utf-8"),
                                          headers={"Title": "grow M2 factory"})
             urllib.request.urlopen(req, timeout=20)
+            REPORT_DIAG["ntfy"] = "ok"
         except Exception as e:
+            REPORT_DIAG["ntfy"] = f"{type(e).__name__}: {e}"
             print("report-warn:", e, flush=True)
     if tg and TG_TOKEN and TG_CHAT:
         try:
@@ -93,7 +97,9 @@ def report(payload, tg=True):
             data = urllib.parse.urlencode({"chat_id": TG_CHAT, "text": txt}).encode()
             urllib.request.urlopen(f"https://api.telegram.org/bot{TG_TOKEN}/sendMessage",
                                    data=data, timeout=20)
+            REPORT_DIAG["tg"] = "ok"
         except Exception as e:
+            REPORT_DIAG["tg"] = f"{type(e).__name__}: {e}"
             print("telegram-warn:", e, flush=True)
 
 
@@ -103,6 +109,7 @@ def call_teacher(prompt):
         "messages": [{"role": "user", "content": prompt}],
         "max_tokens": MAX_TOKENS,
         "temperature": 0.9,
+        "reasoning_effort": "none",
     }, ensure_ascii=False).encode("utf-8")
     req = urllib.request.Request(
         f"{BASE_URL}/chat/completions", data=body,
@@ -140,6 +147,7 @@ def load_state():
 
 
 def save_state(st):
+    st["report_diag"] = REPORT_DIAG
     tmp = STATE_PATH + ".tmp"
     with open(tmp, "w", encoding="utf-8") as f:
         json.dump(st, f, ensure_ascii=False)
