@@ -1,0 +1,33 @@
+================ بدء 20:25:17 ================
+خيوط: 4 | موديل: Qwen/Qwen2.5-0.5B-Instruct-GGUF
+apt: 0
+تنزيل llama.cpp: https://github.com/ggml-org/llama.cpp/releases/download/b10988/llama-b10988-bin-ubuntu-x64.zip
+حجم الملف: 9 بايت
+[/tmp/llama.zip]
+  End-of-central-directory signature not found.  Either this file is not
+  a zipfile, or it constitutes one disk of a multi-part archive.  In the
+  latter case the central directory and zipfile comment will be found on
+  the last disk(s) of this archive.
+unzip:  cannot find zipfile directory in one of /tmp/llama.zip or
+        /tmp/llama.zip.zip, and cannot find /tmp/llama.zip.ZIP, period.
+فشل فك الضغط
+find: ‘/tmp/llama’: No such file or directory
+find: ‘/tmp/llama’: No such file or directory
+find: ‘/tmp/llama’: No such file or directory
+find: ‘/tmp/llama’: No such file or directory
+البرامج:  |  |  | 
+qwen2.5-0.5b-instruct-q4_k_m.gguf : 491400032 بايت
+qwen2.5-0.5b-instruct-fp16.gguf : 1266425696 بايت
+================ السرعة (llama-bench) ================
+---- qwen2.5-0.5b-instruct-fp16.gguf ----
+/app/llama_bench_server.sh: 38: : Permission denied
+---- qwen2.5-0.5b-instruct-q4_k_m.gguf ----
+/app/llama_bench_server.sh: 38: : Permission denied
+================ الجودة (perplexity على نص عربي) ================
+---- qwen2.5-0.5b-instruct-fp16.gguf ----
+/app/llama_bench_server.sh: 44: : Permission denied
+---- qwen2.5-0.5b-instruct-q4_k_m.gguf ----
+/app/llama_bench_server.sh: 44: : Permission denied
+================ عينة عربية (q4) ================
+/app/llama_bench_server.sh: 48: : Permission denied
+================ خلص 20:25:51 ================

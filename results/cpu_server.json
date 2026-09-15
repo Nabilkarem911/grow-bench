@@ -4,11 +4,11 @@
  "threads": 4,
  "host": "877e35742ed9",
  "torch": "2.14.0+cpu",
- "load_seconds": 21.6,
+ "load_seconds": 9.1,
  "params": 494032768,
  "size_mb": 1884.6,
- "fp32_tok_per_sec": 9.4,
- "int8_tok_per_sec": 8.9,
+ "fp32_tok_per_sec": 9.7,
+ "int8_tok_per_sec": 9.2,
  "speedup_x": 0.95,
- "sample_ar": "في صباح اليوم التالي: 20-03-2021 09:07\n-5% توقعات الملايين المغتربين من قطر إلى الإمارات\n-ال"
+ "sample_ar": "في صباح اليوم التالي.\n10:00 27/11/2014\n26/11/2014 00:17\n28/11"
 }
