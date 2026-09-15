@@ -1,0 +1,47 @@
+{
+ "tag": "arm1",
+ "ckpt": "F:/projects/grow/data/m3/arm1/ckpt.pt",
+ "threads": 8,
+ "stage": "done",
+ "zdev": {
+  "device": "cuda",
+  "threads": null,
+  "vram_limit_mb": 2853,
+  "gpu": "NVIDIA GeForce RTX 5060",
+  "capability": [
+   12,
+   0
+  ],
+  "vram_total_mb": 8151
+ },
+ "params": 7565824,
+ "ckpt_meta": {
+  "steps": 2442,
+  "seen": 9999872,
+  "elapsed": 106.89843797683716
+ },
+ "val_mc4": {
+  "mean": 1.04558,
+  "std": 0.21805,
+  "windows_evaluated": 5535,
+  "tokens_evaluated": 1416960,
+  "method": "sweep-256/256"
+ },
+ "loss_fixed_batch": 0.976862,
+ "val_factory": {
+  "mean": 0.89345,
+  "std": 0.09922,
+  "windows_evaluated": 1084,
+  "tokens_evaluated": 277504,
+  "method": "sweep-256/256"
+ },
+ "samples": {
+  "في البدء كان": " الحقيقة والمرء اليهودي كان يراد البدء عليها وإنما نرا�",
+  "اللغة العربية": " السورية والمرءة في الأمراض الأخلاقية، بل اعملوا المسل",
+  "وفي صباح اليوم التالي": " السوري لكنه لا تستمر بصبح نوعها الساليه نسبة للتقسيم و",
+  "قال العالم": " السوري للحقوق الأوروبي كان يزال العالم السعودية خبرات",
+  "المدينة الكبيرة": " السورية والمرء المتداول الشمالي للتوزيع البيئي للمرا�"
+ },
+ "vram_peak_mb": 134,
+ "eval_seconds": 9.8
+}

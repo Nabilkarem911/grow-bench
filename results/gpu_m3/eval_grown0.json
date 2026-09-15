@@ -1,0 +1,43 @@
+{
+ "tag": "grown0",
+ "ckpt": "F:/projects/grow/data/m3/grown.pt",
+ "threads": 8,
+ "stage": "done",
+ "zdev": {
+  "device": "cuda",
+  "threads": null,
+  "vram_limit_mb": 2853,
+  "gpu": "NVIDIA GeForce RTX 5060",
+  "capability": [
+   12,
+   0
+  ],
+  "vram_total_mb": 8151
+ },
+ "params": 7565824,
+ "ckpt_meta": {},
+ "val_mc4": {
+  "mean": 1.14293,
+  "std": 0.26762,
+  "windows_evaluated": 5535,
+  "tokens_evaluated": 1416960,
+  "method": "sweep-256/256"
+ },
+ "loss_fixed_batch": 1.050175,
+ "val_factory": {
+  "mean": 0.95126,
+  "std": 0.10309,
+  "windows_evaluated": 1084,
+  "tokens_evaluated": 277504,
+  "method": "sweep-256/256"
+ },
+ "samples": {
+  "في البدء كان": " السوري يكون لديهم مصر صغيرة.\nاستدلت الشركة على الخطوط �",
+  "اللغة العربية": " السورية والمرحلة والذي كان أزالا في كيريا للمحكمة و ال",
+  "وفي صباح اليوم التالي": " تقدم التصوير التي كتابها الحرارة في كيريا. على الخطوة �",
+  "قال العالم": " السوري لكون لا تستهدف صرجة وقال: من العالم للمحاكم و ال",
+  "المدينة الكبيرة": " السورية والمرحلة والذي كان يعاني في كيريا. على الخطوة �"
+ },
+ "vram_peak_mb": 134,
+ "eval_seconds": 10.1
+}

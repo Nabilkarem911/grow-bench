@@ -1,0 +1,47 @@
+{
+ "tag": "arm2",
+ "ckpt": "F:/projects/grow/data/m3/arm2/ckpt.pt",
+ "threads": 8,
+ "stage": "done",
+ "zdev": {
+  "device": "cuda",
+  "threads": null,
+  "vram_limit_mb": 2853,
+  "gpu": "NVIDIA GeForce RTX 5060",
+  "capability": [
+   12,
+   0
+  ],
+  "vram_total_mb": 8151
+ },
+ "params": 7565824,
+ "ckpt_meta": {
+  "steps": 15784,
+  "seen": 64648704,
+  "elapsed": 682.9446201324463
+ },
+ "val_mc4": {
+  "mean": 1.02649,
+  "std": 0.21497,
+  "windows_evaluated": 5535,
+  "tokens_evaluated": 1416960,
+  "method": "sweep-256/256"
+ },
+ "loss_fixed_batch": 0.949284,
+ "val_factory": {
+  "mean": 0.85864,
+  "std": 0.10281,
+  "windows_evaluated": 1084,
+  "tokens_evaluated": 277504,
+  "method": "sweep-256/256"
+ },
+ "samples": {
+  "في البدء كان": " السواسي كان لديهم وتعالى الأزمة من الأعراض الإنسانية �",
+  "اللغة العربية": " السورية والإرهاب والذي كان الأحد في كتابة دولة إلى است",
+  "وفي صباح اليوم التالي": " السوري لكونها مع التعاون السوري من الصباح\r\nعملية اليوم",
+  "قال العالم": " السوري لكونها تعاني عن الشعب القانوني العالمي لكرة ال�",
+  "المدينة الكبيرة": " السورية والمرحلة الأخرى المقاهيرة التي يسعدها على است"
+ },
+ "vram_peak_mb": 134,
+ "eval_seconds": 9.6
+}

@@ -1,0 +1,8 @@
+{
+ "stage": "done",
+ "mixed_bytes": 74153343,
+ "mc4_train_bytes": 69432852,
+ "factory_train_bytes_x3": 4720491,
+ "factory_share": 0.0637,
+ "out": "F:/projects/grow/data\\m3\\mixed.txt"
+}

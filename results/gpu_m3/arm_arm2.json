@@ -1,0 +1,47 @@
+{
+ "stage": "done",
+ "tag": "arm2",
+ "init": "F:/projects/grow/data/m3/grown.pt",
+ "init_mode": "fresh",
+ "out": "F:/projects/grow/data/m3/arm2",
+ "data": "F:/projects/grow/data/m3/mixed.txt",
+ "stop_at_tokens": 64648832,
+ "threads": 8,
+ "device": "cuda",
+ "zdev": {
+  "device": "cuda",
+  "threads": null,
+  "vram_limit_mb": 2853,
+  "gpu": "NVIDIA GeForce RTX 5060",
+  "capability": [
+   12,
+   0
+  ],
+  "vram_total_mb": 8151
+ },
+ "data_tokens": 74153343,
+ "resumed": false,
+ "params": 7565824,
+ "stop_at_tokens_effective": 64648704,
+ "steps": 15784,
+ "tokens_seen": 64648704,
+ "tokens_per_sec": 94662,
+ "elapsed_seconds": 682.9,
+ "elapsed_hours": 0.19,
+ "loss_first": 5.7712,
+ "loss_last": 0.9752,
+ "epochs_mixed": 0.872,
+ "compute_proxy_tokens_x_params": 489120716292096,
+ "vram_peak_mb": 768,
+ "usage": {
+  "threads": 8
+ },
+ "samples": {
+  "في البدء كان": " السواسي كان لديهم وتعالى الأزمة من الأعراض الإنسانية �",
+  "اللغة العربية": " السورية والإرهاب والذي كان الأحد في كتابة دولة إلى است",
+  "وفي صباح اليوم التالي": " السوري لكونها مع التعاون السوري من الصباح\r\nعملية اليوم",
+  "قال العالم": " السوري لكونها تعاني عن الشعب القانوني العالمي لكرة ال�",
+  "المدينة الكبيرة": " السورية والمرحلة الأخرى المقاهيرة التي يسعدها على است"
+ },
+ "total_seconds": 687.2
+}

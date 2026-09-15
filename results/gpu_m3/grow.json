@@ -1,0 +1,31 @@
+{
+ "stage": "done",
+ "ckpt_in": "F:/projects/grow/data/checkpoint.pt",
+ "out": "F:/projects/grow/data/m3/grown.pt",
+ "check_f1": false,
+ "new_blocks_at": [
+  4,
+  6
+ ],
+ "mlp_mult_new": 5,
+ "zdev": {
+  "device": "cuda",
+  "threads": null,
+  "vram_limit_mb": 2853,
+  "gpu": "NVIDIA GeForce RTX 5060",
+  "capability": [
+   12,
+   0
+  ],
+  "vram_total_mb": 8151
+ },
+ "params_m1": 4935680,
+ "fixed_before": 1.050175,
+ "f1_acceptance": false,
+ "params_grown": 7565824,
+ "fixed_after": 1.050175,
+ "delta": 0.0,
+ "S1_pass": true,
+ "vram_peak_mb": 132,
+ "seconds": 2.3
+}
