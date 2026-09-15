@@ -1,13 +1,16 @@
 """
 م3 — مقياس حتمي واحد لكل التجارب.
-يدخل: CKPT (checkpoint كامل أو state_dict) + TAG.
+يدخل: CKPT (checkpoint كامل أو state_dict) + TAG.  DEVICE=cpu|cuda
 يطلّع: val_mc4 (mean±std على 64 دفعة ثابتة) + val_factory + loss_fixed_batch + عينات ثابتة.
 يكتب: /data/results/eval_<TAG>.json — القناة الرسمية للنتائج.
+⚠️ القياس يفضل حتمي على أي جهاز: نفس الدفعات، نفس البذور. الحكم النهائي للمشروع على CPU.
 """
 import json, math, os, time, urllib.parse, urllib.request
 
 import torch, torch.nn.functional as F
 from train import TinyGPT, generate, PROMPTS
+
+import zdev
 
 DATA_DIR = os.environ.get("DATA_DIR", "/data")
 CKPT = os.environ.get("CKPT", "").strip() or "/data/checkpoint.pt"
@@ -55,7 +58,7 @@ def read_bytes(path):
 
 
 def batches(data, nbatch, seed):
-    """نفس الدفعات بالظبط كل مرة: مولّد واحد ببذرة ثابتة."""
+    """نفس الدفعات بالظبط كل مرة: مولّد واحد ببذرة ثابتة (على CPU دايماً)."""
     g = torch.Generator().manual_seed(seed)
     ix = torch.randint(len(data) - BLOCK - 1, (nbatch * BATCH,), generator=g)
     for i in range(nbatch):
@@ -65,19 +68,24 @@ def batches(data, nbatch, seed):
         yield x, y
 
 
+def _dev(model):
+    return next(model.parameters()).device
+
+
 @torch.no_grad()
 def eval_set(model, data, batch=BATCH):
     """F2: مسح كامل بدون تراكب — نوافذ 256 بخطوة 256 تغطي الـ val مرة واحدة."""
+    dev = _dev(model)
     starts = list(range(0, data.numel() - BLOCK, BLOCK))
     losses = []
     for k in range(0, len(starts), batch):
         sel = starts[k:k + batch]
-        x = torch.stack([data[i:i + BLOCK] for i in sel])
-        y = torch.stack([data[i + 1:i + BLOCK + 1] for i in sel])
+        x = torch.stack([data[i:i + BLOCK] for i in sel]).to(dev)
+        y = torch.stack([data[i + 1:i + BLOCK + 1] for i in sel]).to(dev)
         logits, _ = model(x)
         l = F.cross_entropy(logits.reshape(-1, 256), y.reshape(-1),
                             reduction="none").view(len(sel), BLOCK)
-        losses.extend(l.mean(1).tolist())
+        losses.extend(l.mean(1).cpu().tolist())
     mean = sum(losses) / len(losses)
     var = sum((v - mean) ** 2 for v in losses) / len(losses)
     return {"mean": round(mean, 5), "std": round(math.sqrt(var), 5),
@@ -88,13 +96,14 @@ def eval_set(model, data, batch=BATCH):
 
 @torch.no_grad()
 def fixed_batch_loss(model, data):
-    """دفعة واحدة ثابتة (بذرة 777 على قسم التدريب) — لمقارنة النمو S1."""
+    """دفعة واحدة ثابتة (بذرة 777 على قسم التدريب) — لمقارنة النمو S1. جهاز-مستقل."""
+    dev = _dev(model)
     x, y = next(batches(data, 1, 777))
-    _, loss = model(x, y)
+    _, loss = model(x.to(dev), y.to(dev))
     return round(loss.item(), 6)
 
 
-def load_model(path):
+def load_model(path, device=None):
     """يبني الموديل من arch المحفوظة في الـ checkpoint (F1)، أو defaults."""
     obj = torch.load(path, map_location="cpu")
     meta = {}
@@ -105,16 +114,20 @@ def load_model(path):
         obj = obj["model"]
     model = TinyGPT(**arch) if arch else TinyGPT()
     model.load_state_dict(obj)
+    if device is not None:
+        model = model.to(device)  # GPU
     model.eval()
     return model, meta
 
 
 def main():
+    device = zdev.pick_device("cpu")
     res = {"tag": TAG, "ckpt": CKPT, "threads": THREADS, "stage": "starting"}
     t0 = time.time()
     try:
+        res["zdev"] = zdev.setup(device, threads=None, vram_fraction=os.environ.get("VRAM_FRACTION"))
         os.makedirs(RESULTS_DIR, exist_ok=True)
-        model, meta = load_model(CKPT)
+        model, meta = load_model(CKPT, device=device)
         res["params"] = sum(p.numel() for p in model.parameters())
         res["ckpt_meta"] = meta
 
@@ -132,6 +145,7 @@ def main():
             res["val_factory"] = None
 
         res["samples"] = {p: generate(model, p, 100, seed=1234) for p in PROMPTS}
+        res["vram_peak_mb"] = zdev.vram_peak_mb(device)
         res["eval_seconds"] = round(time.time() - t0, 1)
         res["stage"] = "done"
     except Exception as e:

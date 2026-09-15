@@ -6,6 +6,7 @@
 - حاجز التلوث (F5.1): ممنوع INIT أو DATA أو OUT جوّه /data/ft.
 - البيانات: mixed.txt الموحّد — ممنوع مزيج مختلف (§6.5).
 - استكمال من OUT/ckpt.pt لو موجودة (opt بتاع الذراع نفسه — مش بتاع م1).
+- DEVICE=cpu|cuda — على الكارت: سقف VRAM + حفظ الأوزان على CPU.
 - يكتب OUT/ckpt.pt + /data/results/arm_<TAG>.json — ممنوع يلمس ملفات م1 أو ft.
 """
 import json, math, os, signal, time, urllib.parse, urllib.request
@@ -13,6 +14,8 @@ import json, math, os, signal, time, urllib.parse, urllib.request
 import torch
 from train import TinyGPT, generate, PROMPTS
 from eval import read_bytes
+
+import zdev
 
 DATA_DIR = os.environ.get("DATA_DIR", "/data")
 INIT = os.environ.get("INIT", "").strip()
@@ -59,7 +62,8 @@ def report(payload, tg=False):
             txt = (f"💪 grow M3 {TAG}\nstage: {payload.get('stage')}\n"
                    f"steps: {payload.get('steps')} · tokens: {payload.get('tokens_seen')}\n"
                    f"loss {payload.get('loss_first')} → {payload.get('loss_last')} · "
-                   f"{payload.get('tokens_per_sec')} tok/s\n{payload.get('error','')}"[:900])
+                   f"{payload.get('tokens_per_sec')} tok/s · {payload.get('device')}\n"
+                   f"{payload.get('error','')}"[:900])
             data = urllib.parse.urlencode({"chat_id": TG_CHAT, "text": txt}).encode()
             urllib.request.urlopen(f"https://api.telegram.org/bot{TG_TOKEN}/sendMessage",
                                    data=data, timeout=20)
@@ -91,8 +95,8 @@ def barrier(path, what):
 
 def save_ckpt(path, model, opt, steps, seen, elapsed):
     tmp = path + ".tmp"
-    torch.save({"model": model.state_dict(), "opt": opt.state_dict(),
-                "arch": model.arch, "arm": TAG,
+    torch.save({"model": zdev.cpu_state_dict(model),   # GPU: تنزيل على CPU قبل الحفظ
+                "opt": opt.state_dict(), "arch": model.arch, "arm": TAG,
                 "steps": steps, "seen": seen, "elapsed": elapsed,
                 "rng": torch.get_rng_state()}, tmp)
     os.replace(tmp, path)
@@ -106,11 +110,13 @@ def get_batch(src):
 
 
 def main():
+    device = zdev.pick_device("cpu")
     res = {"stage": "starting", "tag": TAG, "init": INIT, "init_mode": INIT_MODE,
            "out": OUT, "data": DATA, "stop_at_tokens": STOP_AT_TOKENS,
-           "threads": THREADS}
+           "threads": THREADS, "device": str(device)}
     t_start = time.time()
     try:
+        res["zdev"] = zdev.setup(device, threads=None, vram_fraction=os.environ.get("VRAM_FRACTION"))
         if not OUT:
             raise RuntimeError("OUT لازم يتحدد")
         barrier(OUT, "OUT"); barrier(DATA, "DATA")
@@ -120,7 +126,7 @@ def main():
         os.makedirs(RESULTS, exist_ok=True)
         ckpt_path = os.path.join(OUT, "ckpt.pt")
 
-        data = torch.tensor(list(read_bytes(DATA)), dtype=torch.long)
+        data = torch.tensor(list(read_bytes(DATA)), dtype=torch.long)  # على CPU دايماً
         res["data_tokens"] = int(data.numel())
 
         steps, seen, prev_elapsed = 0, 0, 0.0
@@ -146,6 +152,7 @@ def main():
             opt = torch.optim.AdamW(model.parameters(), lr=3e-4)  # F3.1: جديد دايمًا
             res["resumed"] = False
 
+        model = model.to(device)  # GPU
         res["params"] = sum(p.numel() for p in model.parameters())
         report({**res, "stage": "started"}, tg=False)
 
@@ -167,8 +174,8 @@ def main():
                 if rows <= 0:
                     break
             ix = torch.randint(len(data) - BLOCK - 1, (rows,))
-            x = torch.stack([data[i:i + BLOCK] for i in ix])
-            y = torch.stack([data[i + 1:i + BLOCK + 1] for i in ix])
+            x = torch.stack([data[i:i + BLOCK] for i in ix]).to(device)
+            y = torch.stack([data[i + 1:i + BLOCK + 1] for i in ix]).to(device)
             _, loss = model(x, y)
             opt.zero_grad(set_to_none=True)
             loss.backward()
@@ -210,6 +217,7 @@ def main():
             "loss_last": round(last_loss, 4) if last_loss else None,
             "epochs_mixed": round(seen / data.numel(), 3),
             "compute_proxy_tokens_x_params": seen * res["params"],
+            "vram_peak_mb": zdev.vram_peak_mb(device),
             "usage": usage(),
             "samples": {p: generate(model, p, 100, seed=1234) for p in PROMPTS},
         })

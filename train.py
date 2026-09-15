@@ -137,7 +137,8 @@ class Block(nn.Module):
 
     def forward(self, x):
         T = x.size(1)
-        mask = torch.triu(torch.ones(T, T, dtype=torch.bool), diagonal=1)
+        # ⚠️ إلزامي: الماسك على نفس جهاز الدخل — من غير كده الموديل مايشتغلش على كارت شاشة
+        mask = torch.triu(torch.ones(T, T, dtype=torch.bool, device=x.device), diagonal=1)
         h = self.ln1(x)
         a, _ = self.attn(h, h, h, attn_mask=mask, need_weights=False)
         x = x + a
@@ -174,9 +175,10 @@ class TinyGPT(nn.Module):
 def generate(model, prompt, n=100, temp=0.8, topk=40, seed=1234):
     was_training = model.training
     model.eval()
-    g = torch.Generator().manual_seed(seed)
+    dev = next(model.parameters()).device  # GPU: المولّد والمدخلات على نفس جهاز الموديل
+    g = torch.Generator(device=dev).manual_seed(seed)  # ⚠️ مولّد CPU + توتر CUDA = خطأ
     ids = list(prompt.encode("utf-8"))[-model.block:]
-    idx = torch.tensor([ids], dtype=torch.long)
+    idx = torch.tensor([ids], dtype=torch.long, device=dev)
     for _ in range(n):
         logits, _ = model(idx[:, -model.block:])
         l = logits[0, -1] / temp

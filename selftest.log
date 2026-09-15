@@ -1,0 +1,80 @@
+=== selftest: دعم الأجهزة ===
+torch 2.11.0+cu128 | cuda متاح: True
+GPU: NVIDIA GeForce RTX 5060 | capability (12, 0)
+
+[1] CPU
+  ✅ تدريب خطوتين + توليد على CPU → ([5.697, 5.0767], 4935680)
+
+[2] GPU
+  ❌ تدريب خطوتين + توليد على الكارت → RuntimeError: Expected a 'cuda' device type for generator but found 'cpu'
+Traceback (most recent call last):
+  File "F:\projects\grow\bench\selftest.py", line 18, in check
+    v = fn()
+        ^^^^
+  File "F:\projects\grow\bench\selftest.py", line 98, in <lambda>
+    check("تدريب خطوتين + توليد على الكارت", lambda: one_run(dev))
+                                                     ^^^^^^^^^^^^
+  File "F:\projects\grow\bench\selftest.py", line 45, in one_run
+    sample = generate(model, PROMPTS[0], n=16, seed=7)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\projects\grow\venv\Lib\site-packages\torch\utils\_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "F:\projects\grow\bench\train.py", line 187, in generate
+    nxt = torch.multinomial(F.softmax(l, -1), 1, generator=g)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Expected a 'cuda' device type for generator but found 'cpu'
+  ❌ النمو (عرض+عمق) على الكارت → RuntimeError: Expected all tensors to be on the same device, but got mat1 is on cuda:0, different from other tensors on cpu (when checking argument in method wrapper_CUDA_addmm)
+Traceback (most recent call last):
+  File "F:\projects\grow\bench\selftest.py", line 18, in check
+    v = fn()
+        ^^^^
+  File "F:\projects\grow\bench\selftest.py", line 99, in <lambda>
+    check("النمو (عرض+عمق) على الكارت", lambda: grow_smoke(dev))
+                                                ^^^^^^^^^^^^^^^
+  File "F:\projects\grow\bench\selftest.py", line 79, in grow_smoke
+    _, after = grown(x, y)
+               ^^^^^^^^^^^
+  File "F:\projects\grow\venv\Lib\site-packages\torch\nn\modules\module.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\projects\grow\venv\Lib\site-packages\torch\nn\modules\module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\projects\grow\bench\train.py", line 166, in forward
+    x = b(x)
+        ^^^^
+  File "F:\projects\grow\venv\Lib\site-packages\torch\nn\modules\module.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\projects\grow\venv\Lib\site-packages\torch\nn\modules\module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\projects\grow\bench\train.py", line 145, in forward
+    return x + self.mlp(self.ln2(x))
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "F:\projects\grow\venv\Lib\site-packages\torch\nn\modules\module.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\projects\grow\venv\Lib\site-packages\torch\nn\modules\module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\projects\grow\venv\Lib\site-packages\torch\nn\modules\container.py", line 253, in forward
+    input = module(input)
+            ^^^^^^^^^^^^^
+  File "F:\projects\grow\venv\Lib\site-packages\torch\nn\modules\module.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\projects\grow\venv\Lib\site-packages\torch\nn\modules\module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\projects\grow\venv\Lib\site-packages\torch\nn\modules\linear.py", line 134, in forward
+    return F.linear(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Expected all tensors to be on the same device, but got mat1 is on cuda:0, different from other tensors on cpu (when checking argument in method wrapper_CUDA_addmm)
+
+[3] النمو على CPU
+  ✅ النمو (عرض+عمق) على CPU → {'delta': 0.0, 'params': 7565824, 'S1_pass': True}
+
+===== النتيجة =====
+❌ فشل: ['تدريب خطوتين + توليد على الكارت', 'النمو (عرض+عمق) على الكارت']
