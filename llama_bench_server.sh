@@ -14,11 +14,12 @@ apt-get install -y -qq curl unzip >/dev/null 2>&1
 echo "apt: $?"
 
 TAG="${LLAMA_TAG:-b10988}"
-URL="https://github.com/ggml-org/llama.cpp/releases/download/$TAG/llama-$TAG-bin-ubuntu-x64.zip"
+URL="https://github.com/ggml-org/llama.cpp/releases/download/$TAG/llama-$TAG-bin-ubuntu-x64.tar.gz"
 echo "تنزيل llama.cpp: $URL"
-curl -sL --max-time 600 "$URL" -o /tmp/llama.zip
-echo "حجم الملف: $(wc -c </tmp/llama.zip 2>/dev/null) بايت"
-unzip -q -o /tmp/llama.zip -d /tmp/llama || echo "فشل فك الضغط"
+curl -sL --max-time 900 "$URL" -o /tmp/llama.tar.gz
+echo "حجم الملف: $(wc -c </tmp/llama.tar.gz 2>/dev/null) بايت"
+mkdir -p /tmp/llama && tar xzf /tmp/llama.tar.gz -C /tmp/llama && echo "فك الضغط تمام"
+find /tmp/llama -maxdepth 3 -name "llama-bench" -o -maxdepth 3 -name "llama-quantize" | head -4
 BIN=$(find /tmp/llama -name "llama-bench" -type f | head -1)
 QUANT=$(find /tmp/llama -name "llama-quantize" -type f | head -1)
 PPL=$(find /tmp/llama -name "llama-perplexity" -type f | head -1)
