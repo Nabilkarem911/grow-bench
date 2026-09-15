@@ -8,9 +8,11 @@
   - تقارير `ntfy` كل `REPORT_EVERY` ثانية: توكنات، سرعة، train/val loss، زمن، موارد، وعينة توليد.
   - عينات توليد ثابتة (5 prompts) في التقرير النهائي للمقارنة.
 - `factory.py` — **م2**: مصنع البيانات. المعلّم (OpenAI-compatible API، الافتراضي `qwen3.8-flash` عبر aihubmix) يولّد نصوصًا عربية نظيفة من بذور متنوعة (8 أنواع × 40 موضوع × 3 مستويات)، مع فلترة جودة (نسبة عربية، طول، رفض، تكرار) وحالة قابلة للاستكمال.
-- `docker-compose.yml` — كونتينر CPU-only + volume `grow_data` + `restart: on-failure:5`.
+- `eval.py` — **م3**: مقياس حتمي واحد لكل التجارب. `CKPT`+`TAG` من env → `val_mc4` (mean±std على 64 دفعة ثابتة ببذرة 1234) + `val_factory` + `loss_fixed_batch` (لمقارنة النمو S1) + عينات ثابتة → `/data/results/eval_<TAG>.json`.
+- `push.py` — رفع `/data/results/*.json` + `corpus_factory.txt` على الريبو عبر Git Data API (باكب للأصول بدون SSH).
+- `docker-compose.yml` — `bench` يشغّل `${SCRIPT}` (افتراضي `train.py`) · `factory` يشغّل `${FACTORY_SCRIPT}` · خدمات المهام `restart: "no"` · `probe` ينشر أحدث ملف في `/data/results/` كل دقيقة.
 
-**env:** `TRAIN_SECONDS` (افتراضي 8h) · `THREADS` (3) · `TARGET_CHARS` (40M) · `REPORT_EVERY` (900s) · `CKPT_EVERY` (600s).
+**env:** `SCRIPT` · `CKPT` · `TAG` · `INIT` · `OUT` · `TRAIN_SECONDS` (افتراضي 8h) · `THREADS` (3) · `TARGET_CHARS` (40M) · `REPORT_EVERY` (900s) · `CKPT_EVERY` (600s).
 
 ## نتيجة م1 (2026-09-15) — تمت بنجاح
 

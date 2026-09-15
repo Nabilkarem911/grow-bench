@@ -1,4 +1,5 @@
-"""probe — يرفع محتوى /data على ntfy كل PROBE_EVERY ثانية (مراقبة بدون وصول للوجز)."""
+"""probe — يرفع محتوى /data على ntfy كل PROBE_EVERY ثانية (مراقبة بدون وصول للوجز).
+م3: ينشر أيضًا أحدث ملف في /data/results/ (أول 1500 حرف)."""
 import json, os, time, urllib.request
 
 DATA_DIR = os.environ.get("DATA_DIR", "/data")
@@ -22,6 +23,18 @@ def snap():
                 out[name] = json.load(open(p, encoding="utf-8"))
             except Exception as e:
                 out[name] = f"unreadable: {e}"
+    rdir = os.path.join(DATA_DIR, "results")
+    if os.path.isdir(rdir):
+        try:
+            rfiles = [os.path.join(rdir, f) for f in os.listdir(rdir)
+                      if f.endswith(".json") and not f.endswith(".tmp")]
+            if rfiles:
+                newest = max(rfiles, key=os.path.getmtime)
+                out["latest_result"] = os.path.basename(newest)
+                out["latest_result_body"] = open(
+                    newest, encoding="utf-8", errors="replace").read()[:1500]
+        except Exception as e:
+            out["latest_result"] = f"unreadable: {e}"
     return out
 
 

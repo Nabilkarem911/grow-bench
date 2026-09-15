@@ -6,6 +6,11 @@ services:
       - ./:/app
       - grow_data:/data
     environment:
+      - SCRIPT=${SCRIPT:-train.py}
+      - CKPT=${CKPT:-}
+      - TAG=${TAG:-}
+      - INIT=${INIT:-}
+      - OUT=${OUT:-}
       - TRAIN_SECONDS=${TRAIN_SECONDS:-28800}
       - THREADS=${THREADS:-3}
       - TARGET_CHARS=${TARGET_CHARS:-40000000}
@@ -15,9 +20,9 @@ services:
       - REPORT_URL=${REPORT_URL:-}
       - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
       - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID:-}
-    command: sh -c "pip install --no-cache-dir -q numpy torch --index-url https://download.pytorch.org/whl/cpu && exec python -u /app/train.py"
+    command: sh -c "pip install --no-cache-dir -q numpy torch --index-url https://download.pytorch.org/whl/cpu && exec python -u /app/${SCRIPT:-train.py}"
     stop_grace_period: 90s
-    restart: on-failure:5
+    restart: "no"
 
   factory:
     image: python:3.12-slim
@@ -26,6 +31,7 @@ services:
       - ./:/app
       - grow_data:/data
     environment:
+      - FACTORY_SCRIPT=${FACTORY_SCRIPT:-factory.py}
       - TEACHER_BASE_URL=${TEACHER_BASE_URL:-https://aihubmix.com/v1}
       - TEACHER_API_KEY=${TEACHER_API_KEY:-}
       - TEACHER_MODEL=${TEACHER_MODEL:-qwen3.8-flash}
@@ -37,9 +43,9 @@ services:
       - REPORT_URL=${REPORT_URL:-}
       - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
       - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID:-}
-    command: sh -c "exec python -u /app/factory.py"
+    command: sh -c "exec python -u /app/${FACTORY_SCRIPT:-factory.py}"
     stop_grace_period: 60s
-    restart: on-failure:5
+    restart: "no"
 
   probe:
     image: python:3.12-slim
@@ -52,7 +58,24 @@ services:
       - PROBE_EVERY=${PROBE_EVERY:-60}
       - REPORT_URL=${REPORT_URL:-}
     command: sh -c "exec python -u /app/probe.py"
-    restart: on-failure:5
+    restart: on-failure:3
+
+  uploader:
+    image: python:3.12-slim
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - grow_data:/data
+    environment:
+      - DATA_DIR=/data
+      - GITHUB_TOKEN=${GITHUB_TOKEN:-}
+      - GITHUB_REPO=${GITHUB_REPO:-Nabilkarem911/grow-bench}
+      - GITHUB_BRANCH=${GITHUB_BRANCH:-main}
+      - PUSH_EVERY=${PUSH_EVERY:-120}
+      - PUSH_MAX_SECONDS=${PUSH_MAX_SECONDS:-10800}
+      - REPORT_URL=${REPORT_URL:-}
+    command: sh -c "exec python -u /app/push.py"
+    restart: "no"
 
 volumes:
   grow_data:
