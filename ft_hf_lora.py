@@ -11,6 +11,8 @@ import argparse, json, os, time
 
 os.environ.setdefault("HF_HOME", "F:/projects/grow/hf")
 os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
+# يقلّل تفتيت ذاكرة الكارت (موصى به في رسالة الخطأ)
+os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
 
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -26,8 +28,8 @@ def main():
     ap.add_argument("--tokens", type=int, required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--block", type=int, default=512)
-    ap.add_argument("--batch", type=int, default=4)
-    ap.add_argument("--accum", type=int, default=4)
+    ap.add_argument("--batch", type=int, default=2)
+    ap.add_argument("--accum", type=int, default=8)
     ap.add_argument("--lr", type=float, default=2e-4)
     ap.add_argument("--rank", type=int, default=16)
     ap.add_argument("--vram", type=float, default=0.50)
@@ -71,9 +73,12 @@ def main():
 
     opt = torch.optim.AdamW([p for p in model.parameters() if p.requires_grad],
                             lr=a.lr, betas=(0.9, 0.95), weight_decay=0.0)
-    sched = torch.optim.lr_scheduler.OneCycleLR(
-        opt, max_lr=a.lr, total_steps=max(1, a.tokens // (a.batch * a.block * a.accum)),
-        pct_start=0.03)
+    import math
+    step_tokens = a.batch * a.block * a.accum
+    total_steps = max(1, math.ceil(a.tokens / step_tokens) + 1)   # +1 أمان (الباج اللي وقع قبل كده)
+    res["total_steps_planned"] = total_steps
+    sched = torch.optim.lr_scheduler.OneCycleLR(opt, max_lr=a.lr,
+                                                total_steps=total_steps, pct_start=0.03)
     model.train()
     seen, step, losses, t1 = 0, 0, [], time.time()
     while seen < a.tokens:
@@ -91,6 +96,12 @@ def main():
         opt.step()
         sched.step()
         step += 1
+        if step % 100 == 0:          # حفظ دوري — عشان أي وقع ميتكلّفش الساعات اللي فاتت
+            try:
+                os.makedirs(a.out, exist_ok=True)
+                model.save_pretrained(os.path.join(a.out, "lora_ckpt"), safe_serialization=True)
+            except Exception as e:
+                print(f"ckpt-warn: {e}", flush=True)
         if step % 20 == 0 or seen >= a.tokens:
             l = float(loss.item()) * a.accum
             losses.append({"step": step, "seen": seen, "loss": round(l, 4),
