@@ -31,3 +31,27 @@ qwen2.5-0.5b-instruct-fp16.gguf : 1266425696 بايت
 ================ عينة عربية (q4) ================
 /app/llama_bench_server.sh: 48: : Permission denied
 ================ خلص 20:25:51 ================
+================ بدء 20:42:29 ================
+خيوط: 4 | موديل: Qwen/Qwen2.5-0.5B-Instruct-GGUF
+apt: 0
+تنزيل llama.cpp: https://github.com/ggml-org/llama.cpp/releases/download/b10988/llama-b10988-bin-ubuntu-x64.tar.gz
+حجم الملف: 16844141 بايت
+فك الضغط تمام
+/tmp/llama/llama-b10988/llama-bench
+/tmp/llama/llama-b10988/llama-quantize
+البرامج: /tmp/llama/llama-b10988/llama-bench | /tmp/llama/llama-b10988/llama-quantize | /tmp/llama/llama-b10988/llama-perplexity | /tmp/llama/llama-b10988/llama-cli
+qwen2.5-0.5b-instruct-q4_k_m.gguf : 491400032 بايت
+qwen2.5-0.5b-instruct-fp16.gguf : 1266425696 بايت
+================ السرعة (llama-bench) ================
+---- qwen2.5-0.5b-instruct-fp16.gguf ----
+/app/llama_bench_server.sh: 39: /tmp/llama/llama-b10988/llama-bench: Exec format error
+---- qwen2.5-0.5b-instruct-q4_k_m.gguf ----
+/app/llama_bench_server.sh: 39: /tmp/llama/llama-b10988/llama-bench: Exec format error
+================ الجودة (perplexity على نص عربي) ================
+---- qwen2.5-0.5b-instruct-fp16.gguf ----
+/app/llama_bench_server.sh: 45: /tmp/llama/llama-b10988/llama-perplexity: Exec format error
+---- qwen2.5-0.5b-instruct-q4_k_m.gguf ----
+/app/llama_bench_server.sh: 45: /tmp/llama/llama-b10988/llama-perplexity: Exec format error
+================ عينة عربية (q4) ================
+/app/llama_bench_server.sh: 49: /tmp/llama/llama-b10988/llama-cli: Exec format error
+================ خلص 20:42:34 ================
