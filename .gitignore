@@ -1,2 +1,7 @@
+venv/
 __pycache__/
-*.pyc
+*.log
+# كوربوسات وأوزان محلية — كبيرة ومش للمستودع
+data/*.pt
+data/corpus.txt
+data/m3/

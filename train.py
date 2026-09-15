@@ -8,6 +8,8 @@ import json, math, os, signal, time, urllib.parse, urllib.request
 
 import torch, torch.nn as nn, torch.nn.functional as F
 
+import zdev
+
 DATA_DIR = os.environ.get("DATA_DIR", "/data")
 TRAIN_SECONDS = int(os.environ.get("TRAIN_SECONDS", "28800"))
 THREADS = int(os.environ.get("THREADS", "3"))
@@ -193,7 +195,8 @@ def generate(model, prompt, n=100, temp=0.8, topk=40, seed=1234):
 
 def save_ckpt(model, opt, steps, seen, elapsed):
     tmp = CKPT_PATH + ".tmp"
-    torch.save({"model": model.state_dict(), "opt": opt.state_dict(),
+    torch.save({"model": zdev.cpu_state_dict(model),  # GPU: تنزيل CPU قبل الحفظ
+                "opt": opt.state_dict(),
                 "arch": model.arch,
                 "steps": steps, "seen": seen, "elapsed": elapsed,
                 "rng": torch.get_rng_state()}, tmp)
@@ -201,8 +204,12 @@ def save_ckpt(model, opt, steps, seen, elapsed):
 
 
 def main():
-    res = {"threads": THREADS, "train_seconds": TRAIN_SECONDS, "stage": "starting"}
+    device = zdev.pick_device("cpu")
+    res = {"threads": THREADS, "train_seconds": TRAIN_SECONDS, "stage": "starting",
+           "device": str(device)}
     try:
+        res["zdev"] = zdev.setup(device, threads=None,
+                                 vram_fraction=os.environ.get("VRAM_FRACTION"))
         os.makedirs(DATA_DIR, exist_ok=True)
         t0 = time.time()
         text = load_corpus()
@@ -231,8 +238,8 @@ def main():
 
         def get_batch(src):
             ix = torch.randint(len(src) - block - 1, (batch,))
-            x = torch.stack([src[i:i + block] for i in ix])
-            y = torch.stack([src[i + 1:i + block + 1] for i in ix])
+            x = torch.stack([src[i:i + block] for i in ix]).to(device)   # GPU
+            y = torch.stack([src[i + 1:i + block + 1] for i in ix]).to(device)
             return x, y
 
         @torch.no_grad()
@@ -257,6 +264,7 @@ def main():
             except Exception as e:
                 print("ckpt-warn:", e, flush=True)
 
+        model = model.to(device)  # GPU
         res["resumed"] = resumed
         res["elapsed_hours"] = 0
         res["train_hours"] = round(TRAIN_SECONDS / 3600, 2)
@@ -315,7 +323,7 @@ def main():
 
         elapsed = time.time() - t0 + prev_elapsed
         save_ckpt(model, opt, steps, seen, elapsed)
-        torch.save(model.state_dict(), FINAL_PATH)
+        torch.save(zdev.cpu_state_dict(model), FINAL_PATH)
 
         stage = "stopped" if STOP else "done"
         vl = val_loss()
