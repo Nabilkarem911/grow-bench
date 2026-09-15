@@ -10,8 +10,8 @@ import torch, torch.nn.functional as F
 from train import TinyGPT, generate, PROMPTS
 
 DATA_DIR = os.environ.get("DATA_DIR", "/data")
-CKPT = os.environ.get("CKPT", "/data/checkpoint.pt").strip()
-TAG = os.environ.get("TAG", "m1").strip()
+CKPT = os.environ.get("CKPT", "").strip() or "/data/checkpoint.pt"
+TAG = os.environ.get("TAG", "").strip() or "m1"
 THREADS = int(os.environ.get("THREADS", "3"))
 REPORT_URL = os.environ.get("REPORT_URL", "").strip()
 TG_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()

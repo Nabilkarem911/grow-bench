@@ -11,8 +11,8 @@ from train import TinyGPT, generate, PROMPTS
 from eval import read_bytes, eval_set, fixed_batch_loss, CORPUS, BLOCK
 
 DATA_DIR = os.environ.get("DATA_DIR", "/data")
-CKPT_IN = os.environ.get("CKPT", "/data/checkpoint.pt").strip()
-FT_DIR = os.environ.get("OUT", os.path.join(DATA_DIR, "ft")).strip()
+CKPT_IN = os.environ.get("CKPT", "").strip() or "/data/checkpoint.pt"
+FT_DIR = os.environ.get("OUT", "").strip() or os.path.join(DATA_DIR, "ft")
 TRAIN_SECONDS = int(os.environ.get("TRAIN_SECONDS", "1500"))
 THREADS = int(os.environ.get("THREADS", "3"))
 REPORT_EVERY = int(os.environ.get("REPORT_EVERY", "300"))
