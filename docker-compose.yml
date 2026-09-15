@@ -64,7 +64,7 @@ services:
       - REPORT_URL=${REPORT_URL:-}
       - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
       - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID:-}
-    command: sh -c "if [ \"$RUN_CPUBENCH\" != \"1\" ]; then echo 'cpubench idle (set RUN_CPUBENCH=1)'; sleep infinity; else pip install --no-cache-dir -q torch --index-url https://download.pytorch.org/whl/cpu && pip install --no-cache-dir -q transformers && exec python -u /app/cpu_bench_server.py; fi"
+    command: sh -c "if [ \"$RUN_CPUBENCH\" != \"1\" ]; then echo 'cpubench idle (set RUN_CPUBENCH=1)'; sleep infinity; else sh /app/llama_bench_server.sh; echo 'خلص — الكونتينر هيفضل صاحي للمراجعة'; sleep 300; fi"
     stop_grace_period: 60s
     restart: "no"
 
