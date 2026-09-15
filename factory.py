@@ -93,7 +93,6 @@ def report(payload, tg=True):
                    f"· rejected: {payload.get('rejected')}\n"
                    f"chars: {payload.get('chars'):,} · out_tok: {payload.get('out_tok'):,}\n"
                    f"{payload.get('error','')}"[:900])
-            import urllib.parse
             data = urllib.parse.urlencode({"chat_id": TG_CHAT, "text": txt}).encode()
             urllib.request.urlopen(f"https://api.telegram.org/bot{TG_TOKEN}/sendMessage",
                                    data=data, timeout=20)
