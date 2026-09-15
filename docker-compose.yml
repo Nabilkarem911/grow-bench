@@ -41,5 +41,18 @@ services:
     stop_grace_period: 60s
     restart: on-failure:5
 
+  probe:
+    image: python:3.12-slim
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - grow_data:/data
+    environment:
+      - DATA_DIR=/data
+      - PROBE_EVERY=${PROBE_EVERY:-60}
+      - REPORT_URL=${REPORT_URL:-}
+    command: sh -c "exec python -u /app/probe.py"
+    restart: on-failure:5
+
 volumes:
   grow_data:
