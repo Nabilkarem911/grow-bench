@@ -127,13 +127,13 @@ def load_corpus():
 
 
 class Block(nn.Module):
-    def __init__(self, n_embd, n_head):
+    def __init__(self, n_embd, n_head, mlp_mult=4):
         super().__init__()
         self.ln1 = nn.LayerNorm(n_embd)
         self.attn = nn.MultiheadAttention(n_embd, n_head, batch_first=True)
         self.ln2 = nn.LayerNorm(n_embd)
-        self.mlp = nn.Sequential(nn.Linear(n_embd, 4 * n_embd), nn.GELU(),
-                                 nn.Linear(4 * n_embd, n_embd))
+        self.mlp = nn.Sequential(nn.Linear(n_embd, mlp_mult * n_embd), nn.GELU(),
+                                 nn.Linear(mlp_mult * n_embd, n_embd))
 
     def forward(self, x):
         T = x.size(1)
@@ -145,12 +145,16 @@ class Block(nn.Module):
 
 
 class TinyGPT(nn.Module):
-    def __init__(self, vocab=256, n_layer=6, n_head=8, n_embd=256, block=256):
+    def __init__(self, vocab=256, n_layer=6, n_head=8, n_embd=256, block=256,
+                 mlp_mult=4):
         super().__init__()
         self.block = block
+        self.arch = {"n_layer": n_layer, "n_head": n_head, "n_embd": n_embd,
+                     "block": block, "mlp_mult": mlp_mult, "vocab": vocab}
         self.tok = nn.Embedding(vocab, n_embd)
         self.pos = nn.Embedding(block, n_embd)
-        self.blocks = nn.ModuleList([Block(n_embd, n_head) for _ in range(n_layer)])
+        self.blocks = nn.ModuleList([Block(n_embd, n_head, mlp_mult)
+                                     for _ in range(n_layer)])
         self.lnf = nn.LayerNorm(n_embd)
         self.head = nn.Linear(n_embd, vocab, bias=False)
 
@@ -188,6 +192,7 @@ def generate(model, prompt, n=100, temp=0.8, topk=40, seed=1234):
 def save_ckpt(model, opt, steps, seen, elapsed):
     tmp = CKPT_PATH + ".tmp"
     torch.save({"model": model.state_dict(), "opt": opt.state_dict(),
+                "arch": model.arch,
                 "steps": steps, "seen": seen, "elapsed": elapsed,
                 "rng": torch.get_rng_state()}, tmp)
     os.replace(tmp, CKPT_PATH)
@@ -211,7 +216,14 @@ def main():
         train, val = data[:n], data[n:]
         block, batch = 256, 16
 
-        model = TinyGPT()
+        # نبني الموديل من arch المحفوظة في الـ checkpoint لو موجودة (F1)
+        ck = None
+        if os.path.exists(CKPT_PATH):
+            try:
+                ck = torch.load(CKPT_PATH, map_location="cpu")
+            except Exception as e:
+                print("ckpt-warn:", e, flush=True)
+        model = TinyGPT(**(ck.get("arch") if isinstance(ck, dict) else None) or {})
         res["params"] = sum(p.numel() for p in model.parameters())
         opt = torch.optim.AdamW(model.parameters(), lr=3e-4)
 
@@ -231,9 +243,8 @@ def main():
         # استكمال من checkpoint لو موجودة
         steps, seen, prev_elapsed = 0, 0, 0.0
         resumed = False
-        if os.path.exists(CKPT_PATH):
+        if isinstance(ck, dict) and "model" in ck:
             try:
-                ck = torch.load(CKPT_PATH, map_location="cpu")
                 model.load_state_dict(ck["model"])
                 opt.load_state_dict(ck["opt"])
                 steps, seen, prev_elapsed = ck["steps"], ck["seen"], ck["elapsed"]

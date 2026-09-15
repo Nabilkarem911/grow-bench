@@ -6,7 +6,7 @@
 """
 import json, math, os, time, urllib.parse, urllib.request
 
-import torch
+import torch, torch.nn.functional as F
 from train import TinyGPT, generate, PROMPTS
 
 DATA_DIR = os.environ.get("DATA_DIR", "/data")
@@ -20,7 +20,7 @@ TG_CHAT = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
 RESULTS_DIR = os.path.join(DATA_DIR, "results")
 CORPUS = os.path.join(DATA_DIR, "corpus.txt")
 FACTORY_CORPUS = os.path.join(DATA_DIR, "factory", "corpus_factory.txt")
-BLOCK, BATCH, NBATCH = 256, 16, 64
+BLOCK, BATCH = 256, 16
 
 torch.set_num_threads(THREADS)
 
@@ -66,14 +66,24 @@ def batches(data, nbatch, seed):
 
 
 @torch.no_grad()
-def eval_set(model, data, nbatch=NBATCH, seed=1234):
+def eval_set(model, data, batch=BATCH):
+    """F2: مسح كامل بدون تراكب — نوافذ 256 بخطوة 256 تغطي الـ val مرة واحدة."""
+    starts = list(range(0, data.numel() - BLOCK, BLOCK))
     losses = []
-    for x, y in batches(data, nbatch, seed):
-        _, loss = model(x, y)
-        losses.append(loss.item())
+    for k in range(0, len(starts), batch):
+        sel = starts[k:k + batch]
+        x = torch.stack([data[i:i + BLOCK] for i in sel])
+        y = torch.stack([data[i + 1:i + BLOCK + 1] for i in sel])
+        logits, _ = model(x)
+        l = F.cross_entropy(logits.reshape(-1, 256), y.reshape(-1),
+                            reduction="none").view(len(sel), BLOCK)
+        losses.extend(l.mean(1).tolist())
     mean = sum(losses) / len(losses)
-    var = sum((l - mean) ** 2 for l in losses) / len(losses)
-    return {"mean": round(mean, 5), "std": round(math.sqrt(var), 5), "batches": len(losses)}
+    var = sum((v - mean) ** 2 for v in losses) / len(losses)
+    return {"mean": round(mean, 5), "std": round(math.sqrt(var), 5),
+            "windows_evaluated": len(losses),
+            "tokens_evaluated": len(losses) * BLOCK,
+            "method": "sweep-256/256"}
 
 
 @torch.no_grad()
@@ -85,12 +95,15 @@ def fixed_batch_loss(model, data):
 
 
 def load_model(path):
+    """يبني الموديل من arch المحفوظة في الـ checkpoint (F1)، أو defaults."""
     obj = torch.load(path, map_location="cpu")
     meta = {}
+    arch = None
     if isinstance(obj, dict) and "model" in obj:
         meta = {k: obj[k] for k in ("steps", "seen", "elapsed") if k in obj}
+        arch = obj.get("arch")
         obj = obj["model"]
-    model = TinyGPT()
+    model = TinyGPT(**arch) if arch else TinyGPT()
     model.load_state_dict(obj)
     model.eval()
     return model, meta
@@ -113,7 +126,7 @@ def main():
 
         if os.path.exists(FACTORY_CORPUS) and os.path.getsize(FACTORY_CORPUS) > 100_000:
             ft = torch.tensor(list(read_bytes(FACTORY_CORPUS)), dtype=torch.long)
-            nf = int(0.9 * ft.numel())
+            nf = int(0.85 * ft.numel())  # F2: آخر 15% تحقّق — finetune ممنوع يشوفها
             res["val_factory"] = eval_set(model, ft[nf:])
         else:
             res["val_factory"] = None

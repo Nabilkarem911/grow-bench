@@ -40,6 +40,12 @@ def local_files():
     fr = os.path.join(DATA_DIR, "factory", "report.json")
     if os.path.exists(fr):
         out["data/factory_report.json"] = fr
+    for sub in ("ft", "m3"):
+        sdir = os.path.join(DATA_DIR, sub)
+        if os.path.isdir(sdir):
+            for f in sorted(os.listdir(sdir)):
+                if f.endswith(".json") and not f.endswith(".tmp"):
+                    out[f"data/{sub}/{f}"] = os.path.join(sdir, f)
     res = {}
     for rp, ap in out.items():
         try:
