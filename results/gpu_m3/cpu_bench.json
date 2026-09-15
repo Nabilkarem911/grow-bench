@@ -1,0 +1,24 @@
+{
+ "stage": "cpu_bench",
+ "model": "F:/projects/grow/data/ready/ft_armB",
+ "threads": 4,
+ "cpu": "AMD64 Family 26 Model 68 Stepping 0, AuthenticAMD",
+ "fp32": {
+  "size_mb": 1884.6,
+  "bits_per_char": 2.939,
+  "loss": 4.96754,
+  "quality_seconds": 99.0,
+  "tok_per_sec": 12.3,
+  "gen_seconds": 9.8
+ },
+ "quantize_seconds": 3.4,
+ "int8": {
+  "bits_per_char": 3.755,
+  "loss": 6.34602,
+  "quality_seconds": 18.9,
+  "tok_per_sec": 26.4,
+  "gen_seconds": 4.6
+ },
+ "speedup_x": 2.15,
+ "quality_delta_bits": 0.816
+}
