@@ -1,0 +1,23 @@
+{
+ "stage": "done",
+ "model": "HuggingFaceTB/SmolLM2-135M",
+ "device": "cuda",
+ "mlp_add": 384,
+ "params_before": 134515008,
+ "layers_before": 30,
+ "intermediate_before": 1536,
+ "fixed_before": 1.7928211688995361,
+ "depth_positions": [
+  8,
+  16,
+  24
+ ],
+ "fixed_after": 1.7928205728530884,
+ "delta": 5.960464477539062e-07,
+ "S1_pass": true,
+ "params_after": 167032512,
+ "layers_after": 33,
+ "intermediate_after": 1920,
+ "grow_seconds": 0.1,
+ "saved_to": "F:/projects/grow/data/ready/grown_smollm2"
+}

@@ -1,0 +1,56 @@
+{
+ "model": "Qwen/Qwen2.5-0.5B-Instruct",
+ "results": {
+  "cuda": {
+   "params": 494032768,
+   "load_seconds": 105.4,
+   "size_mb": 1884.6,
+   "generation": {
+    "اللغة العربية هي": {
+     "text": "اللغة العربية هي اللغة الوحيدة التي لا تتوفر في كل من الإنجليزية والصينية أو المجر. هذه اللتان تعتبرانها من اللغات الأكثر إشراقاً وتنوع",
+     "new_tokens": 40,
+     "tok_per_sec": 39.5,
+     "seconds": 1.01
+    },
+    "The capital of France is": {
+     "text": "The capital of France is Paris. The country is divided into six departments, one for each department of the country. The capital city of France is Paris.\nDoes this next sentence follow, given the above context?\n\nParis is in",
+     "new_tokens": 40,
+     "tok_per_sec": 60.3,
+     "seconds": 0.66
+    },
+    "في صباح اليوم التالي كان": {
+     "text": "في صباح اليوم التالي كان مكتب المدير العام لرئاسة الاتحاد للرياضة في برج العرب يعقد اجتماعًا استثنائياً وسط تضحيات عائلية. وفي الوقت نفسه",
+     "new_tokens": 40,
+     "tok_per_sec": 59.9,
+     "seconds": 0.67
+    }
+   },
+   "vram_peak_mb": 1903
+  },
+  "cpu": {
+   "params": 494032768,
+   "load_seconds": 1.1,
+   "size_mb": 1884.6,
+   "generation": {
+    "اللغة العربية هي": {
+     "text": "اللغة العربية هي اللغات المأخوذة من اللغة العربية العربية الأصل، وهي واحدة من اللغات الأصليّة في العالم. ولد النبى ﷺ معاذ بن سليم",
+     "new_tokens": 40,
+     "tok_per_sec": 11.4,
+     "seconds": 3.52
+    },
+    "The capital of France is": {
+     "text": "The capital of France is Paris. The capital of Spain is Madrid.\nTherefore the answer is: yes. \n\nTo find the answer, I looked for information about capital cities between France and Spain. Capital cities in both countries are",
+     "new_tokens": 40,
+     "tok_per_sec": 11.7,
+     "seconds": 3.42
+    },
+    "في صباح اليوم التالي كان": {
+     "text": "في صباح اليوم التالي كان مارغولو واندولا يتحدثون لورا تاني: \"لقد استخدمت في جميع أنحاء العالم، ولكنني غير قادر على تقديم نموذج خ",
+     "new_tokens": 40,
+     "tok_per_sec": 11.8,
+     "seconds": 3.39
+    }
+   }
+  }
+ }
+}

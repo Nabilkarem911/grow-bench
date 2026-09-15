@@ -1,0 +1,56 @@
+{
+ "model": "HuggingFaceTB/SmolLM2-135M",
+ "results": {
+  "cuda": {
+   "params": 134515008,
+   "load_seconds": 31.9,
+   "size_mb": 513.1,
+   "generation": {
+    "اللغة العربية هي": {
+     "text": "اللغة العربية هيئة تعليم الملك العربية كلام بنيسيدى المرور الفر",
+     "new_tokens": 40,
+     "tok_per_sec": 30.6,
+     "seconds": 1.31
+    },
+    "The capital of France is": {
+     "text": "The capital of France is not a city, but a large industrial town, the economic centre of the country.  It is the largest city of the European Union, and with the other European capitals, is also the most",
+     "new_tokens": 40,
+     "tok_per_sec": 42.0,
+     "seconds": 0.95
+    },
+    "في صباح اليوم التالي كان": {
+     "text": "في صباح اليوم التالي كان السماء أصحاب رابطة الغير مصدر من معلم شأ",
+     "new_tokens": 40,
+     "tok_per_sec": 43.6,
+     "seconds": 0.92
+    }
+   },
+   "vram_peak_mb": 534
+  },
+  "cpu": {
+   "params": 134515008,
+   "load_seconds": 0.6,
+   "size_mb": 513.1,
+   "generation": {
+    "اللغة العربية هي": {
+     "text": "اللغة العربية هي العرب العربية بأو معبد العربية.\n\nاشتراح من العرب",
+     "new_tokens": 40,
+     "tok_per_sec": 30.0,
+     "seconds": 1.33
+    },
+    "The capital of France is": {
+     "text": "The capital of France is the city of Paris.\n\nThe city of Paris lies on the north bank of the Seine River.\n\nThe city of Paris is situated on the south bank of the Seine River.",
+     "new_tokens": 40,
+     "tok_per_sec": 31.3,
+     "seconds": 1.28
+    },
+    "في صباح اليوم التالي كان": {
+     "text": "في صباح اليوم التالي كان العلوة هذه الوحدة حقات الإسلامية وجميع الاستع",
+     "new_tokens": 40,
+     "tok_per_sec": 31.3,
+     "seconds": 1.28
+    }
+   }
+  }
+ }
+}
