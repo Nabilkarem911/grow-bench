@@ -1,0 +1,47 @@
+{
+ "stage": "done",
+ "tag": "arm2_eq",
+ "init": "F:/projects/grow/data/m3/grown.pt",
+ "init_mode": "fresh",
+ "out": "F:/projects/grow/data/m3/arm2_eq",
+ "data": "F:/projects/grow/data/m3/mixed.txt",
+ "stop_at_tokens": 45649920,
+ "threads": 8,
+ "device": "cuda",
+ "zdev": {
+  "device": "cuda",
+  "threads": null,
+  "vram_limit_mb": 2853,
+  "gpu": "NVIDIA GeForce RTX 5060",
+  "capability": [
+   12,
+   0
+  ],
+  "vram_total_mb": 8151
+ },
+ "data_tokens": 74153343,
+ "resumed": false,
+ "params": 7565824,
+ "stop_at_tokens_effective": 45649920,
+ "steps": 11145,
+ "tokens_seen": 45649920,
+ "tokens_per_sec": 94052,
+ "elapsed_seconds": 485.4,
+ "elapsed_hours": 0.13,
+ "loss_first": 5.7712,
+ "loss_last": 1.0246,
+ "epochs_mixed": 0.616,
+ "compute_proxy_tokens_x_params": 345379260334080,
+ "vram_peak_mb": 768,
+ "usage": {
+  "threads": 8
+ },
+ "samples": {
+  "في البدء كان": " السوار، والإرشاد يتدخل النوم الدولييين للدولة إلى رئي",
+  "اللغة العربية": " السوداء والمرحلة والذي أتنى عائلى الحدث عن الحكمة و ال",
+  "وفي صباح اليوم التالي": " السوداني المرحلة والذي أتنى عادة في كيفية دولة السودا�",
+  "قال العالم": " السوداء والمرحلة والذي كان الاحد فقال العالم المخصوصي",
+  "المدينة الكبيرة": " السوداء والمرحلة والذي تتناقشهو لغة التنسيق والمساهم "
+ },
+ "total_seconds": 490.0
+}

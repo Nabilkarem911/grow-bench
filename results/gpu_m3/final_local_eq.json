@@ -1,0 +1,39 @@
+{
+ "experiment": "M3 equal-compute (arm2 retrained at arm1's exact compute)",
+ "arch": {
+  "arm1": 7565824,
+  "arm2_eq": 7565824
+ },
+ "tokens": {
+  "arm1_total": 64648704,
+  "arm2_eq": 45649920
+ },
+ "compute": {
+  "arm1_includes_base": 345386418700288,
+  "arm2_eq": 345379260334080,
+  "gap_pct": 0.0002
+ },
+ "val_mc4": {
+  "arm1": 1.04558,
+  "arm2_eq": 1.06216,
+  "delta_arm2eq_minus_arm1": 0.01658,
+  "se_arm2eq": 0.00299,
+  "in_SE": 5.6
+ },
+ "val_factory": {
+  "arm1": 0.89345,
+  "arm2_eq": 0.89066
+ },
+ "S2_equal_compute": {
+  "pass": false,
+  "note": "arm1 أفضل ب 0.0166 لكن تحت العتبة 0.02"
+ },
+ "S2_equal_tokens": {
+  "pass": false,
+  "note": "من الصفر أفضل ب 0.01909"
+ },
+ "wall_clock_s": {
+  "arm1_continuation": 106.9,
+  "arm2_eq": 490.0
+ }
+}
