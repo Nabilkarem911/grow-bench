@@ -19,5 +19,27 @@ services:
     stop_grace_period: 90s
     restart: on-failure:5
 
+  factory:
+    image: python:3.12-slim
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - grow_data:/data
+    environment:
+      - TEACHER_BASE_URL=${TEACHER_BASE_URL:-https://aihubmix.com/v1}
+      - TEACHER_API_KEY=${TEACHER_API_KEY:-}
+      - TEACHER_MODEL=${TEACHER_MODEL:-qwen3.8-flash}
+      - TEACHER_MAX_TOKENS=${TEACHER_MAX_TOKENS:-1400}
+      - MAX_CALLS=${MAX_CALLS:-500}
+      - FACTORY_SECONDS=${FACTORY_SECONDS:-7200}
+      - REPORT_EVERY=${REPORT_EVERY:-600}
+      - DATA_DIR=/data
+      - REPORT_URL=${REPORT_URL:-}
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID:-}
+    command: sh -c "exec python -u /app/factory.py"
+    stop_grace_period: 60s
+    restart: on-failure:5
+
 volumes:
   grow_data:

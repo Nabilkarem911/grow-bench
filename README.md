@@ -7,7 +7,8 @@
   - كاش للكوربوس + checkpoints دورية في volume دائم (`/data`) + استكمال تلقائي بعد أي توقف.
   - تقارير `ntfy` كل `REPORT_EVERY` ثانية: توكنات، سرعة، train/val loss، زمن، موارد، وعينة توليد.
   - عينات توليد ثابتة (5 prompts) في التقرير النهائي للمقارنة.
-- `docker-compose.yml` — كونتينر CPU-only + volume `grow_data` + `restart: unless-stopped`.
+- `factory.py` — **م2**: مصنع البيانات. المعلّم (OpenAI-compatible API، الافتراضي `qwen3.8-flash` عبر aihubmix) يولّد نصوصًا عربية نظيفة من بذور متنوعة (8 أنواع × 40 موضوع × 3 مستويات)، مع فلترة جودة (نسبة عربية، طول، رفض، تكرار) وحالة قابلة للاستكمال.
+- `docker-compose.yml` — كونتينر CPU-only + volume `grow_data` + `restart: on-failure:5`.
 
 **env:** `TRAIN_SECONDS` (افتراضي 8h) · `THREADS` (3) · `TARGET_CHARS` (40M) · `REPORT_EVERY` (900s) · `CKPT_EVERY` (600s).
 
