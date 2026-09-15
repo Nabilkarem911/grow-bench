@@ -1,0 +1,14 @@
+{
+ "stage": "cpu_bench_server",
+ "model": "Qwen/Qwen2.5-0.5B",
+ "threads": 4,
+ "host": "877e35742ed9",
+ "torch": "2.14.0+cpu",
+ "load_seconds": 21.6,
+ "params": 494032768,
+ "size_mb": 1884.6,
+ "fp32_tok_per_sec": 9.4,
+ "int8_tok_per_sec": 8.9,
+ "speedup_x": 0.95,
+ "sample_ar": "في صباح اليوم التالي: 20-03-2021 09:07\n-5% توقعات الملايين المغتربين من قطر إلى الإمارات\n-ال"
+}
