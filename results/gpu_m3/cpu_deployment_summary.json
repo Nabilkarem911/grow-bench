@@ -1,45 +1,25 @@
 {
- "experiment": "CPU deployment: quantization methods compared",
- "llamacpp_desktop_8threads": {
-  "F16": {
-   "size_mb": 1198,
-   "tok_per_sec": 51.34,
-   "pp64_tok_per_sec": 1299.0,
-   "ppl_arabic": 14.6889,
-   "ppl_stderr": 0.17563
+ "measurements": {
+  "desktop_8threads": {
+   "fp32": 11.1,
+   "int8": 29.4
   },
-  "Q4_K_M": {
-   "size_mb": 463,
-   "tok_per_sec": 120.36,
-   "pp64_tok_per_sec": 786.24,
-   "ppl_arabic": 15.3553,
-   "ppl_stderr": 0.18469
+  "desktop_4threads": {
+   "fp32": 12.3,
+   "int8": 26.4
+  },
+  "server_4threads_torch_fp32": 9.7,
+  "llamacpp_desktop_8threads": {
+   "F16": 51.34,
+   "Q4": 120.36
   }
  },
- "llamacpp_conclusion": "Q4_K_M = 2.34x faster, +4.5% perplexity cost (7x less damage than pytorch dynamic int8 which cost +30.7% and gave 0 speedup on the server CPU)",
- "pytorch_dynamic_int8": {
-  "desktop_8t": {
-   "fp32_tps": 11.1,
-   "int8_tps": 29.4,
-   "speedup": 2.65,
-   "quality_bits_delta": 0.903
-  },
-  "server_4t": {
-   "fp32_tps": 9.7,
-   "int8_tps": 9.2,
-   "speedup": 0.95
-  }
+ "notes": "8 threads undersperforms 4 on the 6-core CPU (contention). Server is 0.79x of desktop per thread.",
+ "projection": {
+  "server_q4km_tok_per_sec_estimate": 85
  },
- "server_torch_fp32_4threads": {
-  "tok_per_sec": 9.7,
-  "model": "Qwen2.5-0.5B",
-  "size_mb": 1884.6
- },
- "arabic_lora_gain": {
-  "before_bits_per_char": 6.021,
-  "after_bits_per_char": 2.962,
-  "improvement_pct": 51,
-  "train_minutes": 22,
-  "tokens": 4794000
+ "quality_cost": {
+  "pytorch_int8_bits_per_char": 0.816,
+  "q4km_ppl_relative_pct": 4.5
  }
 }
