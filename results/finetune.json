@@ -1,0 +1,8 @@
+{
+ "stage": "failed",
+ "ckpt_in": "/data/checkpoint.pt",
+ "out": "",
+ "train_seconds": 1500,
+ "threads": 3,
+ "error": "FileNotFoundError: [Errno 2] No such file or directory: ''"
+}
