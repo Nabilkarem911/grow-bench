@@ -60,3 +60,53 @@ aarch64
 ❌ فشل: /data/llama/llama-bench (حجم 17864) → /tmp/s.sh: 44: /data/llama/llama-bench: Exec format error
 حجم الموديل: 9947 ميجا
 ❌ مفيش ملف llama تنفيذي صالح — نوقف عند التشخيص
+
+=== بداية Wed Sep 16 16:59:50 UTC 2026 ===
+موارد: أنوية=4 · متاح=12961 ميجا · قرص=100G
+معمارية السيرفر: aarch64 → هنستخدم ملفات arm64
+بنزّل llama.cpp (نسخة arm64)...
+/tmp/s.sh: 28: curl: not found
+/tmp/s.sh: 29: cannot open /tmp/l.tar.gz: No such file
+  محاولة 1: 0 بايت
+
+=== بداية Wed Sep 16 16:59:50 UTC 2026 ===
+موارد: أنوية=4 · متاح=12962 ميجا · قرص=100G
+معمارية السيرفر: aarch64 → هنستخدم ملفات arm64
+بنزّل llama.cpp (نسخة arm64)...
+/tmp/m.sh: 28: curl: not found
+/tmp/m.sh: 29: cannot open /tmp/l.tar.gz: No such file
+  محاولة 1: 0 بايت
+/tmp/s.sh: 28: curl: not found
+/tmp/s.sh: 29: cannot open /tmp/l.tar.gz: No such file
+  محاولة 2: 0 بايت
+/tmp/m.sh: 28: curl: not found
+/tmp/m.sh: 29: cannot open /tmp/l.tar.gz: No such file
+  محاولة 2: 0 بايت
+/tmp/s.sh: 28: curl: not found
+/tmp/s.sh: 29: cannot open /tmp/l.tar.gz: No such file
+  محاولة 3: 0 بايت
+/tmp/m.sh: 28: curl: not found
+/tmp/m.sh: 29: cannot open /tmp/l.tar.gz: No such file
+  محاولة 3: 0 بايت
+/tmp/s.sh: 28: curl: not found
+/tmp/s.sh: 29: cannot open /tmp/l.tar.gz: No such file
+  محاولة 4: 0 بايت
+/tmp/m.sh: 28: curl: not found
+/tmp/m.sh: 29: cannot open /tmp/l.tar.gz: No such file
+  محاولة 4: 0 بايت
+/tmp/s.sh: 28: curl: not found
+/tmp/s.sh: 29: cannot open /tmp/l.tar.gz: No such file
+  محاولة 5: 0 بايت
+/tmp/m.sh: 28: curl: not found
+/tmp/m.sh: 29: cannot open /tmp/l.tar.gz: No such file
+  محاولة 5: 0 بايت
+tar (child): /tmp/l.tar.gz: Cannot open: No such file or directory
+tar (child): Error is not recoverable: exiting now
+tar: Child returned status 2
+tar: Error is not recoverable: exiting now
+فك الضغط فشل
+tar (child): /tmp/l.tar.gz: Cannot open: No such file or directory
+tar (child): Error is not recoverable: exiting now
+tar: Child returned status 2
+tar: Error is not recoverable: exiting now
+فك الضغط فشل
