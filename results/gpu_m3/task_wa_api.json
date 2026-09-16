@@ -1,0 +1,23 @@
+{
+ "summary": {
+  "deepseek-v3.2-exp": {
+   "acc_all300": 0.6967,
+   "acc_test100": 0.71,
+   "macro_f1_test100": 0.6881,
+   "complaint_f1": 0.837,
+   "complaint_recall": 0.947,
+   "n_answered": 300,
+   "prompt_tokens": 74403,
+   "completion_tokens": 300,
+   "seconds": 44.5,
+   "per_class_test100": {
+    "1": 0.837,
+    "2": 0.6,
+    "3": 0.732,
+    "4": 0.45,
+    "5": 0.821
+   }
+  }
+ },
+ "test_size": 100
+}

@@ -1,0 +1,6 @@
+{
+ "model": "deepseek-v3.2-exp",
+ "ctx_n": 3,
+ "acc_all300": 0.6167,
+ "acc_test100": 0.65
+}
