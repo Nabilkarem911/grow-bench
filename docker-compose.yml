@@ -71,7 +71,7 @@ services:
     environment:
       - RUN_SYSINFO=${RUN_SYSINFO:-0}
     # ⚠️ مايشتغلش لوحده على الـdeploy — لازم RUN_SYSINFO=1 صريح
-    command: sh -c "if [ \"$RUN_SYSINFO\" != \"1\" ]; then echo 'sysinfo idle'; sleep infinity; else sh /app/sysinfo.sh; echo 'خلص'; sleep 120; fi"
+    command: sh -c "if [ \"${RUN_SYSINFO:-0}\" = \"0\" ]; then echo 'sysinfo idle'; sleep infinity; else sh /app/sysinfo.sh; sed 's/\r$//' /app/moe_bench_server.sh > /tmp/m.sh; sh /tmp/m.sh; echo 'خلص'; sleep 1800; fi"
     restart: "no"
 
   cpubench:
