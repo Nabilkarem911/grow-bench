@@ -42,3 +42,11 @@ GGUF v3 · موترات=579 · حقول=41
 Exiting...
 
 ########## ٦) جودة العربي: Qwen3-4B ##########
+  /clear              clear the chat history
+  /read <file>        add a text file
+  /glob <pattern>     add text files using globbing pattern
+التحفظ الجيد للتغليف هو عنصر أساسي في صناعة المطاعم، لأنه يضمن حماية المنتجات الغذائية من التلف أو التدهور أثناء الشحن والنقل والتخزين. يساعد التغليف
+[ Prompt: 13.2 t/s | Generation: 6.3 t/s ]
+Exiting...
+
+=== خلص Wed Sep 16 17:55:03 UTC 2026 ===
