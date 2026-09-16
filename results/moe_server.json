@@ -166,3 +166,33 @@ aarch64
 ❌ فشل: /data/llama/llama-b10988/llama-bench (حجم 72448) → load_backend: loaded RPC backend from /data/llama/llama-b10988/libggml-rpc.so
 حجم الموديل: 9947 ميجا
 ❌ مفيش ملف llama تنفيذي صالح — نوقف عند التشخيص
+
+=== بداية Wed Sep 16 17:18:50 UTC 2026 ===
+موارد: أنوية=4 · متاح=12958 ميجا · قرص=99G
+معمارية السيرفر: aarch64 → هنستخدم ملفات arm64
+بنزّل llama.cpp (نسخة arm64)...
+  محاولة 1: 13469502 بايت
+=== شجرة /data/llama (أول 25) ===
+total 16
+drwxr-xr-x 3 root root 4096 Sep 16 17:18 .
+drwxr-xr-x 8 root root 4096 Sep 16 17:18 ..
+-rw-r--r-- 1 root root    8 Sep 16 17:18 ARCH
+drwxr-xr-x 2 1001 1001 4096 Sep 15 18:34 llama-b10988
+=== بصمة أول 16 بايت من llama-bench (لازم تبدأ بـ 177 E L F) ===
+0000000
+=== معمارية السيرفر ===
+aarch64
+=== ملفات .so ===
+/data/llama/llama-b10988/libllama-cli-impl.so
+/data/llama/llama-b10988/libggml-base.so.0.24.0
+/data/llama/llama-b10988/libggml-base.so
+/data/llama/llama-b10988/libllama-common.so
+/data/llama/llama-b10988/libggml.so
+/data/llama/llama-b10988/libggml-cpu-armv9.2_2.so
+/data/llama/llama-b10988/libllama-quantize-impl.so
+/data/llama/llama-b10988/libmtmd.so.0.4.1
+✅ ملف صالح: /data/llama/llama-b10988/llama-bench (حجم 72448)
+usage: /data/llama/llama-b10988/llama-bench [options]
+  --no-warmup                                 skip warmup runs before benchmarking
+حجم الموديل: 9947 ميجا
+===== قياس 4 أنوية =====
