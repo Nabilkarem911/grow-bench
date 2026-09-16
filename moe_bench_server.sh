@@ -3,10 +3,8 @@
 R=/data/results
 mkdir -p "$R"
 LOG="$R/moe_server.json"
-# 0) أدوات أساسية (الصورة دي مش فيها curl)
-if ! command -v curl >/dev/null 2>&1; then
-  (apt-get update -qq && apt-get install -y -qq curl ca-certificates >/dev/null 2>&1) || true
-fi
+# 0) أدوات ومكتبات أساسية (الصورة النحيفة مش فيها curl ولا libgomp)
+(apt-get update -qq && apt-get install -y -qq curl ca-certificates libgomp1 libstdc++6 >/dev/null 2>&1) || true
 if ! command -v curl >/dev/null 2>&1; then
   # بديل: نستخدم بايثون للتنزيل بدل curl
   cat > /usr/local/bin/curl <<'PYCURL'
