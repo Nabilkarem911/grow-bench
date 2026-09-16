@@ -196,3 +196,12 @@ usage: /data/llama/llama-b10988/llama-bench [options]
   --no-warmup                                 skip warmup runs before benchmarking
 حجم الموديل: 9947 ميجا
 ===== قياس 4 أنوية =====
+load_backend: loaded RPC backend from /data/llama/llama-b10988/libggml-rpc.so
+load_backend: loaded CPU backend from /data/llama/llama-b10988/libggml-cpu-armv8.2_2.so
+| model                          |       size |     params | backend    | threads |            test |                  t/s |
+| ------------------------------ | ---------: | ---------: | ---------- | ------: | --------------: | -------------------: |
+| qwen3moe 30B.A3B IQ2_M - 2.7 bpw |   9.71 GiB |    30.53 B | CPU        |       4 |            pp32 |          7.46 ± 0.66 |
+| qwen3moe 30B.A3B IQ2_M - 2.7 bpw |   9.71 GiB |    30.53 B | CPU        |       4 |            tg32 |          4.58 ± 0.24 |
+
+build: 9f31776c3 (10988)
+===== توليد عربي حقيقي =====
