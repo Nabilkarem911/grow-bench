@@ -1,0 +1,10 @@
+{
+ "ok": true,
+ "detail": "تم",
+ "at": "20:12:54 UTC",
+ "containers_running": 43,
+ "ram_by_containers_mb": 10178.6,
+ "mem_available_mb": 12952,
+ "images_total_gb": 35.93,
+ "docker_df": 39.83
+}
