@@ -50,6 +50,20 @@ services:
     stop_grace_period: 60s
     restart: "no"
 
+  # فحص موارد السيرفر (بيشتغل لما RUN_AUDIT=1 فقط) — الـsocket بيتفتح وقت التشغيل بس
+  audit:
+    image: python:3.12-slim
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - RUN_AUDIT=${RUN_AUDIT:-0}
+      - GITHUB_TOKEN=${GITHUB_TOKEN:-}
+      - AUDIT_REPO=${AUDIT_REPO:-Nabilkarem911/orcanox-internal}
+    command: sh -c "if [ \"${RUN_AUDIT:-0}\" = \"0\" ]; then echo 'audit idle'; sleep infinity; else sed 's/\r$//' /app/server_audit.py > /tmp/a.py; python3 /tmp/a.py; echo 'خلص'; sleep 900; fi"
+    restart: "no"
+
   # خدمة الموديل (llama-server) — بتبقى شغالة باستمرار لما RUN_LLM=1
   llm:
     image: python:3.12-slim
