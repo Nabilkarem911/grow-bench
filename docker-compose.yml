@@ -50,6 +50,18 @@ services:
     stop_grace_period: 60s
     restart: "no"
 
+  sysinfo:
+    image: python:3.12-slim
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - grow_data:/data
+    environment:
+      - RUN_SYSINFO=${RUN_SYSINFO:-0}
+    # ⚠️ مايشتغلش لوحده على الـdeploy — لازم RUN_SYSINFO=1 صريح
+    command: sh -c "if [ \"$RUN_SYSINFO\" != \"1\" ]; then echo 'sysinfo idle'; sleep infinity; else sh /app/sysinfo.sh; echo 'خلص'; sleep 120; fi"
+    restart: "no"
+
   cpubench:
     image: python:3.12-slim
     working_dir: /app
