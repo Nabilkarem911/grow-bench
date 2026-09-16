@@ -50,6 +50,21 @@ services:
     stop_grace_period: 60s
     restart: "no"
 
+  # خدمة الموديل (llama-server) — بتبقى شغالة باستمرار لما RUN_LLM=1
+  llm:
+    image: python:3.12-slim
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - grow_data:/data
+    environment:
+      - RUN_LLM=${RUN_LLM:-0}
+      - LLM_API_KEY=${LLM_API_KEY:-orcanox-local-key}
+    ports:
+      - "8090:8080"
+    command: sh -c "if [ \"${RUN_LLM:-0}\" = \"0\" ]; then echo 'llm idle'; sleep infinity; else sed 's/\r$//' /app/serve_llm.sh > /tmp/l.sh; sh /tmp/l.sh; fi"
+    restart: unless-stopped
+
   moebench:
     image: python:3.12-slim
     working_dir: /app
