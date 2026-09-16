@@ -1,0 +1,81 @@
+{
+ "stage": "done",
+ "tag": "armB_fixed",
+ "model": "Qwen/Qwen2.5-0.5B",
+ "device": "cuda",
+ "tokens_budget": 4794000,
+ "gradient_checkpointing": true,
+ "params_base": 494032768,
+ "params_trainable": 8798208,
+ "train_tokens_available": 15900699,
+ "vocab": 151665,
+ "total_steps_planned": 587,
+ "tokens_seen": 4800512,
+ "steps": 586,
+ "loss_first": 3.0392,
+ "loss_last": 2.4699,
+ "elapsed_seconds": 1449.8,
+ "tokens_per_sec": 3311.0,
+ "loss_trace": [
+  {
+   "step": 460,
+   "seen": 3768320,
+   "loss": 3.1226,
+   "lr": 2.32e-05,
+   "tps": 3303.0
+  },
+  {
+   "step": 480,
+   "seen": 3932160,
+   "loss": 2.4093,
+   "lr": 1.66e-05,
+   "tps": 3304.0
+  },
+  {
+   "step": 500,
+   "seen": 4096000,
+   "loss": 1.9646,
+   "lr": 1.1e-05,
+   "tps": 3304.0
+  },
+  {
+   "step": 520,
+   "seen": 4259840,
+   "loss": 2.1562,
+   "lr": 6.6e-06,
+   "tps": 3307.0
+  },
+  {
+   "step": 540,
+   "seen": 4423680,
+   "loss": 1.4605,
+   "lr": 3.2e-06,
+   "tps": 3310.0
+  },
+  {
+   "step": 560,
+   "seen": 4587520,
+   "loss": 2.6934,
+   "lr": 1e-06,
+   "tps": 3311.0
+  },
+  {
+   "step": 580,
+   "seen": 4751360,
+   "loss": 2.4796,
+   "lr": 1e-07,
+   "tps": 3311.0
+  },
+  {
+   "step": 586,
+   "seen": 4800512,
+   "loss": 2.4699,
+   "lr": 0.0,
+   "tps": 3311.0
+  }
+ ],
+ "compute_proxy_tokens_x_params": 2371610231177216,
+ "vram_peak_mb": 3230,
+ "saved_to": "F:/projects/grow/data/ready/ft_armB_fixed",
+ "total_seconds": 1483.7
+}

@@ -1,0 +1,69 @@
+{
+ "rows": {
+  "baseline_correct": {
+   "bits_per_char": 1.824,
+   "loss": 3.08375,
+   "se": 0.01136,
+   "params": 494032768
+  },
+  "trained_fixed": {
+   "bits_per_char": 1.775,
+   "loss": 3.00107,
+   "se": 0.01191,
+   "params": 494032768
+  },
+  "trained_old_buggy": {
+   "bits_per_char": 3.837,
+   "loss": 6.4871,
+   "se": 0.01027,
+   "params": 494032768
+  },
+  "trained_grown_fixed": {
+   "bits_per_char": 1.78,
+   "loss": 3.00894,
+   "se": 0.01181,
+   "params": 592217472
+  }
+ },
+ "significance": {
+  "grown_vs_base_arm": {
+   "diff_nats": -0.00787,
+   "se": 0.01677,
+   "sigmas": -0.47
+  }
+ },
+ "filter": {
+  "filter_base": {
+   "auc": 0.8004,
+   "acc": 0.74
+  },
+  "filter_old": {
+   "auc": 0.7473,
+   "acc": 0.72
+  }
+ },
+ "cpu": {
+  "stage": "cpu_bench",
+  "model": "F:/projects/grow/data/ready/ft_armB",
+  "threads": 4,
+  "cpu": "AMD64 Family 26 Model 68 Stepping 0, AuthenticAMD",
+  "fp32": {
+   "size_mb": 1884.6,
+   "bits_per_char": 2.939,
+   "loss": 4.96754,
+   "quality_seconds": 99.0,
+   "tok_per_sec": 12.3,
+   "gen_seconds": 9.8
+  },
+  "quantize_seconds": 3.4,
+  "int8": {
+   "bits_per_char": 3.755,
+   "loss": 6.34602,
+   "quality_seconds": 18.9,
+   "tok_per_sec": 26.4,
+   "gen_seconds": 4.6
+  },
+  "speedup_x": 2.15,
+  "quality_delta_bits": 0.816
+ }
+}
