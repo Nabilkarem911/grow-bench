@@ -1,0 +1,14 @@
+{
+ "rules_coverage": 0.163,
+ "rules_accuracy_on_covered": 1.0,
+ "model_alone_acc": 0.68,
+ "hybrid_acc": 0.68,
+ "complaint_binary_f1_05": 0.5294,
+ "complaint_recall_at_precision": {
+  "0.9": 0.053,
+  "0.8": 0.053,
+  "0.7": 0.053,
+  "0.6": 0.474
+ },
+ "n_test": 100
+}

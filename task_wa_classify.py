@@ -15,7 +15,7 @@ DATA = "F:/projects/grow/data/wa/labeled300.json"
 OUT = "F:/projects/grow/data/results/task_wa_classify.json"
 NAMES = {1: "شكوى/تأخير", 2: "طلب/تعديل", 3: "تعميد/موافقة", 4: "استفسار/تسعير", 5: "مجاملة/قصير"}
 
-MENTION = re.compile(r"[@⁨⁩~‎‏]|سلطان[^\n]{0,25}|Gpack|G\.pack")
+MENTION = re.compile(r"@[⁨~][^⁩\n]{0,30}⁩")   # المنشنات (بدون أي أسماء)
 
 
 def norm(t: str) -> str:
