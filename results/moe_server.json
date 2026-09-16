@@ -13,3 +13,50 @@
 /app/moe_bench_server.sh: 51: /data/llama/llama-bench: Exec format error
 ===== توليد عربي حقيقي =====
 === خلص Wed Sep 16 16:46:34 UTC 2026 ===
+
+=== بداية Wed Sep 16 16:49:41 UTC 2026 ===
+موارد: أنوية=4 · متاح=12943 ميجا · قرص=100G
+=== شجرة /data/llama (أول 25) ===
+total 41400
+drwxr-xr-x 2 root root    4096 Sep 16 16:41 .
+drwxr-xr-x 8 root root    4096 Sep 16 16:41 ..
+-rw-r--r-- 1 1001 1001    1078 Sep 15 18:33 LICENSE
+-rwxr-xr-x 1 1001 1001  194744 Sep 15 18:33 ggml-rpc-server
+lrwxrwxrwx 1 1001 1001      17 Sep 15 18:33 libggml-base.so -> libggml-base.so.0
+lrwxrwxrwx 1 1001 1001      22 Sep 15 18:33 libggml-base.so.0 -> libggml-base.so.0.24.0
+-rwxr-xr-x 1 1001 1001  920352 Sep 15 18:33 libggml-base.so.0.24.0
+-rwxr-xr-x 1 1001 1001 1195328 Sep 15 18:33 libggml-cpu-alderlake.so
+-rwxr-xr-x 1 1001 1001 1336224 Sep 15 18:33 libggml-cpu-cannonlake.so
+-rwxr-xr-x 1 1001 1001 1332128 Sep 15 18:33 libggml-cpu-cascadelake.so
+-rwxr-xr-x 1 1001 1001 1332192 Sep 15 18:33 libggml-cpu-cooperlake.so
+-rwxr-xr-x 1 1001 1001 1199424 Sep 15 18:33 libggml-cpu-haswell.so
+-rwxr-xr-x 1 1001 1001 1332128 Sep 15 18:33 libggml-cpu-icelake.so
+-rwxr-xr-x 1 1001 1001 1152928 Sep 15 18:33 libggml-cpu-ivybridge.so
+-rwxr-xr-x 1 1001 1001 1148832 Sep 15 18:33 libggml-cpu-piledriver.so
+-rwxr-xr-x 1 1001 1001 1143616 Sep 15 18:33 libggml-cpu-sandybridge.so
+-rwxr-xr-x 1 1001 1001 1598560 Sep 15 18:33 libggml-cpu-sapphirerapids.so
+-rwxr-xr-x 1 1001 1001 1336224 Sep 15 18:33 libggml-cpu-skylakex.so
+-rwxr-xr-x 1 1001 1001  940328 Sep 15 18:33 libggml-cpu-sse42.so
+-rwxr-xr-x 1 1001 1001  940496 Sep 15 18:33 libggml-cpu-x64.so
+-rwxr-xr-x 1 1001 1001 1332192 Sep 15 18:33 libggml-cpu-zen4.so
+-rwxr-xr-x 1 1001 1001  251224 Sep 15 18:33 libggml-rpc.so
+lrwxrwxrwx 1 1001 1001      12 Sep 15 18:33 libggml.so -> libggml.so.0
+lrwxrwxrwx 1 1001 1001      17 Sep 15 18:33 libggml.so.0 -> libggml.so.0.24.0
+=== بصمة أول 16 بايت من llama-bench (لازم تبدأ بـ 177 E L F) ===
+0000000 177   E   L   F 002 001 001 003  \0  \0  \0  \0  \0  \0  \0  \0
+0000020
+=== معمارية السيرفر ===
+aarch64
+=== ملفات .so ===
+/data/llama/libllama-cli-impl.so
+/data/llama/libggml-base.so.0.24.0
+/data/llama/libggml-cpu-cascadelake.so
+/data/llama/libggml-base.so
+/data/llama/libllama-common.so
+/data/llama/libggml.so
+/data/llama/libllama-quantize-impl.so
+/data/llama/libmtmd.so.0.4.1
+❌ فشل: /data/llama/llama-bench (حجم 17864) → /tmp/s.sh: 44: /data/llama/llama-bench: Exec format error
+❌ فشل: /data/llama/llama-bench (حجم 17864) → /tmp/s.sh: 44: /data/llama/llama-bench: Exec format error
+حجم الموديل: 9947 ميجا
+❌ مفيش ملف llama تنفيذي صالح — نوقف عند التشخيص
