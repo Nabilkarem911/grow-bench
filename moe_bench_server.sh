@@ -3,6 +3,42 @@
 R=/data/results
 mkdir -p "$R"
 LOG="$R/moe_server.json"
+# 0) أدوات أساسية (الصورة دي مش فيها curl)
+if ! command -v curl >/dev/null 2>&1; then
+  (apt-get update -qq && apt-get install -y -qq curl ca-certificates >/dev/null 2>&1) || true
+fi
+if ! command -v curl >/dev/null 2>&1; then
+  # بديل: نستخدم بايثون للتنزيل بدل curl
+  cat > /usr/local/bin/curl <<'PYCURL'
+#!/usr/bin/env python3
+import sys, urllib.request
+args = sys.argv[1:]
+out = None; url = None; i = 0
+while i < len(args):
+    a = args[i]
+    if a in ("-o", "--output"): out = args[i+1]; i += 2; continue
+    if a in ("-s", "-L", "-sL", "-C", "--max-time") or a.startswith("-"):
+        if a == "--max-time": i += 2
+        else: i += 1
+        continue
+    if a.isdigit(): i += 1; continue
+    url = a; i += 1
+if not url:
+    sys.exit(1)
+try:
+    req = urllib.request.Request(url, headers={"User-Agent": "curl"})
+    with urllib.request.urlopen(req, timeout=600) as r, open(out, "wb") as f:
+        while True:
+            b = r.read(1 << 20)
+            if not b: break
+            f.write(b)
+except Exception as e:
+    print("curl-fallback error:", e, file=sys.stderr); sys.exit(1)
+PYCURL
+  chmod +x /usr/local/bin/curl
+  echo "استخدمنا بديل curl (بايثون)"
+fi
+command -v curl && curl --version | head -1
 exec >> "$LOG" 2>&1
 echo ""
 echo "=== بداية $(date -u) ==="
