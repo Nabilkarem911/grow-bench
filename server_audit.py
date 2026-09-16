@@ -182,6 +182,7 @@ def write_status(ok, detail, extra=None):
 
 
 if __name__ == "__main__":
+    write_status(True, "بدأ التنفيذ")
     try:
         rep = collect()
         s = rep["summary"]
