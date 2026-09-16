@@ -1,0 +1,19 @@
+{
+ "stage": "task_arabic_filter",
+ "tag": "ours_arabic",
+ "model": "F:/projects/grow/data/ready/ft_armB",
+ "device": "cuda",
+ "n_items": 400,
+ "n_clean": 200,
+ "n_corrupt": 200,
+ "calibration_accuracy": 0.685,
+ "threshold": -4.0077,
+ "test_accuracy": 0.72,
+ "precision": 0.6667,
+ "recall": 0.88,
+ "false_positive_rate_on_clean": 0.44,
+ "auc": 0.7473,
+ "mean_bits_per_char_clean": 3.571,
+ "mean_bits_per_char_corrupt": 4.776,
+ "seconds": 15.2
+}

@@ -48,9 +48,9 @@ def main():
                 batch.append(ids[w * BLOCK:(w + 1) * BLOCK + 1])
             if not batch:
                 break
-            x = torch.stack([b[:-1] for b in batch]).to(dev)
-            y = torch.stack([b[1:] for b in batch]).to(dev)
-            out = model(input_ids=x, labels=y)
+            x = torch.stack([b for b in batch]).to(dev)
+            # ⚠️ ممنوع نزح الإجابات — المكتبة بتزحها لوحدها (الزح المزدوج = باج)
+            out = model(input_ids=x, labels=x)
             losses.append(float(out.loss.item()))
 
     samples = {}

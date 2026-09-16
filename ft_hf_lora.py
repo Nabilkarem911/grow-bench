@@ -85,10 +85,10 @@ def main():
         opt.zero_grad(set_to_none=True)
         for _ in range(a.accum):
             ix = torch.randint(len(ids) - a.block - 1, (a.batch,))
-            x = torch.stack([ids[i:i + a.block] for i in ix]).to(dev)
-            y = torch.stack([ids[i + 1:i + a.block + 1] for i in ix]).to(dev)
+            x = torch.stack([ids[i:i + a.block + 1] for i in ix]).to(dev)
             with torch.autocast("cuda", dtype=torch.bfloat16, enabled=(dev == "cuda")):
-                out = model(input_ids=x, labels=y)
+                # ⚠️ ممنوع نزح الإجابات — المكتبة بتزحها لوحدها (الزح المزدوج كان بيخرّب التدريب)
+                out = model(input_ids=x, labels=x)
                 loss = out.loss / a.accum
             loss.backward()
             seen += a.batch * a.block
