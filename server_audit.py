@@ -167,12 +167,36 @@ def upload(rep):
         print("❌ الرفع فشل:", e.code, e.read().decode()[:200])
 
 
+def write_status(ok, detail, extra=None):
+    """ملف حالة غير حساس على /data/results → بيترفع على الريبو العام (عشان أقدر أشوف الأخطاء)"""
+    try:
+        os.makedirs("/data/results", exist_ok=True)
+        st = {"ok": ok, "detail": detail, "at": time.strftime("%H:%M:%S UTC", time.gmtime())}
+        if extra:
+            st.update(extra)
+        with open("/data/results/audit_status.json", "w", encoding="utf-8") as f:
+            json.dump(st, f, ensure_ascii=False, indent=1)
+        print("حالة مكتوبة:", st)
+    except Exception as e:
+        print("مش قادر أكتب الحالة:", e)
+
+
 if __name__ == "__main__":
-    rep = collect()
-    s = rep["summary"]
-    print(f"حاويات: {s['containers_running']} شغالة / {s['containers_stopped']} واقفة")
-    print(f"رام مستهلكة بالحاويات: {s['ram_used_by_containers_mb']} ميجا · متاح: {rep['host']['mem_available_mb']} ميجا")
-    for r in s["top_ram"]:
-        print(f"  {r['mem_mb']:>9} ميجا  {r['name']}")
-    print("أكبر الصور:", [f"{i['repo']} ({i['size_mb']}MB)" for i in rep.get("images", [])[:5]])
-    upload(rep)
+    try:
+        rep = collect()
+        s = rep["summary"]
+        print(f"حاويات: {s['containers_running']} شغالة / {s['containers_stopped']} واقفة")
+        print(f"رام الحاويات: {s['ram_used_by_containers_mb']} ميجا · متاح: {rep['host']['mem_available_mb']} ميجا")
+        for r in s["top_ram"]:
+            print(f"  {r['mem_mb']:>9} ميجا  {r['name']}")
+        upload(rep)
+        write_status(True, "تم", {"containers_running": s["containers_running"],
+                                 "ram_by_containers_mb": s["ram_used_by_containers_mb"],
+                                 "mem_available_mb": rep["host"]["mem_available_mb"],
+                                 "images_total_gb": rep.get("images_total_gb"),
+                                 "docker_df": rep.get("docker_df", {}).get("volumes_gb")})
+    except Exception as e:
+        import traceback
+        print("❌ فشل:", e)
+        traceback.print_exc()
+        write_status(False, f"{type(e).__name__}: {str(e)[:300]}")

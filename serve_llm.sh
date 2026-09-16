@@ -14,12 +14,14 @@ M=/data/moe/Qwen3-4B-Q4_K_M.gguf
 echo "الموديل: $(du -h "$M" | cut -f1) · الرام المتاحة: $(awk '/MemAvailable/{print int($2/1024)}' /proc/meminfo) ميجا"
 
 # --api-key إلزامي (الخدمة مكشوفة) — -t 3 لطيف على السيرفر الإنتاجي
+# -rea off: نلغي «التفكير» — كان بيرد بالصيني في مرحلة التفكير وبيبطّئ الرد
 exec "$SRV" \
   -m "$M" \
   -ngl 0 \
   -t 3 \
   -c 4096 \
   -nr \
+  -rea off \
   --no-warmup \
   --host 0.0.0.0 \
   --port 8080 \
