@@ -11,12 +11,21 @@ echo "موارد: أنوية=$(nproc) · متاح=$(awk '/MemAvailable/{print in
 D=/data/llama
 mkdir -p "$D"
 TAG=b10988
+# ⚠️ السيرفر ده ARM64 (aarch64) — لازم نسخة arm64 مش x64 (وإلا Exec format error)
+ARCH=$(uname -m)
+case "$ARCH" in
+  x86_64|amd64) A=x64 ;;
+  aarch64|arm64) A=arm64 ;;
+  *) A=$ARCH ;;
+esac
+echo "معمارية السيرفر: $ARCH → هنستخدم ملفات $A"
 NEED_DL=0
+[ "$(cat "$D/ARCH" 2>/dev/null)" = "$ARCH" ] || NEED_DL=1
 [ -x "$D/llama-bench" ] || NEED_DL=1
-if [ "$NEED_DL" = "1" ] || [ ! -s "$D/llama-cli" ]; then
-  echo "بنزّل llama.cpp..."
+if [ "$NEED_DL" = "1" ]; then
+  echo "بنزّل llama.cpp (نسخة $A)..."
   for try in 1 2 3 4 5; do
-    curl -sL --max-time 900 -o /tmp/l.tar.gz "https://github.com/ggml-org/llama.cpp/releases/download/$TAG/llama-$TAG-bin-ubuntu-x64.tar.gz"
+    curl -sL --max-time 900 -o /tmp/l.tar.gz "https://github.com/ggml-org/llama.cpp/releases/download/$TAG/llama-$TAG-bin-ubuntu-$A.tar.gz"
     SZ=$(wc -c < /tmp/l.tar.gz 2>/dev/null || echo 0)
     echo "  محاولة $try: $SZ بايت"
     [ "$SZ" -gt 8000000 ] && break
@@ -25,6 +34,7 @@ if [ "$NEED_DL" = "1" ] || [ ! -s "$D/llama-cli" ]; then
   rm -rf "$D"; mkdir -p "$D"
   tar xzf /tmp/l.tar.gz -C "$D" || { echo "فك الضغط فشل"; exit 1; }
   chmod -R +x "$D" 2>/dev/null
+  echo "$ARCH" > "$D/ARCH"
 fi
 
 echo "=== شجرة /data/llama (أول 25) ==="
