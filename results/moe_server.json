@@ -1,3 +1,10 @@
 
 === بداية Wed Sep 16 16:41:02 UTC 2026 ===
 موارد: أنوية=4 · متاح=12996 ميجا · قرص /data فاضي=110G
+بنزّل llama.cpp (نسخة لينكس)...
+  محاولة 1: 16844141 بايت
+-rwxr-xr-x 1 1001 1001   17864 Sep 15 18:33 /data/llama/llama-bench
+-rwxr-xr-x 1 1001 1001 1458184 Sep 15 18:33 /data/llama/llama-cli
+/app/moe_bench_server.sh: 34: /data/llama/llama-bench: Exec format error
+/app/moe_bench_server.sh: 40: cannot open /data/moe/Qwen3-30B-A3B-IQ2_M.gguf: No such file
+  تنزيل الموديل (محاولة 1) — الحالي: 0 ميجا
