@@ -34,3 +34,11 @@ GGUF v3 · موترات=579 · حقول=41
 | qwen3 4B Q4_K - Medium         |   2.32 GiB |     4.02 B | CPU        |       4 |            tg32 |          6.56 ± 0.00 |
 
 ########## ٥) جودة العربي: 4 خبراء ##########
+  /clear              clear the chat history
+  /read <file>        add a text file
+  /glob <pattern>     add text files using globbing pattern
+يُعد التغليف الجيد من العوامل الهامة التي تساهم في نجاح المطعم، حيث يعكس هويته ويثير انطباعًا إيجابيًا لدى العملاء. كما أنه يسهم في الحفاظ على ن
+[ Prompt: 11.0 t/s | Generation: 7.3 t/s ]
+Exiting...
+
+########## ٦) جودة العربي: Qwen3-4B ##########
