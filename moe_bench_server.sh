@@ -1,56 +1,69 @@
 #!/bin/sh
-# moe_bench_server.sh v2 — قياس موديل 30B على معالج السيرفر (بدون كارت شاشة).
-# بنستخدم النسخة الخفيفة IQ2_M (9.7 جيجا) عشان تسع في رام السيرفر المتاحة (~12.7).
+# moe_bench_server.sh v3 — نفس الهدف + تشخيص واختيار ذكي لملف llama.cpp التنفيذي
 R=/data/results
 mkdir -p "$R"
 LOG="$R/moe_server.json"
 exec >> "$LOG" 2>&1
 echo ""
 echo "=== بداية $(date -u) ==="
-echo "موارد: أنوية=$(nproc) · متاح=$(awk '/MemAvailable/{print int($2/1024)}' /proc/meminfo) ميجا · قرص /data فاضي=$(df -BG /data 2>/dev/null | awk 'NR==2{print $4}')"
+echo "موارد: أنوية=$(nproc) · متاح=$(awk '/MemAvailable/{print int($2/1024)}' /proc/meminfo) ميجا · قرص=$(df -BG /data 2>/dev/null | awk 'NR==2{print $4}')"
 
-# 0) مكتبات النظام المطلوبة لنسخة لينكس
-(apt-get update -qq && apt-get install -y -qq libgomp1 curl >/dev/null 2>&1) || echo "تحذير: تعذّر تثبيت مكتبات النظام"
-
-# 1) llama.cpp (نسخة لينكس)
-TAG=b10988
 D=/data/llama
 mkdir -p "$D"
-if [ ! -x "$D/llama-bench" ] || [ ! -x "$D/llama-cli" ]; then
-  echo "بنزّل llama.cpp (نسخة لينكس)..."
-  ok=0
+TAG=b10988
+NEED_DL=0
+[ -x "$D/llama-bench" ] || NEED_DL=1
+if [ "$NEED_DL" = "1" ] || [ ! -s "$D/llama-cli" ]; then
+  echo "بنزّل llama.cpp..."
   for try in 1 2 3 4 5; do
     curl -sL --max-time 900 -o /tmp/l.tar.gz "https://github.com/ggml-org/llama.cpp/releases/download/$TAG/llama-$TAG-bin-ubuntu-x64.tar.gz"
     SZ=$(wc -c < /tmp/l.tar.gz 2>/dev/null || echo 0)
     echo "  محاولة $try: $SZ بايت"
-    if [ "$SZ" -gt 8000000 ]; then ok=1; break; fi
+    [ "$SZ" -gt 8000000 ] && break
     sleep 5
   done
-  if [ "$ok" != "1" ]; then echo "❌ تحميل llama.cpp فشل"; exit 1; fi
-  tar xzf /tmp/l.tar.gz -C "$D" --strip-components=1 || { echo "❌ فك الضغط فشل"; exit 1; }
-  chmod +x "$D"/llama-* 2>/dev/null
+  rm -rf "$D"; mkdir -p "$D"
+  tar xzf /tmp/l.tar.gz -C "$D" || { echo "فك الضغط فشل"; exit 1; }
+  chmod -R +x "$D" 2>/dev/null
 fi
-ls -la "$D/llama-bench" "$D/llama-cli" 2>/dev/null || { echo "❌ الملفات التنفيذية مش موجودة"; exit 1; }
-"$D/llama-bench" --version 2>&1 | head -2
 
-# 2) الموديل الخفيف (9.7 جيجا)
-M=/data/moe/Qwen3-30B-A3B-IQ2_M.gguf
-mkdir -p /data/moe
-for try in 1 2 3 4 5 6 7 8; do
-  SZ=$(wc -c < "$M" 2>/dev/null || echo 0)
-  if [ "$SZ" -gt 9500000000 ]; then break; fi
-  echo "  تنزيل الموديل (محاولة $try) — الحالي: $((SZ/1048576)) ميجا"
-  curl -sL -C - --max-time 2400 -o "$M" "https://huggingface.co/bartowski/Qwen_Qwen3-30B-A3B-GGUF/resolve/main/Qwen_Qwen3-30B-A3B-IQ2_M.gguf"
+echo "=== شجرة /data/llama (أول 25) ==="
+ls -la "$D" | head -25
+echo "=== بصمة أول 16 بايت من llama-bench (لازم تبدأ بـ 177 E L F) ==="
+head -c 16 "$D/llama-bench" 2>/dev/null | od -c | head -2
+echo "=== معمارية السيرفر ==="
+uname -m
+echo "=== ملفات .so ==="
+find "$D" -name "*.so*" 2>/dev/null | head -8
+
+# اختيار ملف llama-bench التنفيذي الصالح (بندور في أي مكان + نجرب مع مكتبات)
+BENCH=""
+for P in "$D/llama-bench" "$D/build/bin/llama-bench" "$D/bin/llama-bench" $(find "$D" -name "llama-bench" -type f 2>/dev/null); do
+  [ -f "$P" ] || continue
+  SZ=$(wc -c < "$P")
+  if LD_LIBRARY_PATH="$D:$D/lib:$D/build/bin:$LD_LIBRARY_PATH" "$P" --version >/tmp/v.txt 2>&1; then
+    echo "✅ ملف صالح: $P (حجم $SZ)"; head -2 /tmp/v.txt; BENCH="$P"; break
+  else
+    echo "❌ فشل: $P (حجم $SZ) → $(head -1 /tmp/v.txt)"
+  fi
 done
-SZ=$(wc -c < "$M" 2>/dev/null || echo 0)
-echo "حجم الموديل النهائي: $((SZ/1048576)) ميجا"
-if [ "$SZ" -lt 9500000000 ]; then echo "❌ التنزيل مكتملش"; exit 1; fi
 
-# 3) القياس
-echo "===== قياس 4 أنوية (إمكانيات السيرفر الحقيقية) ====="
-"$D/llama-bench" -m "$M" -ngl 0 -t 4 -p 32 -n 32 -r 3 -o md 2>&1 | tail -12
+M=/data/moe/Qwen3-30B-A3B-IQ2_M.gguf
+SZ=$(wc -c < "$M" 2>/dev/null || echo 0)
+echo "حجم الموديل: $((SZ/1048576)) ميجا"
+
+if [ -z "$BENCH" ]; then
+  echo "❌ مفيش ملف llama تنفيذي صالح — نوقف عند التشخيص"
+  exit 1
+fi
+
+export LD_LIBRARY_PATH="$D:$D/lib:$D/build/bin:$LD_LIBRARY_PATH"
+echo "===== قياس 4 أنوية ====="
+"$BENCH" -m "$M" -ngl 0 -t 4 -p 32 -n 32 -r 3 -o md 2>&1 | tail -12
 
 echo "===== توليد عربي حقيقي ====="
-"$D/llama-cli" -m "$M" -ngl 0 -t 4 -c 2048 -nr -n 60 -st --no-warmup \
+CLI=$(dirname "$BENCH")/llama-cli
+[ -f "$CLI" ] || CLI="$D/llama-cli"
+"$CLI" -m "$M" -ngl 0 -t 4 -c 2048 -nr -n 60 -st --no-warmup \
   -p "اكتب فقرة قصيرة عن أهمية التغليف الجيد للمطاعم. /no_think" 2>&1 | grep -aE "Generation:|Prompt:|التغليف|أهمية|الجيد" | tail -8
 echo "=== خلص $(date -u) ==="

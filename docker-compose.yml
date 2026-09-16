@@ -59,7 +59,7 @@ services:
     environment:
       - RUN_MOEBENCH=${RUN_MOEBENCH:-0}
     # ⚠️ مايشتغلش لوحده على الـdeploy — لازم RUN_MOEBENCH=1 صريح
-    command: sh -c "if [ \"$RUN_MOEBENCH\" != \"1\" ]; then echo 'moebench idle'; sleep infinity; else sh /app/moe_bench_server.sh; echo 'خلص — الكونتينر هيقف'; sleep 600; fi"
+    command: sh -c "if [ \"$RUN_MOEBENCH\" != \"1\" ]; then echo 'moebench idle'; sleep infinity; else sed 's/\r$//' /app/moe_bench_server.sh > /tmp/s.sh; sh /tmp/s.sh; echo 'خلص — الكونتينر هيقف'; sleep 600; fi"
     restart: "no"
 
   sysinfo:
