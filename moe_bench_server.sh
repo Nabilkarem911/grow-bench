@@ -82,13 +82,14 @@ find "$D" -name "*.so*" 2>/dev/null | head -8
 
 # اختيار ملف llama-bench التنفيذي الصالح (بندور في أي مكان + نجرب مع مكتبات)
 BENCH=""
-for P in "$D/llama-bench" "$D/build/bin/llama-bench" "$D/bin/llama-bench" $(find "$D" -name "llama-bench" -type f 2>/dev/null); do
+for P in "$D/llama-bench" "$D"/llama-*/llama-bench "$D/build/bin/llama-bench" $(find "$D" -name "llama-bench" -type f 2>/dev/null); do
   [ -f "$P" ] || continue
   SZ=$(wc -c < "$P")
-  if LD_LIBRARY_PATH="$D:$D/lib:$D/build/bin:$LD_LIBRARY_PATH" "$P" --version >/tmp/v.txt 2>&1; then
-    echo "✅ ملف صالح: $P (حجم $SZ)"; head -2 /tmp/v.txt; BENCH="$P"; break
+  # ملاحظة: llama-bench مابيدعمش --version — بنتحقق بـ --help
+  if LD_LIBRARY_PATH="$D:$D/lib:$(dirname "$P"):$LD_LIBRARY_PATH" "$P" --help >/tmp/v.txt 2>&1; then
+    echo "✅ ملف صالح: $P (حجم $SZ)"; grep -m2 -aE "benchmark|usage" /tmp/v.txt | head -2; BENCH="$P"; break
   else
-    echo "❌ فشل: $P (حجم $SZ) → $(head -1 /tmp/v.txt)"
+    echo "❌ فشل: $P (حجم $SZ) → $(head -2 /tmp/v.txt | tr '\n' ' ')"
   fi
 done
 
