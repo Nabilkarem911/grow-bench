@@ -8,3 +8,8 @@
 /app/moe_bench_server.sh: 34: /data/llama/llama-bench: Exec format error
 /app/moe_bench_server.sh: 40: cannot open /data/moe/Qwen3-30B-A3B-IQ2_M.gguf: No such file
   تنزيل الموديل (محاولة 1) — الحالي: 0 ميجا
+حجم الموديل النهائي: 9947 ميجا
+===== قياس 4 أنوية (إمكانيات السيرفر الحقيقية) =====
+/app/moe_bench_server.sh: 51: /data/llama/llama-bench: Exec format error
+===== توليد عربي حقيقي =====
+=== خلص Wed Sep 16 16:46:34 UTC 2026 ===
