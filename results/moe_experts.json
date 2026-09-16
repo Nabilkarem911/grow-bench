@@ -1,0 +1,52 @@
+
+=== بداية Wed Sep 16 17:41:07 UTC 2026 ===
+موارد: أنوية=4 · متاح=13461 ميجا · قرص=100G
+الأدوات: /data/llama/llama-b10988/llama-bench
+الأداة شغالة ✓
+
+########## ١) الأساس: 8 خبراء (الأصلي) ##########
+----- 8 خبراء — السرعة -----
+| qwen3moe 30B.A3B IQ2_M - 2.7 bpw |   9.71 GiB |    30.53 B | CPU        |       4 |            pp32 |          8.17 ± 0.00 |
+| qwen3moe 30B.A3B IQ2_M - 2.7 bpw |   9.71 GiB |    30.53 B | CPU        |       4 |            tg32 |          4.41 ± 0.00 |
+
+########## ٢) 4 خبراء ##########
+بنعمل نسخة: /data/moe/exp4.gguf
+GGUF v3 · موترات=579 · حقول=41
+✅ qwen3moe.expert_used_count: 8 → 4
+----- 4 خبراء — السرعة -----
+| qwen3moe 30B.A3B IQ2_M - 2.7 bpw |   9.71 GiB |    30.53 B | CPU        |       4 |            pp32 |         12.46 ± 0.00 |
+| qwen3moe 30B.A3B IQ2_M - 2.7 bpw |   9.71 GiB |    30.53 B | CPU        |       4 |            tg32 |          6.10 ± 0.00 |
+
+########## ٣) 2 خبراء ##########
+بنعمل نسخة: /data/moe/exp2.gguf
+GGUF v3 · موترات=579 · حقول=41
+✅ qwen3moe.expert_used_count: 8 → 2
+----- 2 خبراء — السرعة -----
+| qwen3moe 30B.A3B IQ2_M - 2.7 bpw |   9.71 GiB |    30.53 B | CPU        |       4 |            pp32 |         18.31 ± 0.00 |
+| qwen3moe 30B.A3B IQ2_M - 2.7 bpw |   9.71 GiB |    30.53 B | CPU        |       4 |            tg32 |          8.94 ± 0.00 |
+
+########## ٤) الموديل الصغير الذكي: Qwen3-4B ##########
+بنزّله (2.3 جيجا)...
+  محاولة 1: 2381 ميجا
+حجم الصغير: 2.4G
+----- Qwen3-4B — السرعة -----
+| qwen3 4B Q4_K - Medium         |   2.32 GiB |     4.02 B | CPU        |       4 |            pp32 |         17.80 ± 0.00 |
+| qwen3 4B Q4_K - Medium         |   2.32 GiB |     4.02 B | CPU        |       4 |            tg32 |          6.56 ± 0.00 |
+
+########## ٥) جودة العربي: 4 خبراء ##########
+  /clear              clear the chat history
+  /read <file>        add a text file
+  /glob <pattern>     add text files using globbing pattern
+يُعد التغليف الجيد من العوامل الهامة التي تساهم في نجاح المطعم، حيث يعكس هويته ويثير انطباعًا إيجابيًا لدى العملاء. كما أنه يسهم في الحفاظ على ن
+[ Prompt: 11.0 t/s | Generation: 7.3 t/s ]
+Exiting...
+
+########## ٦) جودة العربي: Qwen3-4B ##########
+  /clear              clear the chat history
+  /read <file>        add a text file
+  /glob <pattern>     add text files using globbing pattern
+التحفظ الجيد للتغليف هو عنصر أساسي في صناعة المطاعم، لأنه يضمن حماية المنتجات الغذائية من التلف أو التدهور أثناء الشحن والنقل والتخزين. يساعد التغليف
+[ Prompt: 13.2 t/s | Generation: 6.3 t/s ]
+Exiting...
+
+=== خلص Wed Sep 16 17:55:03 UTC 2026 ===
