@@ -1,5 +1,5 @@
 {
- "when": "2026-09-17 19:04 UTC",
+ "when": "2026-09-17 19:38 UTC",
  "tests": [
   "كود: is_prime",
   "كود: إصلاح",
@@ -10,38 +10,5 @@
   "عربي: رد على شكوى",
   "عربي: تبسيط"
  ],
- "models": {
-  "Qwen2.5-Coder-1.5B": {
-   "tests": {},
-   "download": "اتنزّل (0.92 جيجا)",
-   "size_gb": 0.92,
-   "load_s": null,
-   "error": "الخادم ماقامش",
-   "log": "king token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden\n0.00.735.574 I cmn          init: llama threadpool init, n_threads = 3\n0.00.831.917 I srv    load_model: initializing, n_slots = 4, n_ctx_slot = 2048, kv_unified = 'true'\n0.00.837.981 I srv  llama_server: model loaded\n0.00.837.998 I srv  llama_server: listening on http://127.0.0.1:8097\n"
-  },
-  "Yi-Coder-1.5B-Chat": {
-   "tests": {},
-   "download": "اتنزّل (0.90 جيجا)",
-   "size_gb": 0.9,
-   "load_s": null,
-   "error": "الخادم ماقامش",
-   "log": "en:     15 '<fim_middle>' was not control-type; this is probably a bug in the model. its type will be overridden\n0.00.367.930 I cmn          init: llama threadpool init, n_threads = 3\n0.00.458.832 I srv    load_model: initializing, n_slots = 4, n_ctx_slot = 2048, kv_unified = 'true'\n0.00.462.067 I srv  llama_server: model loaded\n0.00.462.082 I srv  llama_server: listening on http://127.0.0.1:8097\n"
-  },
-  "Arabic-Qwen2.5-3B": {
-   "tests": {},
-   "download": "اتنزّل (1.80 جيجا)",
-   "size_gb": 1.8,
-   "load_s": null,
-   "error": "الخادم ماقامش",
-   "log": "king token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden\n0.00.773.725 I cmn          init: llama threadpool init, n_threads = 3\n0.00.948.637 I srv    load_model: initializing, n_slots = 4, n_ctx_slot = 2048, kv_unified = 'true'\n0.00.951.595 I srv  llama_server: model loaded\n0.00.951.614 I srv  llama_server: listening on http://127.0.0.1:8097\n"
-  },
-  "MiniCPM5-1B": {
-   "tests": {},
-   "download": "اتنزّل (0.64 جيجا)",
-   "size_gb": 0.64,
-   "load_s": null,
-   "error": "الخادم ماقامش",
-   "log": "ma_server: -----------------\n0.00.012.769 I srv    load_model: loading model '/data/moe/MiniCPM5-1B-Q4_K_M.gguf'\n0.00.668.981 I cmn          init: llama threadpool init, n_threads = 3\n0.00.721.680 I srv    load_model: initializing, n_slots = 4, n_ctx_slot = 2048, kv_unified = 'true'\n0.00.727.444 I srv  llama_server: model loaded\n0.00.727.463 I srv  llama_server: listening on http://127.0.0.1:8097\n"
-  }
- }
+ "models": {}
 }
