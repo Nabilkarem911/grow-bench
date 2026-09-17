@@ -1,5 +1,5 @@
 {
- "when": "2026-09-17 14:37 UTC",
+ "when": "2026-09-17 16:03 UTC",
  "note": "قياس حقيقي على ARM64 · 4 أنوية · 3 خيوط · بلا كارت شاشة · بلا تفكير (-rea off)",
  "prompts": [
   "كتابة عربية",
@@ -7,34 +7,5 @@
   "استدلال",
   "JSON"
  ],
- "models": {
-  "30B-Q3_K_M": {
-   "results": {},
-   "download": "اتنزّل (13.11 جيجا)",
-   "size_gb": 13.11,
-   "load_seconds": null,
-   "error": "الخادم ماقامش"
-  },
-  "Qwen3-4B": {
-   "results": {},
-   "download": "موجود",
-   "size_gb": 2.33,
-   "load_seconds": null,
-   "error": "الخادم ماقامش"
-  },
-  "Qwen3-1.7B": {
-   "results": {},
-   "download": "اتنزّل (1.03 جيجا)",
-   "size_gb": 1.03,
-   "load_seconds": null,
-   "error": "الخادم ماقامش"
-  },
-  "Granite-4.0-1B": {
-   "results": {},
-   "download": "اتنزّل (0.95 جيجا)",
-   "size_gb": 0.95,
-   "load_seconds": null,
-   "error": "الخادم ماقامش"
-  }
- }
+ "models": {}
 }
