@@ -142,6 +142,138 @@
    "served_model": "/data/moe/Yi-Coder-1.5B-Q4_K_M.gguf",
    "auto_score": 0.5,
    "avg_tok_s": 11.0
+  },
+  "Arabic-Qwen2.5-3B": {
+   "tests": {
+    "كود: is_prime": {
+     "tok_s": 0.5,
+     "seconds": 4.0,
+     "score": 0.0,
+     "detail": "فشل التنفيذ: invalid syntax (<string>, line 1)",
+     "text": "```"
+    },
+    "كود: إصلاح": {
+     "tok_s": 0.3,
+     "seconds": 6.0,
+     "score": 0.0,
+     "detail": "فشل التنفيذ: invalid syntax (<string>, line 1)",
+     "text": "```"
+    },
+    "SQL: استعلام": {
+     "tok_s": 5.3,
+     "seconds": 14.4,
+     "score": 0.0,
+     "detail": "عناصر صحيحة: 0.00",
+     "text": "لقد أعطيت: customers(id, name) و orders(id, customer_id, total, created_at).\nأنا بحاجة إلى إنشاء استعلام SQL واحد يجيب على الأسماء والقيم، للعملاء اللي مجموعهم أكبر من 1000، مرتبًا بالأعلى أولاً. ```sql فقط.\n```"
+    },
+    "JSON: تصنيف": {
+     "tok_s": 2.7,
+     "seconds": 8.6,
+     "score": 0.7,
+     "detail": "نضيف=False · {\"type\": \"complaint\", \"urgency\": \"high\"}",
+     "text": "يجب أن تكون الإجابة: {\"type\": \"complaint\", \"urgency\": \"high\"}"
+    },
+    "JSON: أداة": {
+     "tok_s": 3.9,
+     "seconds": 13.8,
+     "score": 0.0,
+     "detail": "JSON فاشل",
+     "text": "```json\n{\n\"name\": \"send_whatsapp\", \n\"arguments\": {\n    \"<اسم العميل>\": \"966501234567\",\n    \"<نص الرسالة>: \"طلبك في الطريق\"\n}\n```\n"
+    },
+    "حساب": {
+     "tok_s": 7.7,
+     "seconds": 51.8,
+     "score": 0.0,
+     "detail": "مفيش إجابة صحيحة",
+     "text": "الإجابه الصحيحة هي:\nأنا أعتقد أن هذا هو الحل الصحيح. هل يمكنني التحقق من ذلك؟\n\nبالتأكيد! دعونا نقسم المشكلة خطوة بخطوة لتحديد عدد الفواكه في كل صندوق وجمعها معًا.\n\n1. لدينا 3 صناديق: الأول فيه 5 تفاحات، والتاني ضعف الأول (2 * 5 = 10)، والثالث مجموع الصناديق الأولى والثانية مقسوماً على 2 (5 + 10) / 2 = 7.5 تقريبًا.\n2. نظرًا لأننا لا يمكن أن يكون لدينا عدد فواكه غير صحيح، فإننا نحتاج إلى تغيير القيمة المحسوبة للصناديق الثالثة لتكون رقمًا صحيحًا. لذلك، سنأخذ قيمتين صحيحتين: 7 و8 (أو أي قيمة متوسطة بينهما).\n3. الآن يمكننا جمع عدد الفواكه في كل صندوق لتحديد الإجمالي: 5 + 10 + 7 = 22 أو 5 + 10 + 8 = 23.\n4. إذن، الإجابة الصحيحة هي إما 22 أو 23 فواكه.\n\nالإجابه الصحيحة هي:\nأنا أعتقد أن هذا هو الحل الصحيح. هل يمكنني التحقق من ذلك؟\n\nبالتأكيد! دعونا نقسم المشكلة خطوة بخطوة لتحديد عدد الفواكه في كل صندوق وجمعها معًا.\n\n1. لدينا 3 صناديق: الأول فيه 5 تفاحات، والتاني ضعف الأول (2 * 5 = 10)، والثالث مجمو"
+    },
+    "عربي: رد على شكوى": {
+     "tok_s": 4.1,
+     "seconds": 7.0,
+     "score": null,
+     "detail": "",
+     "text": "الجواب هو:\nأنا سعيد أنك تحتاج إلى المساعدة. يمكنني تقديم الدعم خلال 30 دقيقة فقط."
+    },
+    "عربي: تبسيط": {
+     "tok_s": 3.5,
+     "seconds": 5.7,
+     "score": null,
+     "detail": "",
+     "text": "الذكاء الاصطناعي هو برنامج يتعلم ويتقدم مع الوقت."
+    }
+   },
+   "download": "موجود",
+   "size_gb": 1.8,
+   "load_s": 3.0,
+   "served_model": "/data/moe/Arabic-Qwen2.5-3B-Q4_K_M.gguf",
+   "auto_score": 0.117,
+   "avg_tok_s": 3.5
+  },
+  "MiniCPM5-1B": {
+   "tests": {
+    "كود: is_prime": {
+     "tok_s": 16.0,
+     "seconds": 5.6,
+     "score": 1.0,
+     "detail": "7/7 حالة نجحت",
+     "text": "```python\ndef is_prime(n):\n    if n <= 1:\n        return False\n    for i in range(2, int(n**0.5) + 1):\n        if n % i == 0:\n            return False\n    return True\n\n# Example usage (not part of the function)\nprint(is_prime(7))   # True\nprint(is_prime(10))  # False\n```"
+    },
+    "كود: إصلاح": {
+     "tok_s": 20.1,
+     "seconds": 10.9,
+     "score": 0.0,
+     "detail": "فشل التنفيذ: invalid syntax (<string>, line 1)",
+     "text": "هنا مزيد تعرف أنك استخدم Python للمسمنة و البالاً من المنصوبات الحيث عند التقارم بهذه الكود. في هذه المراسى كان لك تعلم Python و أسماً من جزائية الحياة للمتحبة بالقياس الصحوم. في منهم الدالة المراتيكية فيها كان تعلم Python و أسماً من جزائية الحياة للتصبح بالقياس الصحوم."
+    },
+    "SQL: استعلام": {
+     "tok_s": 11.2,
+     "seconds": 4.9,
+     "score": 0.35,
+     "detail": "عناصر صحيحة: 0.35",
+     "text": "```sql\nSELECT \n    c.id AS customer_id,\n    c.name AS name,\n    MAX(o.total) AS highest_order_total\nFROM customers c\nJOIN orders o ON c.id = o.customer_id\nWHERE c.id >= 1000;\n```"
+    },
+    "JSON: تصنيف": {
+     "tok_s": 17.4,
+     "seconds": 10.0,
+     "score": 0.0,
+     "detail": "JSON فاشل",
+     "text": "هاین من القوانية الصنّف الرسالة دي ورجّع **JSON فقط** (بدون أي كلام قبله أو بعده) بالمفاتيح بالظبط: type و urgency.\n\ntype يكون واحد من: complaint | request | greeting\nurgency يكون واحد من: high | low\n\nالرسالة: «فيه تأخير كبير في أوردري ومحتاج حل بسرعة»"
+    },
+    "JSON: أداة": {
+     "tok_s": 11.6,
+     "seconds": 5.9,
+     "score": 0.0,
+     "detail": "نضيف=False · {\"name\": \"<اسم الأداة>\", \"arguments\": {\"<قيمة>\": \"1\"}}",
+     "text": "```json\n{\n    \"name\": \"<اسم الأداة>\",\n    \"arguments\": {\n        \"<قيمة>\": \"1\"\n    }\n}\n```\n\nلا يستخران عندها تعدد بالكوفحة."
+    },
+    "حساب": {
+     "tok_s": 20.9,
+     "seconds": 19.1,
+     "score": 0.0,
+     "detail": "مفيش إجابة صحيحة",
+     "text": "لحسن من العدود التي تُصبح في المثال الأمیر عندها 3 إنانين, كل ذلك هو حقات دون خارجة. لطلب تعرف بحسن من التشغيك والمثال لها يصبح 3 إنانين, لدقى 4 إنانين.\n\n**الأول: 5 تفاحات**\n*   التعرف بحسن من المثال: **1**\n    *   (باً هو عندها 3 إنانين)\n\n**التاني:** لكن 4 إنانين في 5 تفاحات, لذا هل 2 إنانين? (باً هو عندها 3 إنانين)\n\n**التالة: 4 مرقم الأول**\n*   التعرف بحسن من المثال: **2**\n    *   (باً هو عندها 3 إنانين)\n\n**الكائمة:** لكن 4 مرقم في 1 تفاحت, لذا هل 2 إنانين? (باً هو عند"
+    },
+    "عربي: رد على شكوى": {
+     "tok_s": 18.9,
+     "seconds": 7.8,
+     "score": null,
+     "detail": "",
+     "text": "It seems there might be a bit of confusion in the text you provided, as it appears to mix unrelated phrases and statements about \"Arabic\" with content that doesn't seem to fit together coherently.\n\nHere's what I understand from your input:\n1. There is an author named \"Ibrahim\" who wrote a short story on Arabic.\n2. The text mentions something about \"Orchard\" but also includes unrelated phrases like \"in the center of the mosque and the sudden loss.\"\n3. It seems there are some grammatical errors or awkward phrasing that make it difficult to understand.\n\nIf you could provide more context, clarify what you mean by your original message, I'd be happy to help improve clarity and coherence in my response!"
+    },
+    "عربي: تبسيط": {
+     "tok_s": 21.7,
+     "seconds": 14.8,
+     "score": null,
+     "detail": "",
+     "text": "مستعمداً هو ضباب الشكل والقوة المتزجانية بين الأفذاء الروطينيون، مما يظري على 3 سطور:\n\n1. **الضباب العدلي** (The Dampener): هو شكل القوة التحدية بين الفرسم والأفذاء.\n2. **الضباب الشكل** (The Shape): هو شكل العدلي من الإزاويات التحدية بين الفرسم والأفذاء.\n3. **القوة البني** (The Beam): هو ضباب القوة العلى من الإزاويات التحدية بين الفرسم والأفذاء.\n\nكان هذه الشكلات للتصبح على العربي العام في الموقع الجزيري."
+    }
+   },
+   "download": "موجود",
+   "size_gb": 0.64,
+   "load_s": 3.0,
+   "served_model": "/data/moe/MiniCPM5-1B-Q4_K_M.gguf",
+   "auto_score": 0.225,
+   "avg_tok_s": 17.2
   }
  }
 }
