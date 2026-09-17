@@ -24,6 +24,8 @@ MODELS = [
     ("Qwen3-1.7B", "https://huggingface.co/unsloth/Qwen3-1.7B-GGUF/resolve/main/Qwen3-1.7B-Q4_K_M.gguf", f"{MOE}/Qwen3-1.7B-Q4_K_M.gguf"),
     ("Granite-4.0-1B", "https://huggingface.co/ibm-granite/granite-4.0-1b-GGUF/resolve/main/granite-4.0-1b-Q4_K_M.gguf", f"{MOE}/granite-4.0-1b-Q4_K_M.gguf"),
     ("LFM2.5-1.2B", "https://huggingface.co/bartowski/LiquidAI_LFM2.5-1.2B-Instruct-GGUF/resolve/main/LiquidAI_LFM2.5-1.2B-Instruct-Q4_K_M.gguf", f"{MOE}/LFM2.5-1.2B-Q4_K_M.gguf"),
+    ("Ling-mini-2.0", "https://huggingface.co/bartowski/inclusionAI_Ling-mini-2.0-GGUF/resolve/main/inclusionAI_Ling-mini-2.0-Q4_K_M.gguf", f"{MOE}/Ling-mini-2.0-Q4_K_M.gguf"),
+    ("Qwen3.5-4B", "https://huggingface.co/unsloth/Qwen3.5-4B-GGUF/resolve/main/Qwen3.5-4B-Q4_K_M.gguf", f"{MOE}/Qwen3.5-4B-Q4_K_M.gguf"),
 ]
 
 PROMPTS = [
@@ -91,6 +93,26 @@ def wait_ready(deadline=420):
     return None
 
 
+def kill_servers():
+    """نقتل أي خادم llama عالق — من بايثون مباشرة (pkill مش مضمون في الصورة النحيفة)."""
+    sh("pkill -9 -f llama-server 2>/dev/null")
+    try:
+        for pid in os.listdir("/proc"):
+            if not pid.isdigit():
+                continue
+            try:
+                with open(f"/proc/{pid}/cmdline", "rb") as f:
+                    cmd = f.read().decode("utf-8", "replace")
+                if "llama-server" in cmd:
+                    os.kill(int(pid), 9)
+                    print(f"  قتلنا خادم قديم (pid {pid})", flush=True)
+            except Exception:
+                pass
+    except Exception:
+        pass
+    time.sleep(3)
+
+
 def save(rep):
     os.makedirs(R, exist_ok=True)
     with open(f"{R}/arena.json", "w", encoding="utf-8") as f:
@@ -99,7 +121,7 @@ def save(rep):
 
 def main():
     # 0) المكتبات الأساسية — من غيرها ملفات llama مش هتقوم (libgomp.so.1)
-    sh("apt-get update -qq && apt-get install -y -qq libgomp1 libstdc++6 ca-certificates >/dev/null 2>&1", timeout=600)
+    sh("apt-get update -qq && apt-get install -y -qq libgomp1 libstdc++6 ca-certificates procps >/dev/null 2>&1", timeout=600)
     srv = find_bin("llama-server")
     if not srv:
         raise RuntimeError("llama-server مش موجود")
@@ -124,7 +146,7 @@ def main():
         print(f"\n===== {name} ({entry['size_gb']} جيجا) =====")
 
         # ⚠️ مهم: نقتل أي خادم قديم — وإلا الموديل القديم يفضل يرد ونقيس غلط
-        sh("pkill -f llama-server; sleep 6; pkill -9 -f llama-server; sleep 2")
+        kill_servers()
 
         cmd = (f'LD_LIBRARY_PATH="{ld}:{LLAMA}:$LD_LIBRARY_PATH" "{srv}" -m "{path}" -ngl 0 -t 3 '
                f'-c 2048 -nr -rea off --no-warmup --host 127.0.0.1 --port {PORT}')
@@ -196,7 +218,7 @@ def main():
                     print(f"  [{ptitle}] خطأ: {str(e)[:60]}")
                 save(rep)
         finally:
-            sh("pkill -9 -f llama-server; sleep 4")
+            kill_servers()
         rep["models"][name] = entry
         save(rep)
 
