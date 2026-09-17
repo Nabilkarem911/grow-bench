@@ -7,5 +7,13 @@
   "استدلال",
   "JSON"
  ],
- "models": {}
+ "models": {
+  "30B-Q3_K_M": {
+   "results": {},
+   "download": "اتنزّل (13.11 جيجا)",
+   "size_gb": 13.11,
+   "load_seconds": null,
+   "error": "الخادم ماقامش"
+  }
+ }
 }
