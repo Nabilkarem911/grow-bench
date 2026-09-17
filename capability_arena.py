@@ -158,10 +158,15 @@ def score_test(title, text):
         if isinstance(a, dict) and ("966501234567" in json.dumps(a)): pts += 0.35
         return min(pts, 1.0), f"نضيف={clean} · {json.dumps(v, ensure_ascii=False)[:90]}"
     if title.startswith("حساب"):
-        nums = re.findall(r"الإجابة\s*=\s*([\d.]+)", text)
-        if nums and abs(float(nums[-1]) - 22.5) < 0.01: return 1.0, "22.5 ✔"
-        if "22.5" in text: return 0.7, "ذكر 22.5 بدون الصيغة"
-        return 0.0, "مفيش إجابة صحيحة"
+        # ‏ملاحظة: كان المدقّق بيرفض إجابات صحيحة لما الموديل يكتب 22.5 جوه صيغة رياضية
+        # (زي \text{الإجابة} = 5 + 10 + 7.5 = 22.5) — فبنقبل أي ذكر للرقم الصح.
+        t = text.replace("٢٢.٥", "22.5").replace("٢٢,٥", "22.5")
+        if re.search(r"22[.,]5", t):
+            return 1.0, "22.5 ✔"
+        nums = re.findall(r"\d+[.,]?\d*", t)
+        if nums:
+            return 0.0, f"إجابة غلط (آخر رقم: {nums[-1]})"
+        return 0.0, "مفيش إجابة رقمية"
     return None, ""  # اختبارات بشرية
 
 
