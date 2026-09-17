@@ -60,6 +60,7 @@ services:
     environment:
       - RUN_LLM=${RUN_LLM:-0}
       - LLM_API_KEY=${LLM_API_KEY:-orcanox-local-key}
+      - LLM_MODEL=${LLM_MODEL:-/data/moe/exp4.gguf}
     ports:
       - "8090:8080"
     command: sh -c "if [ \"${RUN_LLM:-0}\" = \"0\" ]; then echo 'llm idle'; sleep infinity; else sed 's/\r$//' /app/serve_llm.sh > /tmp/l.sh; sh /tmp/l.sh; fi"
