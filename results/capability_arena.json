@@ -34,6 +34,14 @@
    "load_s": null,
    "error": "الخادم ماقامش",
    "log": "king token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden\n0.00.773.725 I cmn          init: llama threadpool init, n_threads = 3\n0.00.948.637 I srv    load_model: initializing, n_slots = 4, n_ctx_slot = 2048, kv_unified = 'true'\n0.00.951.595 I srv  llama_server: model loaded\n0.00.951.614 I srv  llama_server: listening on http://127.0.0.1:8097\n"
+  },
+  "MiniCPM5-1B": {
+   "tests": {},
+   "download": "اتنزّل (0.64 جيجا)",
+   "size_gb": 0.64,
+   "load_s": null,
+   "error": "الخادم ماقامش",
+   "log": "ma_server: -----------------\n0.00.012.769 I srv    load_model: loading model '/data/moe/MiniCPM5-1B-Q4_K_M.gguf'\n0.00.668.981 I cmn          init: llama threadpool init, n_threads = 3\n0.00.721.680 I srv    load_model: initializing, n_slots = 4, n_ctx_slot = 2048, kv_unified = 'true'\n0.00.727.444 I srv  llama_server: model loaded\n0.00.727.463 I srv  llama_server: listening on http://127.0.0.1:8097\n"
   }
  }
 }
