@@ -178,6 +178,7 @@ def save(rep):
 
 def main():
     sys.argv = ["arena"]  # نستفيد من دوال arena
+    A.PORT = PORT         # ⚠️ مهم: نوحّد الباب — وإلا الانتظار يقف على باب غلط
     srv = A.find_bin("llama-server")
     ld = os.path.dirname(srv)
     A.sh("apt-get update -qq && apt-get install -y -qq libgomp1 libstdc++6 procps >/dev/null 2>&1", timeout=600)
