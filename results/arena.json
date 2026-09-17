@@ -7,5 +7,15 @@
   "استدلال",
   "JSON"
  ],
- "models": {}
+ "models": {
+  "30B-Q3_K_M": {
+   "results": {},
+   "download": "موجود",
+   "size_gb": 13.11,
+   "mem_available_mb": 17635,
+   "load_seconds": null,
+   "error": "الخادم ماقامش",
+   "server_log_tail": "/data/llama/llama-b10988/llama-server: error while loading shared libraries: libgomp.so.1: cannot open shared object file: No such file or directory\n"
+  }
+ }
 }
