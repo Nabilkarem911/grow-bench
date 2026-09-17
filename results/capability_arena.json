@@ -340,6 +340,138 @@
    "served_model": "/data/moe/SmolLM3-3B-Q4_K_M.gguf",
    "auto_score": 0.725,
    "avg_tok_s": 4.3
+  },
+  "LFM2.5-1.2B": {
+   "tests": {
+    "كود: is_prime": {
+     "tok_s": 14.1,
+     "seconds": 4.1,
+     "score": 1.0,
+     "detail": "7/7 حالة نجحت",
+     "text": "```python\ndef is_prime(n):\n    if n <= 1:\n        return False\n    for i in range(2, int(n**0.5) + 1):\n        if n % i == 0:\n            return False\n    return True\n```"
+    },
+    "كود: إصلاح": {
+     "tok_s": 10.4,
+     "seconds": 4.0,
+     "score": 1.0,
+     "detail": "3/3 حالة نجحت",
+     "text": "```python\ndef sum_positive(nums):\n    total = 0\n    for n in nums:\n        if n > 0:\n            total += n\n    return total\n```"
+    },
+    "SQL: استعلام": {
+     "tok_s": 12.6,
+     "seconds": 5.3,
+     "score": 1.0,
+     "detail": "عناصر صحيحة: 1.00",
+     "text": "```sql\nSELECT c.name, SUM(o.total) AS total_spent\nFROM customers c\nJOIN orders o ON c.id = o.customer_id\nGROUP BY c.name\nHAVING SUM(o.total) > 1000\nORDER BY total_spent DESC;\n```"
+    },
+    "JSON: تصنيف": {
+     "tok_s": 6.0,
+     "seconds": 3.3,
+     "score": 1.0,
+     "detail": "نضيف=True · {\"type\": \"complaint\", \"urgency\": \"high\"}",
+     "text": "{\n  \"type\": \"complaint\",\n  \"urgency\": \"high\"\n}"
+    },
+    "JSON: أداة": {
+     "tok_s": 6.7,
+     "seconds": 3.9,
+     "score": 0.6499999999999999,
+     "detail": "نضيف=True · {\"name\": \"send_whatsapp\", \"arguments\": {\"message\": \"طلبك في الطريق\"}}",
+     "text": "{\"name\": \"send_whatsapp\", \"arguments\": {\"message\": \"طلبك في الطريق\"}}"
+    },
+    "حساب": {
+     "tok_s": 6.2,
+     "seconds": 2.6,
+     "score": 0.0,
+     "detail": "مفيش إجابة صحيحة",
+     "text": "الإجابة = 10\n\nالثقة: 95%"
+    },
+    "عربي: رد على شكوى": {
+     "tok_s": 10.9,
+     "seconds": 3.0,
+     "score": null,
+     "detail": "",
+     "text": "نحن نفهم الوضع وتقدرون الوقت الذي تحتاجه. سنعمل بجد لتوفير الحل بسرعة."
+    },
+    "عربي: تبسيط": {
+     "tok_s": 16.3,
+     "seconds": 4.1,
+     "score": null,
+     "detail": "",
+     "text": "مثلاً، هو مثل شخص يساعدك في اتخاذ القرار بسرعة دون أن تفكر كثيراً.  \nهو يستخدم كل ما فيه رأسه ويده لمساعدتك.  \nالفكرة هي جعل الأمور أسهل لك بالعمل."
+    }
+   },
+   "download": "موجود",
+   "size_gb": 0.68,
+   "load_s": 9.0,
+   "served_model": "/data/moe/LFM2.5-1.2B-Q4_K_M.gguf",
+   "auto_score": 0.775,
+   "avg_tok_s": 10.4
+  },
+  "Qwen3-1.7B": {
+   "tests": {
+    "كود: is_prime": {
+     "tok_s": 9.6,
+     "seconds": 6.0,
+     "score": 1.0,
+     "detail": "7/7 حالة نجحت",
+     "text": "```python\ndef is_prime(n):\n    if n < 2:\n        return False\n    for i in range(2, int(n**0.5) + 1):\n        if n % i == 0:\n            return False\n    return True\n```"
+    },
+    "كود: إصلاح": {
+     "tok_s": 11.5,
+     "seconds": 17.0,
+     "score": 1.0,
+     "detail": "3/3 حالة نجحت",
+     "text": "الدالة التي أنت وصفتها تحتوي على خطأ، حيث أن `total = n` يُعادل `total = 0` مرة واحدة، مما يجعل القيمة التالية تساوي **0** بدلًا من مجموع الأرقام الموجبة.\n\nإذن، لتصحيح الدالة بحيث تجمع كل الأرقام الموجبة، يجب أن نبدأ الـ `total` بدقيقتين (أي 0)، وتحتاج إلى إضافة قيمة `n` فقط إذا كانت **موجبة**.\n\nالكود الصحيح هو:\n\n```python\ndef sum_positive(nums):\n    total = 0\n    for n in nums:\n        if n > 0:\n            total += n\n    return total\n```\n\nهذا الكود سيجمع جميع الأرقام الموجبة في قائمة `nums` ويعيد القيمة الناتجة."
+    },
+    "SQL: استعلام": {
+     "tok_s": 9.6,
+     "seconds": 9.8,
+     "score": 0.8,
+     "detail": "عناصر صحيحة: 0.80",
+     "text": "```sql\nSELECT name, SUM(total) AS total_order\nFROM orders\nJOIN customers ON orders.customer_id = customers.id\nWHERE total > 1000\nGROUP BY customer_id, name\nORDER BY total_order DESC;\n```\n\nهذا الاستعلام يعرض أسماء العملاء الذين لديهم مجموع مشترياتهم أكبر من 1000، ويعبر عن المجموع بالترتيب من الأعلى إلى الأسفل."
+    },
+    "JSON: تصنيف": {
+     "tok_s": 3.4,
+     "seconds": 4.4,
+     "score": 1.0,
+     "detail": "نضيف=True · {\"type\": \"complaint\", \"urgency\": \"high\"}",
+     "text": "{\"type\": \"complaint\", \"urgency\": \"high\"}"
+    },
+    "JSON: أداة": {
+     "tok_s": 3.9,
+     "seconds": 5.3,
+     "score": 0.6499999999999999,
+     "detail": "نضيف=True · {\"name\": \"send_whatsapp\", \"arguments\": {\"text\": \"طلبك في الطريق\"}}",
+     "text": "{\"name\": \"send_whatsapp\", \"arguments\": {\"text\": \"طلبك في الطريق\"}}"
+    },
+    "حساب": {
+     "tok_s": 11.7,
+     "seconds": 14.9,
+     "score": 0.7,
+     "detail": "ذكر 22.5 بدون الصيغة",
+     "text": "لنحسب عدد التفاحات في كل صندوق:\n\n1. الصندوق الأول: 5 تفاحات.\n\n2. الصندوق الثاني ضعف الأول، أي:\n   $$\n   5 \\times 2 = 10 \\text{ تفاحة}\n   $$\n\n3. الصندوق الثالث فيه نصف مجموع أولي والتاني، أي:\n   $$\n   \\frac{5 + 10}{2} = \\frac{15}{2} = 7.5 \\text{ تفاحة}\n   $$\n\nالإجابة النهائية هي:\n$$\n\\text{الإجابة} = 5 + 10 + 7.5 = 22.5\n$$\n\n**الإجابة = <22.5>**"
+    },
+    "عربي: رد على شكوى": {
+     "tok_s": 10.8,
+     "seconds": 7.4,
+     "score": null,
+     "detail": "",
+     "text": "أنا سأقوم بإرسال إجابة مهنية وقريبة للطلب الذي تقدمته. إليك النموذج:\n\n---\n\n**ردًا:**\n\nبالتقدير،  \nنقدر نحن نحتاج إلى حل مشكلة في أوردري بسرعة.  \nسنعمل على التحقق من المشكلة والبدء بالحل فوراً.\n\n---"
+    },
+    "عربي: تبسيط": {
+     "tok_s": 12.2,
+     "seconds": 12.2,
+     "score": null,
+     "detail": "",
+     "text": "إذا كان المزارع بسيطًا، فإن \"الذكاء الاصطناعي\" هو نظام تكنولوجي يساعده على اتخاذ قرارات أكثر دقة وفعالية في الزراعة. يمكن أن يستخدم لتحليل البيانات مثل حالة التربة والرياح والمياه، وتوقع مواسم الإنتاج، ومتابعة حجم المحصول. كما أنه يساعد على إدارة الموارد بشكل أفضل، مثل توزيع المياه بحسب الحاجة، وتجنب الضرر من الجفاف أو الأمطار. في النهاية، يُسهم الذكاء الاصطناعي في زيادة الإنتاج وتقليل التكاليف الزراعية."
+    }
+   },
+   "download": "موجود",
+   "size_gb": 1.03,
+   "load_s": 3.0,
+   "served_model": "/data/moe/Qwen3-1.7B-Q4_K_M.gguf",
+   "auto_score": 0.858,
+   "avg_tok_s": 9.1
   }
  }
 }
