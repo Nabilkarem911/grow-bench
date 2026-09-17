@@ -1,5 +1,5 @@
 {
- "when": "2026-09-17 16:03 UTC",
+ "when": "2026-09-17 16:20 UTC",
  "note": "قياس حقيقي على ARM64 · 4 أنوية · 3 خيوط · بلا كارت شاشة · بلا تفكير (-rea off)",
  "prompts": [
   "كتابة عربية",
@@ -7,24 +7,5 @@
   "استدلال",
   "JSON"
  ],
- "models": {
-  "30B-Q3_K_M": {
-   "results": {},
-   "download": "موجود",
-   "size_gb": 13.11,
-   "mem_available_mb": 17635,
-   "load_seconds": null,
-   "error": "الخادم ماقامش",
-   "server_log_tail": "/data/llama/llama-b10988/llama-server: error while loading shared libraries: libgomp.so.1: cannot open shared object file: No such file or directory\n"
-  },
-  "Qwen3-4B": {
-   "results": {},
-   "download": "موجود",
-   "size_gb": 2.33,
-   "mem_available_mb": 17757,
-   "load_seconds": null,
-   "error": "الخادم ماقامش",
-   "server_log_tail": "/data/llama/llama-b10988/llama-server: error while loading shared libraries: libgomp.so.1: cannot open shared object file: No such file or directory\n"
-  }
- }
+ "models": {}
 }
