@@ -14,6 +14,13 @@
    "size_gb": 13.11,
    "load_seconds": null,
    "error": "الخادم ماقامش"
+  },
+  "Qwen3-4B": {
+   "results": {},
+   "download": "موجود",
+   "size_gb": 2.33,
+   "load_seconds": null,
+   "error": "الخادم ماقامش"
   }
  }
 }
