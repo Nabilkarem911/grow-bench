@@ -123,15 +123,35 @@ def main():
 
         cmd = (f'LD_LIBRARY_PATH="{ld}:{LLAMA}:$LD_LIBRARY_PATH" "{srv}" -m "{path}" -ngl 0 -t 3 '
                f'-c 2048 -nr -rea off --no-warmup --host 127.0.0.1 --port {PORT}')
-        proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        logp = f"/data/results/arena_srv_{name.replace('/','_')}.log"
+        log = open(logp, "w")
+        proc = subprocess.Popen(cmd, shell=True, stdout=log, stderr=subprocess.STDOUT)
+        avail = None
+        try:
+            with open("/proc/meminfo") as f:
+                for ln in f:
+                    if ln.startswith("MemAvailable"):
+                        avail = int(ln.split()[1]) // 1024
+                        break
+        except Exception:
+            pass
+        entry["mem_available_mb"] = avail
         load = wait_ready()
         entry["load_seconds"] = round(load, 1) if load else None
         if load is None:
+            log.flush()
+            tail = ""
+            try:
+                tail = open(logp, encoding="utf-8", errors="replace").read()[-900:]
+            except Exception:
+                pass
             entry["error"] = "الخادم ماقامش"
+            entry["server_log_tail"] = tail
             proc.kill()
             rep["models"][name] = entry
             save(rep)
             continue
+        log.close()
         print(f"  قام في {load:.0f} ثانية")
 
         try:
