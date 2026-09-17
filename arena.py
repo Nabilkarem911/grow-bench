@@ -19,13 +19,8 @@ LLAMA = "/data/llama"
 PORT = 8099
 
 MODELS = [
-    ("30B-Q3_K_M", "https://huggingface.co/bartowski/Qwen_Qwen3-30B-A3B-GGUF/resolve/main/Qwen_Qwen3-30B-A3B-Q3_K_M.gguf", f"{MOE}/30B-Q3_K_M.gguf"),
-    ("Qwen3-4B", None, f"{MOE}/Qwen3-4B-Q4_K_M.gguf"),
+    ("ERNIE-4.5-21B-A3B", "https://huggingface.co/bartowski/baidu_ERNIE-4.5-21B-A3B-PT-GGUF/resolve/main/baidu_ERNIE-4.5-21B-A3B-PT-Q4_K_M.gguf", f"{MOE}/ERNIE-4.5-21B-A3B-Q4_K_M.gguf"),
     ("Qwen3-1.7B", "https://huggingface.co/unsloth/Qwen3-1.7B-GGUF/resolve/main/Qwen3-1.7B-Q4_K_M.gguf", f"{MOE}/Qwen3-1.7B-Q4_K_M.gguf"),
-    ("Granite-4.0-1B", "https://huggingface.co/ibm-granite/granite-4.0-1b-GGUF/resolve/main/granite-4.0-1b-Q4_K_M.gguf", f"{MOE}/granite-4.0-1b-Q4_K_M.gguf"),
-    ("LFM2.5-1.2B", "https://huggingface.co/bartowski/LiquidAI_LFM2.5-1.2B-Instruct-GGUF/resolve/main/LiquidAI_LFM2.5-1.2B-Instruct-Q4_K_M.gguf", f"{MOE}/LFM2.5-1.2B-Q4_K_M.gguf"),
-    ("Ling-mini-2.0", "https://huggingface.co/bartowski/inclusionAI_Ling-mini-2.0-GGUF/resolve/main/inclusionAI_Ling-mini-2.0-Q4_K_M.gguf", f"{MOE}/Ling-mini-2.0-Q4_K_M.gguf"),
-    ("Qwen3.5-4B", "https://huggingface.co/unsloth/Qwen3.5-4B-GGUF/resolve/main/Qwen3.5-4B-Q4_K_M.gguf", f"{MOE}/Qwen3.5-4B-Q4_K_M.gguf"),
 ]
 
 PROMPTS = [
@@ -33,6 +28,7 @@ PROMPTS = [
     ("برمجة", "اكتب دالة بايثون تتحقق إذا كان الرقم أولي، واشرحها باختصار."),
     ("استدلال", "عندي 3 صناديق: الأول فيه 5 تفاحات، والتاني ضعف الأول، والتالت فيه نصف مجموع الأول والتاني. كام تفاحة الإجمالي؟ اشرح خطوة بخطوة."),
     ("JSON", "صنّف الرسالة دي ورجّع JSON فقط بالمفاتيح type وurgency. الرسالة: فيه تأخير كبير في أوردري ومحتاج حل بسرعة."),
+    ("عربي - رد على شكوى", "عميل بيقول: «فيه تأخير كبير في أوردري ومحتاج حل بسرعة». اكتبلي رد مهني على الرسالة دي، بالعربي."),
 ]
 
 
