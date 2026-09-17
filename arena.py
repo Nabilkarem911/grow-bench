@@ -98,6 +98,8 @@ def save(rep):
 
 
 def main():
+    # 0) المكتبات الأساسية — من غيرها ملفات llama مش هتقوم (libgomp.so.1)
+    sh("apt-get update -qq && apt-get install -y -qq libgomp1 libstdc++6 ca-certificates >/dev/null 2>&1", timeout=600)
     srv = find_bin("llama-server")
     if not srv:
         raise RuntimeError("llama-server مش موجود")
