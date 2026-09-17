@@ -76,6 +76,72 @@
    "served_model": "/data/moe/Qwen2.5-Coder-1.5B-Q4_K_M.gguf",
    "auto_score": 0.733,
    "avg_tok_s": 9.4
+  },
+  "Yi-Coder-1.5B-Chat": {
+   "tests": {
+    "كود: is_prime": {
+     "tok_s": 11.8,
+     "seconds": 12.7,
+     "score": 1.0,
+     "detail": "7/7 حالة نجحت",
+     "text": "Here is a Python function named `is_prime`:\n\n```python\ndef is_prime(n):\n    if n <= 1:\n        return False\n    elif n == 2:\n        return True\n    else:\n        for i in range(2, int(n**0.5) + 1):\n            if n % i == 0:\n                return False\n        return True\n```\nThis function checks if a number is prime by iterating from 2 to the square root of that number and checking for divisibility. If any of these numbers divide evenly into `n`, then `n` is not prime. Otherwise, it returns `True`."
+    },
+    "كود: إصلاح": {
+     "tok_s": 7.9,
+     "seconds": 8.6,
+     "score": 1.0,
+     "detail": "3/3 حالة نجحت",
+     "text": "Here is the corrected code:\n```python\ndef sum_positive(nums):\n    total = 0\n    for n in nums:\n        if n > 0:\n            total += n\n    return total\n```\nThis function will return the sum of all positive numbers in a given list."
+    },
+    "SQL: استعلام": {
+     "tok_s": 9.1,
+     "seconds": 14.7,
+     "score": 1.0,
+     "detail": "عناصر صحيحة: 1.00",
+     "text": "Here is the SQL query you need:\n\n```sql\nSELECT c.name, SUM(o.total) as total_orders\nFROM customers c\nJOIN orders o ON c.id = o.customer_id\nGROUP BY c.id, c.name\nHAVING SUM(o.total) > 1000\nORDER BY total_orders DESC;\n```\nThis query will return the names of customers along with their total orders from the 'customers' table and only those who have ordered more than 1000 items, sorted in descending order by the number of orders."
+    },
+    "JSON: تصنيف": {
+     "tok_s": 9.6,
+     "seconds": 15.0,
+     "score": 0.0,
+     "detail": "JSON فاشل",
+     "text": "Here is a Python solution for the problem:\n\n```python\nimport json\n\ndef create_message(type, urgency):\n    data = {\n        \"type\": type,\n        \"urgency\": urgency\n    }\n    return json.dumps(data)\n\nprint(create_message('complaint', 'high'))  # \"{\\\"type\\\":\\\"complaint\\\", \\\"urgency\\\":\\\"high\\\"}\"\n```\nThis function `create_message` takes two arguments: `type` and `urgency`. It creates a dictionary with these as keys and values respectively, then converts this to JSON format using the `json.dumps()` method."
+    },
+    "JSON: أداة": {
+     "tok_s": 11.7,
+     "seconds": 25.0,
+     "score": 0.0,
+     "detail": "JSON فاشل",
+     "text": "Here is a Python solution using the `send2whatsapp` library:\n\n```python\nimport json\nfrom send2whatsapp import send2whatsapp\n\n# Define your action as a dictionary\naction = {\n    \"name\": \"<اسم الأداة>\", \n    \"arguments\": {\"<مفتاح>\": \"<قيمة>\"}}\n\n# Convert the dictionary to JSON format\njson_string = json.dumps(action)\n\nsend2whatsapp('966501234567', 'طلبك في الطريق: {}'.format(json_string))\n```\n\nThis script will send a message to the WhatsApp number `966501234567` with the text `\"Your request goes here\"`, where \"Your request goes here\" is replaced by the JSON string representation of your action. \n\nPlease note that you need to have the `send2whatsapp` library installed (`pip install send2whatsapp`) and also replace '<اسم الأداة>' and '{<مفتاح>}' with actual values as per your requirements."
+    },
+    "حساب": {
+     "tok_s": 10.4,
+     "seconds": 15.7,
+     "score": 0.0,
+     "detail": "مفيش إجابة صحيحة",
+     "text": "This problem can be solved using Python programming language. Here is a simple program that calculates the total number of flowers in all three vases and prints it in the required format.\n\n```python\n# Define the numbers of flowers in each vase\nvase1 = 5\nvase2_bad = 3\nvase3_half = (vase1 + vase2_bad) / 2\n\n# Calculate total number of flowers\ntotal_flowers = vase1 + vase2_bad + vase3_half\n\n# Print the result in required format\nprint(\"The answer = \", int(total_flowers))\n```\nWhen you run this program, it will print: `The answer = 9`."
+    },
+    "عربي: رد على شكوى": {
+     "tok_s": 13.6,
+     "seconds": 29.3,
+     "score": null,
+     "detail": "",
+     "text": "حاول إجراء الخيارات بطريقة صعبة للغاية. لأن المهندس ذالك لا يفيد بإجراء خيارات بطريقة صعبة ولا يفيد بمساعدة المستخدم على حل المشكلة.\n\nلأنه يرغب في إجراء خيارات بطريقة سريعة وبدقيقة لمساعده على الحل.\n\nلا يمكن للمستخدم أن يطلب مساعدة من المهندس بإجراء خيارات بطريقة سريعة.\n\nالمهندس لا يحتاج لأي مساعدة من المستخدم لإجراء خيارات بطريقة"
+    },
+    "عربي: تبسيط": {
+     "tok_s": 14.0,
+     "seconds": 20.0,
+     "score": null,
+     "detail": "",
+     "text": "In the context of a simple farm (in Arabic), \"intelligent artificial intelligence\" or \"intelligence as we know it\" in three lines would be:\n\n1. \"فعلا يستمر البنداء الذكي في طباعة الأهم والأقل ولا يحمل أصغر من 10% من السائط.\"\n2. \"تشدّى البنداء الذكي بالعاملات الموجهة للأمراض بإستمرار حياة البنداء.\"\n3. \"يشتق البنداء الذكي بالعاملات الموجهة للسلام بإستمرار حياة البنداء.\""
+    }
+   },
+   "download": "موجود",
+   "size_gb": 0.9,
+   "load_s": 3.0,
+   "served_model": "/data/moe/Yi-Coder-1.5B-Q4_K_M.gguf",
+   "auto_score": 0.5,
+   "avg_tok_s": 11.0
   }
  }
 }
