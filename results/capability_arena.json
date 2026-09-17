@@ -1,3 +1,14 @@
 {
- "error": "AttributeError: module 'arena' has no attribute 'find_bin'"
+ "when": "2026-09-17 19:04 UTC",
+ "tests": [
+  "كود: is_prime",
+  "كود: إصلاح",
+  "SQL: استعلام",
+  "JSON: تصنيف",
+  "JSON: أداة",
+  "حساب",
+  "عربي: رد على شكوى",
+  "عربي: تبسيط"
+ ],
+ "models": {}
 }
