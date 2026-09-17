@@ -1,0 +1,90 @@
+{
+ "experiment": "M10 — بطولة المهارات: «مين الأفضل في إيه» (8 موديلات × 8 اختبارات)",
+ "date": "2026-09-17",
+ "method": "قياس على سيرفر نبيل ARM64 · 4 أنوية · 3 خيوط · بلا كارت · llama.cpp · تصحيح آلي (الكود بيتشغّل · JSON بيتحلل · الحساب بيتحقق) + قراءة بشرية للعربي",
+ "speed_tok_s": {
+  "MiniCPM5-1B": 17.2,
+  "Yi-Coder-1.5B": 11.0,
+  "LFM2.5-1.2B": 10.4,
+  "Qwen2.5-Coder-1.5B": 9.4,
+  "Qwen3-1.7B": 9.1,
+  "ERNIE-4.5-21B-A3B": 4.5,
+  "SmolLM3-3B": 4.3,
+  "Arabic-Qwen2.5-3B": 3.5
+ },
+ "objective": {
+  "code_7of7_pass": [
+   "Qwen2.5-Coder-1.5B",
+   "Yi-Coder-1.5B",
+   "MiniCPM5-1B",
+   "Qwen3-1.7B",
+   "ERNIE-4.5-21B-A3B",
+   "SmolLM3-3B",
+   "LFM2.5-1.2B"
+  ],
+  "code_failed": [
+   "Arabic-Qwen2.5-3B"
+  ],
+  "json_clean": [
+   "ERNIE-4.5-21B-A3B",
+   "Qwen3-1.7B",
+   "LFM2.5-1.2B"
+  ],
+  "json_wrapped": [
+   "Qwen2.5-Coder-1.5B",
+   "SmolLM3-3B",
+   "Arabic-Qwen2.5-3B"
+  ],
+  "json_failed": [
+   "Yi-Coder-1.5B",
+   "MiniCPM5-1B"
+  ],
+  "math_correct": [
+   "Qwen3-1.7B",
+   "ERNIE-4.5-21B-A3B"
+  ]
+ },
+ "arabic_human_review": {
+  "ERNIE-4.5-21B-A3B": "ممتاز — عربي احترافي ومتماسك",
+  "Qwen3-1.7B": "جيد جدًا — شرح مفصل وسليم",
+  "SmolLM3-3B": "جيد جدًا — رد شكوى احترافي",
+  "Qwen2.5-Coder-1.5B": "مقبول — أخطاء إملائية",
+  "LFM2.5-1.2B": "مقبول — قصير",
+  "Arabic-Qwen2.5-3B": "فاشل — ردود سطحية (رغم كونه متخصص عربي)",
+  "MiniCPM5-1B": "فاشل — كلام مفكك",
+  "Yi-Coder-1.5B": "فاشل — كلام مفكك (متخصص كود)"
+ },
+ "lessons": [
+  "الاسم مش دليل: موديل «متخصص في العربي» كان أسوأ واحد في العربي",
+  "مدقّق الحساب كان يرفض إجابات صحيحة مكتوبة داخل صيغة LaTeX — أُصلح والنتيجة أُعيد تقييمها من النص المحفوظ",
+  "مشكلة «الباب الغلط»: wait_ready كان يسأل على منفذ غير منفذ الخادم فكل الموديلات سُجلت فاشلة وهي تعمل",
+  "المرجع الأساسي: الموديل الحي الحالي (Qwen3-1.7B) ثبت أنه أفضل توازن"
+ ],
+ "decision": {
+  "live_model": "Qwen3-1.7B (يبقى كما هو)",
+  "quality_tier": "ERNIE-4.5-21B-A3B عند الطلب",
+  "distillation_teachers": {
+   "arabic": [
+    "ERNIE-4.5-21B-A3B",
+    "SmolLM3-3B"
+   ],
+   "code": [
+    "Qwen2.5-Coder-1.5B",
+    "Yi-Coder-1.5B"
+   ],
+   "reasoning": [
+    "ERNIE-4.5-21B-A3B"
+   ],
+   "json_tools": [
+    "ERNIE-4.5-21B-A3B",
+    "Qwen3-1.7B"
+   ],
+   "note": "مرشحو ChatGPT (ALLaM-7B · Jais-6.7B · DeepSeek-R1-7B) لم تُختبر بعد على الجهاز"
+  },
+  "rejected_as_teacher": [
+   "Arabic-Qwen2.5-3B",
+   "MiniCPM5-1B",
+   "LFM2.5-1.2B"
+  ]
+ }
+}
