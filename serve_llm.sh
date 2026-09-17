@@ -22,6 +22,8 @@ exec "$SRV" \
   -c 4096 \
   -nr \
   -rea off \
+  --repeat-penalty 1.15 \
+  --repeat-last-n 128 \
   --no-warmup \
   --host 0.0.0.0 \
   --port 8080 \
