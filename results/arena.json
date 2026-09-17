@@ -28,6 +28,13 @@
    "size_gb": 1.03,
    "load_seconds": null,
    "error": "الخادم ماقامش"
+  },
+  "Granite-4.0-1B": {
+   "results": {},
+   "download": "اتنزّل (0.95 جيجا)",
+   "size_gb": 0.95,
+   "load_seconds": null,
+   "error": "الخادم ماقامش"
   }
  }
 }
