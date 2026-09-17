@@ -21,6 +21,13 @@
    "size_gb": 2.33,
    "load_seconds": null,
    "error": "الخادم ماقامش"
+  },
+  "Qwen3-1.7B": {
+   "results": {},
+   "download": "اتنزّل (1.03 جيجا)",
+   "size_gb": 1.03,
+   "load_seconds": null,
+   "error": "الخادم ماقامش"
   }
  }
 }
