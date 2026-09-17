@@ -274,6 +274,72 @@
    "served_model": "/data/moe/MiniCPM5-1B-Q4_K_M.gguf",
    "auto_score": 0.225,
    "avg_tok_s": 17.2
+  },
+  "SmolLM3-3B": {
+   "tests": {
+    "كود: is_prime": {
+     "tok_s": 3.9,
+     "seconds": 14.6,
+     "score": 1.0,
+     "detail": "7/7 حالة نجحت",
+     "text": "\n```python\ndef is_prime(n):\n    if n < 2:\n        return False\n    for i in range(2, int(n**0.5) + 1):\n        if n % i == 0:\n            return False\n    return True\n```"
+    },
+    "كود: إصلاح": {
+     "tok_s": 5.5,
+     "seconds": 15.8,
+     "score": 1.0,
+     "detail": "3/3 حالة نجحت",
+     "text": "\n```python\ndef sum_positive(nums):\n    total = 0\n    for n in nums:\n        if n > 0:\n            total += n\n    return total\n```\n\nفي هذا التغيير، أضفت `+=` إلى الخطوط التي تُحسب قيمة `total`. بهذه الطريقة، يتم جمع كل الأرقام الموجبة بدلاً من استبدالها."
+    },
+    "SQL: استعلام": {
+     "tok_s": 5.7,
+     "seconds": 17.9,
+     "score": 1.0,
+     "detail": "عناصر صحيحة: 1.00",
+     "text": "\n```sql\nSELECT name, SUM(total) AS total_spent FROM customers c \nJOIN orders o ON c.id = o.customer_id \nGROUP BY name HAVING SUM(total) > 1000 ORDER BY total_spent DESC;\n```\n\nهذا الاستعلام SQL يجمع أسماء العملاء مع مجموع مشترياتهم، ويقارن المجموعات بمبلغ 1000 ريال سعودي، ثم يقوم بترتيبها حسب المجموعة الكبيرة أولاً."
+    },
+    "JSON: تصنيف": {
+     "tok_s": 2.5,
+     "seconds": 9.1,
+     "score": 0.7,
+     "detail": "نضيف=False · {\"type\": \"complaint\", \"urgency\": \"high\"}",
+     "text": "\n```json\n{\n  \"type\": \"complaint\",\n  \"urgency\": \"high\"\n}\n```"
+    },
+    "JSON: أداة": {
+     "tok_s": 3.1,
+     "seconds": 10.6,
+     "score": 0.6499999999999999,
+     "detail": "نضيف=True · {\"name\": \"send_whatsapp\", \"arguments\": {\"phone_number\": \"+9665071234567\", \"message\": \"طلبك",
+     "text": "\n{\"name\": \"send_whatsapp\", \"arguments\": {\"phone_number\": \"+9665071234567\", \"message\": \"طلبك في الطريق\"}}"
+    },
+    "حساب": {
+     "tok_s": 1.2,
+     "seconds": 5.8,
+     "score": 0.0,
+     "detail": "مفيش إجابة صحيحة",
+     "text": "\nالإجابة = 15"
+    },
+    "عربي: رد على شكوى": {
+     "tok_s": 6.0,
+     "seconds": 12.7,
+     "score": null,
+     "detail": "",
+     "text": "\nشكراً لك على التواصل معنا. ندرك أن تأخير الأردية قد يسبب لك بعض المتاعب. سنعمل بكل سرعة لإكمال طلبك في أقصر وقت ممكن. هل يمكنك إبلاغنا بالتفاصيل الدقيقة لطلبك حتى نتمكن من تقديم حل أكثر دقة؟"
+    },
+    "عربي: تبسيط": {
+     "tok_s": 6.4,
+     "seconds": 12.0,
+     "score": null,
+     "detail": "",
+     "text": "\n«الذكاء الاصطناعي» هو نوع من الآلات التي تعمل كبشر لتتعلم وتفعل أشياء بنفسها بدون أن يخبروك كل شيء. مثل عندما تتعلم طفل جديد كيفية المشي أو الكلام، لكن هذه الآلة تفعل ذلك بسرعة كبيرة وبدون أي تدريب!"
+    }
+   },
+   "download": "موجود",
+   "size_gb": 1.78,
+   "load_s": 3.0,
+   "served_model": "/data/moe/SmolLM3-3B-Q4_K_M.gguf",
+   "auto_score": 0.725,
+   "avg_tok_s": 4.3
   }
  }
 }
