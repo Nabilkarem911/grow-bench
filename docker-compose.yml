@@ -89,7 +89,7 @@ services:
       - GITHUB_TOKEN=${GITHUB_TOKEN:-}
       - AUDIT_REPO=${AUDIT_REPO:-Nabilkarem911/orcanox-internal}
     # ⚠️ مايشتغلش لوحده على الـdeploy — لازم RUN_SYSINFO=1 صريح
-    command: sh -c "if [ \"${RUN_SYSINFO:-0}\" = \"0\" ]; then echo 'sysinfo idle'; sleep infinity; else sh /app/sysinfo.sh; python3 /app/server_audit.py; echo 'خلص'; sleep 1800; fi"
+    command: sh -c "if [ \"${RUN_SYSINFO:-0}\" = \"0\" ]; then echo 'sysinfo idle'; sleep infinity; else sh /app/sysinfo.sh; python3 /app/maintenance.py; echo 'خلص'; sleep 1800; fi"
     restart: "no"
 
   cpubench:
