@@ -123,11 +123,14 @@ def main():
         entry["size_gb"] = round(os.path.getsize(path) / 2**30, 2)
         print(f"\n===== {name} ({entry['size_gb']} جيجا) =====")
 
+        # ⚠️ مهم: نقتل أي خادم قديم — وإلا الموديل القديم يفضل يرد ونقيس غلط
+        sh("pkill -f llama-server; sleep 6; pkill -9 -f llama-server; sleep 2")
+
         cmd = (f'LD_LIBRARY_PATH="{ld}:{LLAMA}:$LD_LIBRARY_PATH" "{srv}" -m "{path}" -ngl 0 -t 3 '
                f'-c 2048 -nr -rea off --no-warmup --host 127.0.0.1 --port {PORT}')
         logp = f"/data/results/arena_srv_{name.replace('/','_')}.log"
         log = open(logp, "w")
-        proc = subprocess.Popen(cmd, shell=True, stdout=log, stderr=subprocess.STDOUT)
+        proc = subprocess.Popen(cmd, shell=True, stdout=log, stderr=subprocess.STDOUT, start_new_session=True)
         avail = None
         try:
             with open("/proc/meminfo") as f:
@@ -149,10 +152,26 @@ def main():
                 pass
             entry["error"] = "الخادم ماقامش"
             entry["server_log_tail"] = tail
-            proc.kill()
+            sh("pkill -9 -f llama-server")
             rep["models"][name] = entry
             save(rep)
             continue
+
+        # ⚠️ تحقق إلزامي: هل الخادم فعلًا بيخدم الموديل المطلوب؟ (مش موديل قديم عالق)
+        try:
+            props = api("/props", timeout=30)
+            served = props.get("model_path", "")
+            entry["served_model"] = served
+            if os.path.basename(served) != os.path.basename(path):
+                entry["error"] = f"قياس باطل: الخادم بيخدم {served} مش {path}"
+                print("  ❌ انتبه:", entry["error"])
+                sh("pkill -9 -f llama-server")
+                rep["models"][name] = entry
+                save(rep)
+                continue
+            print(f"  ✅ الموديل الصحيح: {os.path.basename(served)}")
+        except Exception as e:
+            entry["props_error"] = str(e)[:120]
         log.close()
         print(f"  قام في {load:.0f} ثانية")
 
@@ -177,8 +196,7 @@ def main():
                     print(f"  [{ptitle}] خطأ: {str(e)[:60]}")
                 save(rep)
         finally:
-            proc.kill()
-            time.sleep(3)
+            sh("pkill -9 -f llama-server; sleep 4")
         rep["models"][name] = entry
         save(rep)
 
