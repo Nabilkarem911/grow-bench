@@ -42,17 +42,35 @@ def find_bin(name):
     return sh(f"find {LLAMA} -name {name} -type f 2>/dev/null | head -1").stdout.strip()
 
 
+def _dl(url, path):
+    """تنزيل مع استكمال من حيث توقف (بدون curl — الصورة النحيفة مفيهاش)."""
+    pos = os.path.getsize(path) if os.path.exists(path) else 0
+    hdr = {"User-Agent": "arena"}
+    if pos:
+        hdr["Range"] = f"bytes={pos}-"
+    req = urllib.request.Request(url, headers=hdr)
+    with urllib.request.urlopen(req, timeout=300) as r, open(path, "wb" if r.status == 200 else "ab") as f:
+        while True:
+            b = r.read(1 << 20)
+            if not b:
+                break
+            f.write(b)
+
+
 def ensure(path, url):
     if os.path.exists(path) and os.path.getsize(path) > 50_000_000:
         return True, "موجود"
     if not url:
         return False, "مفيش رابط"
-    for i in range(1, 6):
-        subprocess.run(f'curl -sL -C - --max-time 2400 -o "{path}" "{url}"', shell=True, timeout=2500)
+    for i in range(1, 7):
+        try:
+            _dl(url, path)
+        except Exception as e:
+            print(f"  محاولة {i} فشلت: {str(e)[:90]}")
         if os.path.exists(path) and os.path.getsize(path) > 50_000_000:
-            return True, "اتنزّل"
-        time.sleep(4)
-    return False, "فشل"
+            return True, f"اتنزّل ({os.path.getsize(path)/2**30:.2f} جيجا)"
+        time.sleep(5)
+    return False, "فشل التنزيل"
 
 
 def api(path, body=None, timeout=900):
