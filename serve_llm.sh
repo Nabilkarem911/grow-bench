@@ -9,7 +9,7 @@ echo "خدمة الموديل: $SRV"
 export LD_LIBRARY_PATH="$(dirname "$SRV"):$D:$LD_LIBRARY_PATH"
 "$SRV" --help >/dev/null 2>&1 && echo "الأداة شغالة ✓" || echo "⚠️ مشكلة في الأداة"
 
-M=/data/moe/Qwen3-4B-Q4_K_M.gguf
+M=${LLM_MODEL:-/data/moe/exp4.gguf}
 [ -s "$M" ] || { echo "❌ الموديل مش موجود: $M"; exit 1; }
 echo "الموديل: $(du -h "$M" | cut -f1) · الرام المتاحة: $(awk '/MemAvailable/{print int($2/1024)}' /proc/meminfo) ميجا"
 
