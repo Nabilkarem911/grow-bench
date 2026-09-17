@@ -73,6 +73,72 @@
    "mem_available_mb": 17701,
    "load_seconds": 21.0,
    "served_model": "/data/moe/Qwen3-4B-Q4_K_M.gguf"
+  },
+  "Qwen3-1.7B": {
+   "results": {
+    "كتابة عربية": {
+     "tok_s": 12.1,
+     "seconds": 8.3,
+     "tokens": 100,
+     "text": "مرحباً،  \nأنا أعلم أن هناك تأخير في الطلب، وأشكرك على تفهمك.  \nسيتم توصيله في أقرب وقت، وسأبذل قصارى جهدي لضمان سرعة التوصيل.  \nأنا مهتم بالعمل معك، وسأعمل على تحسين التجربة لاحقاً.  \nمع أطيب التمنيات،  \n[اسمك]"
+    },
+    "برمجة": {
+     "tok_s": 13.4,
+     "seconds": 17.0,
+     "tokens": 227,
+     "text": "بالطبع! إليك دالة في بايثون تحقق إذا كان الرقم أولي أو لا:\n\n```python\ndef is_prime(n):\n    if n < 2:\n        return False\n    for i in range(2, int(n**0.5) + 1):\n        if n % i == 0:\n            return False\n    return True\n```\n\n### شرح الدالة:\n- `n` هو الرقم الذي تحقق منه.\n- إذا كان `n` أقل من 2، فإنها تُرجع `False` (أي الرقم ليس أولي).\n- تُحقق الدالة إذا كان `n` مُقسّمًا على أي عدد بين 2 و `\\sqrt{n}`، إذا كان هناك عدد أولي يقسم `n`، فإن `n` ليس أولي.\n- تُرجع الدالة `True` إذا كان `n` أولي.\n\n### مثال:\n```python\nprint(is_prime(7))  # True\nprint(is_prime(10)) # False\nprint(is_prime(1))  # False\n```"
+    },
+    "استدلال": {
+     "tok_s": 12.4,
+     "seconds": 24.2,
+     "tokens": 300,
+     "text": "السؤال:  \nنريد إيجاد **عدد التفاحات الإجمالي** في **ثلاث صناديق**، مع معلومات:\n\n- **صن橱 1** فيه **5 تفاحات**.\n- **صن橱 2** ضعف **صن橱 1**.\n- **صن橱 3** فيه **نصف مجموع صن橱 1 وصن橱 2**.\n\n---\n\n### الخطوات:\n\n#### 1. حدد عدد التفاحات في كل صندوق:\n\n- **صن橱 1** = 5 تفاحة.\n- **صن橱 2** = ضعف صن橱 1 = $ 5 \\times 2 = 10 $ تفاحة.\n- **صن橱 3** = نصف مجموع صن橱 1 وصن橱 2 = $ \\frac{5 + 10}{2} = \\frac{15}{2} = 7.5 $ تفاحة.\n\n---\n\n#### 2. حساب إجمالي عدد التفاحات:\n\n$$\n\\text{إجمالي = صن橱 1 + صن橱 2 + صن橱 3} = 5 + 10 + 7.5 = 22.5\n$$\n\n---\n\n### ✅ الإجابة النهائية:\n\n$$\n\\boxed{22.5}\n$$\n\n**"
+    },
+    "JSON": {
+     "tok_s": 10.9,
+     "seconds": 8.2,
+     "tokens": 89,
+     "text": "بالطبع! إليك الرسالة المصنفة فقط بالمفاتيح **type** و **urgency**:\n\n```json\n{\n  \"type\": \"request\",\n  \"urgency\": \"high\"\n}\n```\n\n- **type**: يشير إلى نوع الرسالة، هنا هو \"request\" (طلب).\n- **urgency**: يشير إلى مستوى التأخير، هنا هو \"high\" (بسرعة)."
+    }
+   },
+   "download": "موجود",
+   "size_gb": 1.03,
+   "mem_available_mb": 17400,
+   "load_seconds": 12.0,
+   "served_model": "/data/moe/Qwen3-1.7B-Q4_K_M.gguf"
+  },
+  "Granite-4.0-1B": {
+   "results": {
+    "كتابة عربية": {
+     "tok_s": 13.1,
+     "seconds": 17.0,
+     "tokens": 223,
+     "text": "Subject: تأخير الشحن\n\nالسلام عليكم ورحمة الله وبركاته,\n\nأنا أكتب لتذكير بتأخير الشحن لترجمتنا للطلب الذي ترغب فيه. نحن نعمل بجد لضمان تسليم الشحن في الوقت المقصود. نأتمم بتقديم حلول لتقليل هذا التأخير.\n\nنتوقف بالآن عن تأخير الشحن للطلب الذي ترغب فيه. نأتمم بتقديم الشكر لك على توقيتكم السري.\n\nمع تحياتنا الخاصة،\n\n[اسمك]"
+    },
+    "برمجة": {
+     "tok_s": 14.0,
+     "seconds": 21.4,
+     "tokens": 300,
+     "text": "هنا دالة برمجية بلغة بايثون تتحقق إذا كان الرقم أولي:\n\n```python\ndef is_prime(number):\n    if number <= 1:\n        return False\n    for i in range(2, int(number ** 0.5) + 1):\n        if number % i == 0:\n            return False\n    return True\n```\n\nالشرح: تأخذ هذه الدالة رقمًا وتعيد `True` إذا كان أوليًا و`False` إذا لم يكن كذلك. تبدأ بالتحقق مما إذا كان الرقم أكبر من أو يساوي 1، في هذه الحالة تعيد `False` لأن أي رقم أولي أكبر من 1 لديه عدد أعداد طبيعية أكبر من 1. ثم تتكرر على الأعداد الطبيعية من 2 إلى الجذر التربيعي من الرقم المدخل، وتتحقق مما"
+    },
+    "استدلال": {
+     "tok_s": 12.6,
+     "seconds": 23.7,
+     "tokens": 300,
+     "text": "To find the total number of apples, we will follow these steps:\n\n1. Identify the number of apples in each basket.\n2. Calculate the number of apples in the second basket.\n3. Calculate the number of apples in the third basket.\n4. Add the number of apples from all three baskets.\n\nStep 1: The first basket contains 5 apples.\n\nStep 2: The second basket contains twice the number of apples in the first basket. So, we multiply the number of apples in the first basket by 2.\n   5 apples * 2 = 10 apples\n\nStep 3: The third basket contains half the sum of the apples in the first and second baskets. First, we find the sum of the apples in the first and second baskets.\n   5 apples (first basket) + 10 apples (second basket) = 15 apples\n   Then, we divide this sum by 2 to find the number of apples in the third basket.\n   15 apples / 2 = 7.5 apples\n\nSince we cannot have half an apple, we round the number to the nearest whole number.\n   7.5 apples ≈ 7 apples\n\nStep 4: Now, we add the number of apples from all three baskets.\n   5 apples (first basket) + 10 apples (second basket) + 7 apples (third basket) = 22 apples\n\nSo, the total number of apples is 22."
+    },
+    "JSON": {
+     "tok_s": 4.4,
+     "seconds": 3.4,
+     "tokens": 15,
+     "text": "{\n\"type\": \"order\",\n\"urgency\": \"high\"\n}"
+    }
+   },
+   "download": "موجود",
+   "size_gb": 0.95,
+   "mem_available_mb": 17680,
+   "load_seconds": 12.0,
+   "served_model": "/data/moe/granite-4.0-1b-Q4_K_M.gguf"
   }
  }
 }
