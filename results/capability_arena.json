@@ -1,0 +1,3 @@
+{
+ "error": "AttributeError: module 'arena' has no attribute 'find_bin'"
+}
