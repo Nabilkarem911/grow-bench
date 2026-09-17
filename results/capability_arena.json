@@ -10,5 +10,14 @@
   "عربي: رد على شكوى",
   "عربي: تبسيط"
  ],
- "models": {}
+ "models": {
+  "Qwen2.5-Coder-1.5B": {
+   "tests": {},
+   "download": "اتنزّل (0.92 جيجا)",
+   "size_gb": 0.92,
+   "load_s": null,
+   "error": "الخادم ماقامش",
+   "log": "king token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden\n0.00.735.574 I cmn          init: llama threadpool init, n_threads = 3\n0.00.831.917 I srv    load_model: initializing, n_slots = 4, n_ctx_slot = 2048, kv_unified = 'true'\n0.00.837.981 I srv  llama_server: model loaded\n0.00.837.998 I srv  llama_server: listening on http://127.0.0.1:8097\n"
+  }
+ }
 }
