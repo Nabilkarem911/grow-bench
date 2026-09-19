@@ -48,6 +48,15 @@ print("✅ اتنزّل:", round(os.path.getsize(dst)/2**20), "ميجا")
 PY
 fi
 
+# ⚠️ المكتبات الناقصة (libgomp1) — نفس الباچ اللي قابلنا في البطولة
+if command -v apt-get >/dev/null 2>&1; then
+  if ! ldconfig -p 2>/dev/null | grep -q "libgomp.so.1"; then
+    echo "⬇️ بنثبّت المكتبات الناقصة (libgomp1)..."
+    apt-get update -qq >/dev/null 2>&1
+    apt-get install -y -qq libgomp1 libstdc++6 ca-certificates >/dev/null 2>&1
+    echo "✅ المكتبات: $(ldconfig -p 2>/dev/null | grep -c libgomp) libgomp"
+  fi
+fi
 chmod +x "$BIN" 2>/dev/null
 echo "🚀 تشغيل خدمة التمثيل على 8080 (bge-m3)"
 exec "$BIN" -m "$M" -ngl 0 -t 3 -c 8192 --embeddings --pooling mean --host 0.0.0.0 --port 8080
