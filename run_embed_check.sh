@@ -2,7 +2,7 @@
 LOG=/data/results/arabic_memory_verify.log
 mkdir -p /data/results
 exec > "$LOG" 2>&1
-echo "════════ اختبار خدمة التمثيل bge-m3 ════════"
+echo "════════ اختبار خدمة التمثيل bge-m3 (من الشبكة الداخلية) ════════"
 python3 /app/check_embed_srv.py
 echo ""
 echo "DONE-ARABIC-VERIFY"
@@ -17,7 +17,7 @@ sha=None
 try:
     d=json.load(urllib.request.urlopen(urllib.request.Request(api,headers=hdr),timeout=60)); sha=d.get("sha")
 except Exception: pass
-body={"message":"embed service test","content":base64.b64encode(data.encode()).decode()}
+body={"message":"embed service test v2 (internal network)","content":base64.b64encode(data.encode()).decode()}
 if sha: body["sha"]=sha
 print("✅", json.load(urllib.request.urlopen(urllib.request.Request(api,data=json.dumps(body).encode(),headers=hdr,method="PUT"),timeout=90)).get("content",{}).get("path"))
 UPLOAD
