@@ -193,8 +193,7 @@ def main():
 
 def upload():
     """رفع التقرير — بيتم دايمًا حتى لو حصل خطأ."""
-    text = "
-".join(OUT)
+    text = "\n".join(OUT)
     if not TOKEN:
         print("(مفيش توكن)"); return
     api = f"https://api.github.com/repos/{REPO}/contents/{PATH_IN_REPO}"
