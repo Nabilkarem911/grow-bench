@@ -151,6 +151,9 @@ services:
     environment:
       - RUN_EMBED=${RUN_EMBED:-0}
       - EMBED_MODEL=${EMBED_MODEL:-/data/moe/bge-m3-f16.gguf}
+    networks:
+      - default
+      - embeds
     ports:
       - "8095:8080"
     command: sh -c "if [ \"${RUN_EMBED:-0}\" = \"0\" ]; then echo 'embedsrv idle'; sleep infinity; else sed 's/\r$//' /app/serve_embed.sh > /tmp/e.sh; sh /tmp/e.sh; fi"
@@ -158,3 +161,8 @@ services:
 
 volumes:
   grow_data:
+
+networks:
+  embeds:
+    external: true
+    name: embeds
