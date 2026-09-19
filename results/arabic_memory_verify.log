@@ -1,13 +1,23 @@
 ════════ اختبار خدمة التمثيل bge-m3 (من الشبكة الداخلية) ════════
-=== 1) الشبكات الحالية ===
-  grow-bench-phkbkq_default                  bridge
-  titan-net                                  bridge
-  titan-titan-wqx9l7_default                 bridge
+قاعدة البيانات: titan · المستخدم: titan
 
-=== 2) إنشاء شبكة embeds (لو مش موجودة) ===
-  النتيجة: f814ac04aa485d4e34905a392b4cd1e3f32bc1aa15f405fe797a2ca04e36
-
-=== 3) تأكيد ===
-  ✅ embeds: f814ac04aa48 · حاويات: 0
+=== 1) أبعاد العمود بعد الترحيل ===
+Traceback (most recent call last):
+  File "/app/check_embed_srv.py", line 52, in <module>
+    print("  ", psql("SELECT format_type(atttypid,atttypmod) FROM pg_attribute WHERE attrelid='memory_items'::regclass AND attname='embedding_vec'"))
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/check_embed_srv.py", line 49, in psql
+    return exec_in(pg["Id"], ["sh", "-c", q])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/check_embed_srv.py", line 27, in exec_in
+    raw = c.getresponse().read(); c.close()
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/http/client.py", line 507, in read
+    s = self.fp.read()
+        ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+TimeoutError: timed out
 
 DONE-ARABIC-VERIFY
