@@ -1,5 +1,14 @@
-════════ التحقق من خدمة التمثيل (bge-m3) ════════
-الحاوية: grow-bench-phkbkq-embedsrv-1 · Up Less than a second
-❌ فشل: <urlopen error [Errno 111] Connection refused>
+════════ تشخيص خدمة التمثيل ════════
+الحالة: Up 7 minutes
+عدد مرات الإعادة: 0 · آخر خروج: 0
+
+--- ملفات الموديل ---
+OCI runtime exec failed: exec failed: unable to start container process: current working directory is outside of container mount namespace root -- possible container breakout detected
+
+--- llama-server موجود؟ ---
+OCI runtime exec failed: exec failed: unable to start container process: current working directory is outside of container mount namespace root -- possible container breakout detected
+
+--- العمليات ---
+OCI runtime exec failed: exec failed: unable to start container process: current working directory is outside of container mount namespace root -- possible container breakout detected
 
 DONE-ARABIC-VERIFY
