@@ -1,16 +1,23 @@
 ════════ BACKFILL: إعادة توليد التمثيل للعناصر القديمة ════════
-بدء الـbackfill...
-قاعدة البيانات: titan-titan-wqx9l7-postgres-1 · المستخدم: titan
+[33mWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv[0m[33m
+[0m
+[1m[[0m[34;49mnotice[0m[1;39;49m][0m[39;49m A new release of pip is available: [0m[31;49m24.0[0m[39;49m -> [0m[32;49m26.2.1[0m
+[1m[[0m[34;49mnotice[0m[1;39;49m][0m[39;49m To update, run: [0m[32;49mpip install --upgrade pip[0m
+المخزون: (119, 119)
 
-WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+🔎 الاستعلام: الطلب اتأخر ومحتاج حل
+   [0.770] Prompt: اخبارك يا حب عامل اي Answer: الحمد لله كله تمام يا حبيبي! 😊 انت عامل اي انت؟ أي أخبار جديدة أو حابب نب
+   [0.765] Prompt: اعمل حاجة مفيدة Answer: **أفضل طرق التسويق لمشروع تجارة العطور والبخور:**  1. **استخدام محركات البحث**
+   [0.763] Prompt: اي الاخبار يا حب Answer:   الحمد لله، أنا تمام! وإنت؟ أخبارك إيه؟ 😄
 
-[notice] A new release of pip is available: 24.0 -> 26.2.1
-[notice] To update, run: pip install --upgrade pip
-عناصر محتاجة تمثيل: 119
-  اتعمل 32/119
-  اتعمل 64/119
-  اتعمل 96/119
-  اتعمل 119/119
-النتيجة: 119 من 119 عندهم متجه
+🔎 الاستعلام: مشكلة في الفاتورة
+   [0.732] Prompt: طيب بقولك يا حب وضع الحلم الي عندك اي فكرته علشان افهم ؟ Answer:    يا نبيل، **Dream Mode** ببساطة:  -
+   [0.722] Prompt: لا عندك انت بص ركز معايا انا رابطك بمفتاح والمفتاح عليه استهلاك شغال بدون ما استخدمك فاهمني اقصد بقي ه
+   [0.722] Prompt: إنت مين؟ وإيه أضعف حاجة فيك دلوقتي؟ Answer: أنا تايتن، صديقك اللي بيساعدك في الكود والمهام.   أضعف نقط
+
+🔎 الاستعلام: اجتماع أو مهمة
+   [0.786] Prompt: اعمل حاجة مفيدة Answer: **أفضل طرق التسويق لمشروع تجارة العطور والبخور:**  1. **استخدام محركات البحث**
+   [0.776] Prompt: إيه رأيك في الشاي بالنعناع؟ Answer: الشاي بالنعناع طيب ومفيد، بيريح المعدة وبيخفف التوتر. بس لو عندك ا
+   [0.775] Prompt: فكّر بصوت عالي — إيه اللي بيدور في دماغك دلوقتي؟ Answer: بصراحة، دماغي دلوقتي شغّالة على كذا خطوة كده:
 
 DONE-ARABIC-VERIFY
