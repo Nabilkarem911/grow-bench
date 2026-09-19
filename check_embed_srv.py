@@ -58,7 +58,7 @@ def psql(sql):
 
 print("\n=== 1) أبعاد العمود بعد الترحيل ===")
 print("  ", psql("SELECT format_type(atttypid,atttypmod) FROM pg_attribute WHERE attrelid='memory_items'::regclass AND attname='embedding_vec'"))
-print("  الترحيلات المطبقة:", psql("SELECT string_agg(version,',') FROM titan_migrations WHERE version LIKE '003%'").strip()[:120])
+print("  الترحيلات المطبقة:", psql("SELECT string_agg(name,',') FROM (SELECT table_name AS name FROM information_schema.tables WHERE table_name ILIKE '%migration%') t").strip()[:120])
 
 print("\n=== 2) إعادة توليد التمثيل (bge-m3 · 1024) ===")
 rows = psql("SELECT id||'|'||coalesce(left(content,600),'') FROM memory_items ORDER BY id")
@@ -71,7 +71,7 @@ sqls, ok, fail = [], 0, 0
 for i, (mid, content) in enumerate(recs[:200]):
     text = content.replace("\\", " ").replace("'", " ") or " "
     try:
-        rq = urllib.request.Request("http://embedsrv:8080/v1/embeddings",
+        rq = urllib.request.Request("https://embed.orcanox.xyz/v1/embeddings",
                                     data=json.dumps({"input": text[:500]}).encode("utf-8"),
                                     headers={"Content-Type": "application/json"})
         vec = json.load(urllib.request.urlopen(rq, timeout=60))["data"][0]["embedding"]
@@ -95,7 +95,7 @@ if sqls:
 
 print("\n=== 3) البحث الدلالي الحقيقي في ذاكرة تيتان ===")
 for q in ["الطلب اتأخر ومحتاج حل بسرعة", "مشكلة في الفاتورة", "تسويق وتسويق المنتجات"]:
-    rq = urllib.request.Request("http://embedsrv:8080/v1/embeddings",
+    rq = urllib.request.Request("https://embed.orcanox.xyz/v1/embeddings",
                                 data=json.dumps({"input": q}).encode("utf-8"),
                                 headers={"Content-Type": "application/json"})
     qv = json.load(urllib.request.urlopen(rq, timeout=60))["data"][0]["embedding"]
