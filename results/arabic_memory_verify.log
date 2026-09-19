@@ -1,21 +1,5 @@
-════════ تشخيص فشل بناء تيتان ════════
---- مساحة القرص ---
-Filesystem      Size  Used Avail Use% Mounted on
-overlay         193G  155G   38G  81% /
-/dev/sda1       193G  155G   38G  81% /data
-
---- صورة التمثيل الحالية ---
-(بنشوف هل النموذج الجديد ينفع يتنزّل ويتحمّل فعلًا)
-
---- اختبار مباشر: fastembed 0.8.0 + e5-large ---
-WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
-<stdin>:5: UserWarning: The model intfloat/multilingual-e5-large now uses mean pooling instead of CLS embedding. In order to preserve the previous behaviour, consider either pinning fastembed version to 0.5.1 or using `add_custom_model` functionality.
-Fetching 6 files:   0%|          | 0/6 [00:00<?, ?it/s]Fetching 6 files:  17%|█▋        | 1/6 [00:00<00:02,  2.15it/s]Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
-Fetching 6 files:  67%|██████▋   | 4/6 [00:02<00:01,  1.48it/s]Fetching 6 files:  83%|████████▎ | 5/6 [00:05<00:01,  1.32s/it]Fetching 6 files: 100%|██████████| 6/6 [00:30<00:00,  8.13s/it]Fetching 6 files: 100%|██████████| 6/6 [00:30<00:00,  5.15s/it]
-  ❌ فشل بعد 34 ثانية: Fail: [ONNXRuntimeError] : 1 : FAIL : External data path validation failed for initializer: embeddings.word_embeddings.weight. Error: External data path escapes model directory. External data path: "model.onnx_data" resolved path: "/tmp/fastembed_cache/blobs/9e/9eac14dfffedec847a69f5f1c9ab5403973169a1be62
-
---- مساحة القرص بعد ---
-Filesystem      Size  Used Avail Use% Mounted on
-overlay         193G  158G   36G  82% /
+════════ التحقق من خدمة التمثيل (bge-m3) ════════
+الحاوية: grow-bench-phkbkq-embedsrv-1 · Up Less than a second
+❌ فشل: <urlopen error [Errno 111] Connection refused>
 
 DONE-ARABIC-VERIFY
