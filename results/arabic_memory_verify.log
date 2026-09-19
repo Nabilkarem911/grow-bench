@@ -1,15 +1,11 @@
 ════════ اختبار خدمة التمثيل bge-m3 (من الشبكة الداخلية) ════════
-الحالة: Restarting (127) Less than a second ago · الإعادات: 1 · كود الخروج: 0
+الحالة: Up Less than a second · الإعادات: 0 · كود الخروج: 0
 مسار العمل: /app
-الأمر: ['sh', '-c', 'if [ "5" = "0" ]; then echo \'embedsrv idle\'; sleep infinity; else sed \'s/r$//\' /app/serve_embed.sh > /tmp/e.sh; sh /tmp/e.sh; fi']
+الأمر: ['sh', '-c', 'if [ "6" = "0" ]; then echo \'embedsrv idle\'; sleep infinity; else sed \'s/r$//\' /app/serve_embed.sh > /tmp/e.sh; sh /tmp/e.sh; fi']
 
 === سجلّات الحاوية (آخر 2000 حرف) ===
 llama-server: /data/llama/llama-b10988/llama-server
-🚀 تشغيل خدمة التمثيل على 8080 (bge-m3)
-/data/llama/llama-b10988/llama-server: error while loading shared libraries: libgomp.so.1: cannot open shared object file: No such file or directory
-llama-server: /data/llama/llama-b10988/llama-server
-🚀 تشغيل خدمة التمثيل على 8080 (bge-m3)
-/data/llama/llama-b10988/llama-server: error while loading shared libraries: libgomp.so.1: cannot open shared object file: No such file or directory
+⬇️ بنثبّت المكتبات الناقصة (libgomp1)...
 
 
 DONE-ARABIC-VERIFY
