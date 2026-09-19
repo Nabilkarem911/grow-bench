@@ -1,23 +1,21 @@
-════════ BACKFILL: إعادة توليد التمثيل للعناصر القديمة ════════
-[33mWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv[0m[33m
-[0m
-[1m[[0m[34;49mnotice[0m[1;39;49m][0m[39;49m A new release of pip is available: [0m[31;49m24.0[0m[39;49m -> [0m[32;49m26.2.1[0m
-[1m[[0m[34;49mnotice[0m[1;39;49m][0m[39;49m To update, run: [0m[32;49mpip install --upgrade pip[0m
-المخزون: (119, 119)
+════════ تشخيص فشل بناء تيتان ════════
+--- مساحة القرص ---
+Filesystem      Size  Used Avail Use% Mounted on
+overlay         193G  155G   38G  81% /
+/dev/sda1       193G  155G   38G  81% /data
 
-🔎 الاستعلام: الطلب اتأخر ومحتاج حل
-   [0.770] Prompt: اخبارك يا حب عامل اي Answer: الحمد لله كله تمام يا حبيبي! 😊 انت عامل اي انت؟ أي أخبار جديدة أو حابب نب
-   [0.765] Prompt: اعمل حاجة مفيدة Answer: **أفضل طرق التسويق لمشروع تجارة العطور والبخور:**  1. **استخدام محركات البحث**
-   [0.763] Prompt: اي الاخبار يا حب Answer:   الحمد لله، أنا تمام! وإنت؟ أخبارك إيه؟ 😄
+--- صورة التمثيل الحالية ---
+(بنشوف هل النموذج الجديد ينفع يتنزّل ويتحمّل فعلًا)
 
-🔎 الاستعلام: مشكلة في الفاتورة
-   [0.732] Prompt: طيب بقولك يا حب وضع الحلم الي عندك اي فكرته علشان افهم ؟ Answer:    يا نبيل، **Dream Mode** ببساطة:  -
-   [0.722] Prompt: لا عندك انت بص ركز معايا انا رابطك بمفتاح والمفتاح عليه استهلاك شغال بدون ما استخدمك فاهمني اقصد بقي ه
-   [0.722] Prompt: إنت مين؟ وإيه أضعف حاجة فيك دلوقتي؟ Answer: أنا تايتن، صديقك اللي بيساعدك في الكود والمهام.   أضعف نقط
+--- اختبار مباشر: fastembed 0.8.0 + e5-large ---
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+<stdin>:5: UserWarning: The model intfloat/multilingual-e5-large now uses mean pooling instead of CLS embedding. In order to preserve the previous behaviour, consider either pinning fastembed version to 0.5.1 or using `add_custom_model` functionality.
+Fetching 6 files:   0%|          | 0/6 [00:00<?, ?it/s]Fetching 6 files:  17%|█▋        | 1/6 [00:00<00:02,  2.15it/s]Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Fetching 6 files:  67%|██████▋   | 4/6 [00:02<00:01,  1.48it/s]Fetching 6 files:  83%|████████▎ | 5/6 [00:05<00:01,  1.32s/it]Fetching 6 files: 100%|██████████| 6/6 [00:30<00:00,  8.13s/it]Fetching 6 files: 100%|██████████| 6/6 [00:30<00:00,  5.15s/it]
+  ❌ فشل بعد 34 ثانية: Fail: [ONNXRuntimeError] : 1 : FAIL : External data path validation failed for initializer: embeddings.word_embeddings.weight. Error: External data path escapes model directory. External data path: "model.onnx_data" resolved path: "/tmp/fastembed_cache/blobs/9e/9eac14dfffedec847a69f5f1c9ab5403973169a1be62
 
-🔎 الاستعلام: اجتماع أو مهمة
-   [0.786] Prompt: اعمل حاجة مفيدة Answer: **أفضل طرق التسويق لمشروع تجارة العطور والبخور:**  1. **استخدام محركات البحث**
-   [0.776] Prompt: إيه رأيك في الشاي بالنعناع؟ Answer: الشاي بالنعناع طيب ومفيد، بيريح المعدة وبيخفف التوتر. بس لو عندك ا
-   [0.775] Prompt: فكّر بصوت عالي — إيه اللي بيدور في دماغك دلوقتي؟ Answer: بصراحة، دماغي دلوقتي شغّالة على كذا خطوة كده:
+--- مساحة القرص بعد ---
+Filesystem      Size  Used Avail Use% Mounted on
+overlay         193G  158G   36G  82% /
 
 DONE-ARABIC-VERIFY
