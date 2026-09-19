@@ -4,26 +4,26 @@
 --- task.txt ---
 run_verify.sh
 --- سكربتات في /app ---
--rw-r--r-- 1 root root  5165 Sep 19 15:52 /app/arena.py
--rw-r--r-- 1 root root 10319 Sep 19 15:52 /app/arm.py
--rw-r--r-- 1 root root  7483 Sep 19 15:52 /app/bench.py
--rw-r--r-- 1 root root  4189 Sep 19 15:52 /app/bench_device.py
--rw-r--r-- 1 root root  4550 Sep 19 15:52 /app/bench_device2.py
--rw-r--r-- 1 root root  1740 Sep 19 15:52 /app/bench_moe.sh
--rw-r--r-- 1 root root 12425 Sep 19 15:52 /app/capability_arena.py
--rw-r--r-- 1 root root  4290 Sep 19 15:52 /app/cpu_bench.py
--rw-r--r-- 1 root root  4365 Sep 19 15:52 /app/cpu_bench_server.py
--rw-r--r-- 1 root root  2519 Sep 19 15:52 /app/diag_bpc.py
--rw-r--r-- 1 root root  6815 Sep 19 15:52 /app/eval.py
--rw-r--r-- 1 root root  4071 Sep 19 15:52 /app/eval_hf.py
--rw-r--r-- 1 root root  2962 Sep 19 15:52 /app/exp_experts.sh
--rw-r--r-- 1 root root 11283 Sep 19 15:52 /app/factory.py
--rw-r--r-- 1 root root  8494 Sep 19 15:52 /app/finetune.py
--rw-r--r-- 1 root root  6681 Sep 19 15:52 /app/ft_hf_lora.py
--rw-r--r-- 1 root root  7103 Sep 19 15:52 /app/grow.py
--rw-r--r-- 1 root root  7362 Sep 19 15:52 /app/grow_hf.py
--rw-r--r-- 1 root root  2671 Sep 19 15:52 /app/llama_bench_server.sh
--rw-r--r-- 1 root root  5264 Sep 19 15:52 /app/local_report.py
+-rw-r--r-- 1 root root  5165 Sep 19 15:56 /app/arena.py
+-rw-r--r-- 1 root root 10319 Sep 19 15:56 /app/arm.py
+-rw-r--r-- 1 root root  7483 Sep 19 15:56 /app/bench.py
+-rw-r--r-- 1 root root  4189 Sep 19 15:56 /app/bench_device.py
+-rw-r--r-- 1 root root  4550 Sep 19 15:56 /app/bench_device2.py
+-rw-r--r-- 1 root root  1740 Sep 19 15:56 /app/bench_moe.sh
+-rw-r--r-- 1 root root 12425 Sep 19 15:56 /app/capability_arena.py
+-rw-r--r-- 1 root root  4290 Sep 19 15:56 /app/cpu_bench.py
+-rw-r--r-- 1 root root  4365 Sep 19 15:56 /app/cpu_bench_server.py
+-rw-r--r-- 1 root root  2519 Sep 19 15:56 /app/diag_bpc.py
+-rw-r--r-- 1 root root  6815 Sep 19 15:56 /app/eval.py
+-rw-r--r-- 1 root root  4071 Sep 19 15:56 /app/eval_hf.py
+-rw-r--r-- 1 root root  2962 Sep 19 15:56 /app/exp_experts.sh
+-rw-r--r-- 1 root root 11283 Sep 19 15:56 /app/factory.py
+-rw-r--r-- 1 root root  8494 Sep 19 15:56 /app/finetune.py
+-rw-r--r-- 1 root root  6681 Sep 19 15:56 /app/ft_hf_lora.py
+-rw-r--r-- 1 root root  7103 Sep 19 15:56 /app/grow.py
+-rw-r--r-- 1 root root  7362 Sep 19 15:56 /app/grow_hf.py
+-rw-r--r-- 1 root root  2671 Sep 19 15:56 /app/llama_bench_server.sh
+-rw-r--r-- 1 root root  5264 Sep 19 15:56 /app/local_report.py
 
 --- هل الثعبان موجود؟ ---
 /usr/local/bin/python3
@@ -37,9 +37,37 @@ mkdir -p /data/results
 {
 
 ════════ تجربة تشغيل مباشرة ════════
-  File "/app/verify_arabic_memory.py", line 196
-    text = "
-           ^
-SyntaxError: unterminated string literal (detected at line 196)
+════════ ١) حاويات تيتان ════════
+   titan-titan-wqx9l7-core-1 · Up 24 minutes (healthy)
+   titan-titan-wqx9l7-worker-1 · Up 24 minutes (healthy)
+   titan-titan-wqx9l7-embed-1 · Up 24 minutes (healthy)
+   titan-titan-wqx9l7-postgres-1 · Up 8 days (healthy)
+   titan-titan-wqx9l7-redis-1 · Up 8 days (healthy)
+  حاوية التمثيل: titan-titan-wqx9l7-embed-1
+
+════════ ٢) النموذج والأبعاد ════════
+الموديل: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+  الأبعاد: 384
+
+════════ ٣) اختبار العربي الفعلي (الأهم) ════════
+نفس المعنى       0.951
+  نفس المعنى ٢     0.969
+  موضوع مختلف      0.907
+  موضوع مختلف ٢    0.851
+
+  متوسط (نفس المعنى): 0.960   المطلوب > 0.75
+  متوسط (مختلف):      0.879
+  ➜ فشل ✗
+
+════════ ٤) قاعدة البيانات ════════
+  نوع العمود: Password for user titan: 
+psql: error: connection to server on socket "/var/run/postgresql/.s.PGSQL.5432" failed: fe_sendauth: no password supplied
+  العناصر: Password for user titan: 
+psql: error: connection to server on socket "/var/run/postgresql/.s.PGSQL.5432" failed: fe_sendauth: no password supplied
+
+DONE-ARABIC-VERIFY
+✅ اترفع: results/arabic_memory_verify.log
+DONE-ARABIC-VERIFY
+✅ اترفع: results/arabic_memory_verify.log
 
 DONE-ARABIC-VERIFY
