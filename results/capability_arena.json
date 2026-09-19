@@ -76,6 +76,72 @@
    "served_model": "/data/moe/Qwen3-8B-Q4_K_M.gguf",
    "auto_score": 1.0,
    "avg_tok_s": 2.0
+  },
+  "Qwen3-1.7B": {
+   "tests": {
+    "كود: is_prime": {
+     "tok_s": 9.6,
+     "seconds": 6.0,
+     "score": 1.0,
+     "detail": "7/7 حالة نجحت",
+     "text": "```python\ndef is_prime(n):\n    if n < 2:\n        return False\n    for i in range(2, int(n**0.5) + 1):\n        if n % i == 0:\n            return False\n    return True\n```"
+    },
+    "كود: إصلاح": {
+     "tok_s": 10.8,
+     "seconds": 11.8,
+     "score": 1.0,
+     "detail": "3/3 حالة نجحت",
+     "text": "الدالة التي أنت وصفتها تحتوي على خطأ، حيث أن `total = n` لا يُعتبر إضافة عددًا موجبًا إلى القيمة التOTAL، بل يُعادل قيمة العدد مباشرةً.\n\nالدالة المصلّحة هي:\n\n```python\ndef sum_positive(nums):\n    total = 0\n    for n in nums:\n        if n > 0:\n            total += n\n    return total\n```\n\nهذا الكود سيجمع كل الأرقام الموجبة في قائمة `nums` ويعطي مجموعها."
+    },
+    "SQL: استعلام": {
+     "tok_s": 9.9,
+     "seconds": 11.0,
+     "score": 0.8,
+     "detail": "عناصر صحيحة: 0.80",
+     "text": "```sql\nSELECT name, SUM(total) AS total_order\nFROM orders\nJOIN customers ON orders.customer_id = customers.id\nWHERE SUM(total) > 1000\nGROUP BY customers.name\nORDER BY total_order DESC;\n```\n\nهذا الاستعلام يُستخدم لحساب المجموعات للعملاء الذين لديهم مجموع مشترياتهم أكبر من 1000، ثم يعرض أسماء العملاء وعدد المشتريات (المجموع) مرتبًا بالترتيب الأعلى."
+    },
+    "JSON: تصنيف": {
+     "tok_s": 3.5,
+     "seconds": 4.3,
+     "score": 1.0,
+     "detail": "نضيف=True · {\"type\": \"complaint\", \"urgency\": \"high\"}",
+     "text": "{\"type\": \"complaint\", \"urgency\": \"high\"}"
+    },
+    "JSON: أداة": {
+     "tok_s": 3.7,
+     "seconds": 5.6,
+     "score": 0.6499999999999999,
+     "detail": "نضيف=True · {\"name\": \"send_whatsapp\", \"arguments\": {\"text\": \"طلبك في الطريق\"}}",
+     "text": "{\"name\": \"send_whatsapp\", \"arguments\": {\"text\": \"طلبك في الطريق\"}}"
+    },
+    "حساب": {
+     "tok_s": 11.5,
+     "seconds": 12.3,
+     "score": 0.0,
+     "detail": "إجابة غلط (آخر رقم: 7.5)",
+     "text": "لنحسب عدد التفاحات في كل صندوق:\n\n1. الصندوق الأول: 5 تفاحات.\n\n2. الصندوق الثاني ضعف الأول، أي:\n   $$\n   5 \\times 2 = 10 \\text{ تفاحة}\n   $$\n\n3. الصندوق الثالث فيه نصف مجموع أولي والتاني، أي:\n   $$\n   \\frac{5 + 10}{2} = \\frac{15}{2} = 7.5 \\text{ تفاحة}\n   $$\n\nالإجابة النهائية هي:\n$$\n\\boxed{7.5}\n$$"
+    },
+    "عربي: رد على شكوى": {
+     "tok_s": 8.0,
+     "seconds": 5.1,
+     "score": null,
+     "detail": "",
+     "text": "أنا سأقوم بإرسال إجابة قصيرة ومهنية للطلب المذكور:\n\n**ردًا:**\n\nبالطبع، أستعد لحله بسرعة."
+    },
+    "عربي: تبسيط": {
+     "tok_s": 11.4,
+     "seconds": 8.3,
+     "score": null,
+     "detail": "",
+     "text": "أولًا، هو نظام يساعد المزارعين على تحسين عملهم عبر استخدام البيانات والصور لتحليل ما يحدث في أرضهم. ثانيًا، يستخدمه لتوقع مواسم الزراعة وتحديد أفضل الأنواع من المحاصيل التي تناسب الظروف المحلية. ثالثًا، يمكنه مراقبة الحقول باستخدام الصور وأجهزة الاستشعار لتساعد على اتخاذ ق decisions أكثر دقة."
+    }
+   },
+   "download": "موجود",
+   "size_gb": 1.03,
+   "load_s": 3.0,
+   "served_model": "/data/moe/Qwen3-1.7B-Q4_K_M.gguf",
+   "auto_score": 0.742,
+   "avg_tok_s": 8.6
   }
  }
 }
