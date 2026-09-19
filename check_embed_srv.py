@@ -13,7 +13,7 @@ def dk(m,p,b=None):
     try: return json.loads(raw.decode("utf-8","ignore"))
     except Exception: return raw.decode("utf-8","ignore")
 def exec_in(cid,cmd):
-    ex=dk("POST",f"/containers/{cid}/exec",{"Cmd":cmd,"AttachStdout":True,"AttachStderr":True,"Tty":True})
+    ex=dk("POST",f"/containers/{cid}/exec",{"Cmd":cmd,"AttachStdout":True,"AttachStderr":True,"Tty":True,"WorkingDir":"/app"})
     eid=(ex or {}).get("Id")
     if not eid: return "(فشل)"
     c=U(SOCK); c.request("POST",f"/exec/{eid}/start",body=json.dumps({"Detach":False,"Tty":True}).encode(),headers={"Content-Type":"application/json"})
