@@ -164,9 +164,16 @@ def main():
     dbname = env.get("POSTGRES_DB", "titan")
     q = ("SELECT format_type(a.atttypid,a.atttypmod) FROM pg_attribute a JOIN pg_class c ON c.oid=a.attrelid "
          "WHERE c.relname='memory_items' AND a.attname='embedding_vec';")
-    say("  نوع العمود:", run_in(pg["Id"], ["psql", "-U", user, "-d", dbname, "-t", "-A", "-c", q], tty=False))
-    q2 = "SELECT COUNT(*) || ' عنصر · فيهم متجه: ' || COUNT(embedding_vec) FROM memory_items;"
-    say("  العناصر:", run_in(pg["Id"], ["psql", "-U", user, "-d", dbname, "-t", "-A", "-c", q2], tty=False))
+    pw = env.get("POSTGRES_PASSWORD", "")
+    base = ["env", f"PGPASSWORD={pw}", "psql", "-U", user, "-d", dbname, "-t", "-A", "-F", "|", "-c"]
+    say("  نوع العمود:", run_in(pg["Id"], base + [q], tty=False))
+    q2 = "SELECT 'عناصر: ' || COUNT(*)::text || ' · فيهم متجه: ' || COUNT(embedding_vec)::text FROM memory_items;"
+    say("  المخزون:", run_in(pg["Id"], base + [q2], tty=False))
+    q3 = ("SELECT filename FROM titan_migrations WHERE filename LIKE '%0035%' OR filename LIKE '%0026%' "
+          "ORDER BY filename;")
+    say("  الترحيلات المطبقة:", run_in(pg["Id"], base + [q3], tty=False))
+    q4 = "SELECT 'عدد الجداول: ' || COUNT(*)::text FROM information_schema.tables WHERE table_schema='public';"
+    say("  ", run_in(pg["Id"], base + [q4], tty=False))
 
     say("")
     say("DONE-ARABIC-VERIFY")
