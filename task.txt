@@ -1,1 +1,1 @@
-verify_arabic_memory.sh
+run_verify.sh
