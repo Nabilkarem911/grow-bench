@@ -10,5 +10,72 @@
   "عربي: رد على شكوى",
   "عربي: تبسيط"
  ],
- "models": {}
+ "models": {
+  "Qwen3-8B": {
+   "tests": {
+    "كود: is_prime": {
+     "tok_s": 2.7,
+     "seconds": 31.2,
+     "score": 1.0,
+     "detail": "7/7 حالة نجحت",
+     "text": "```python\ndef is_prime(n):\n    if n <= 1:\n        return False\n    if n == 2:\n        return True\n    if n % 2 == 0:\n        return False\n    for i in range(3, int(n**0.5) + 1, 2):\n        if n % i == 0:\n            return False\n    return True\n```"
+    },
+    "كود: إصلاح": {
+     "tok_s": 1.5,
+     "seconds": 26.0,
+     "score": 1.0,
+     "detail": "3/3 حالة نجحت",
+     "text": "```python\ndef sum_positive(nums):\n    total = 0\n    for n in nums:\n        if n > 0:\n            total += n\n    return total\n```"
+    },
+    "SQL: استعلام": {
+     "tok_s": 2.0,
+     "seconds": 29.4,
+     "score": 1.0,
+     "detail": "عناصر صحيحة: 1.00",
+     "text": "```sql\nSELECT c.name, SUM(o.total) AS total_spent\nFROM customers c\nJOIN orders o ON c.id = o.customer_id\nGROUP BY c.id\nHAVING SUM(o.total) > 1000\nORDER BY total_spent DESC;\n```"
+    },
+    "JSON: تصنيف": {
+     "tok_s": 0.8,
+     "seconds": 19.3,
+     "score": 1.0,
+     "detail": "نضيف=True · {\"type\": \"complaint\", \"urgency\": \"high\"}",
+     "text": "{\"type\": \"complaint\", \"urgency\": \"high\"}"
+    },
+    "JSON: أداة": {
+     "tok_s": 1.4,
+     "seconds": 28.8,
+     "score": 0.9999999999999999,
+     "detail": "نضيف=True · {\"name\": \"send_whatsapp\", \"arguments\": {\"phone_number\": \"966501234567\", \"message\": \"طلبك ف",
+     "text": "{\"name\": \"send_whatsapp\", \"arguments\": {\"phone_number\": \"966501234567\", \"message\": \"طلبك في الطريق\"}}"
+    },
+    "حساب": {
+     "tok_s": 2.8,
+     "seconds": 41.0,
+     "score": 1.0,
+     "detail": "22.5 ✔",
+     "text": "الصندوق الأول: 5 تفاحات  \nالصندوق الثاني: ضعف الأول = 2 × 5 = 10 تفاحات  \nالصندوق الثالث: نصف مجموع الأول والتاني = (5 + 10) ÷ 2 = 15 ÷ 2 = 7.5 تفاحة  \n\nإجمالي التفاحات = 5 + 10 + 7.5 = **22.5 تفاحة**\n\nالإجابة = 22.5"
+    },
+    "عربي: رد على شكوى": {
+     "tok_s": 1.7,
+     "seconds": 17.7,
+     "score": null,
+     "detail": "",
+     "text": "نأسف لتأخير أوردي، نعمل على إصلاح الوضع وتقديم الحل بأسرع وقت ممكن."
+    },
+    "عربي: تبسيط": {
+     "tok_s": 3.1,
+     "seconds": 42.0,
+     "score": null,
+     "detail": "",
+     "text": "الذكاء الاصطناعي هو كأنه شخص ما يُبرمج جهاز أو حاسوب ليتعلم ويحسّس ويفكر مثل البشر، لكن بدل أن يكون بشريًا، فهو آلي.  \nفمثلاً إذا كنت تزرع محصول وتريد معرفة متى تنثر البذور أو كيف تحافظ على الماء، يمكن لجهاز ذكي أن يساعدك ويقول لك ماذا يجب أن تفعل.  \nوكلما استخدمته أكثر، كلما أصبح أذكى وأكثر خبرة في المساعدة عليك."
+    }
+   },
+   "download": "اتنزّل (4.68 جيجا)",
+   "size_gb": 4.68,
+   "load_s": 21.0,
+   "served_model": "/data/moe/Qwen3-8B-Q4_K_M.gguf",
+   "auto_score": 1.0,
+   "avg_tok_s": 2.0
+  }
+ }
 }
