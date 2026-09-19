@@ -1,0 +1,78 @@
+موجود: needle
+موجود: needle3.cact
+
+═══ ١) الواجهة (--help) ═══
+usage: ./needle [--model needle3.cact] [--tools tools.json] [--system system.txt] [--prompt "..."] [--serve] [--port N] [--max N] [--depth N] [--threads N] [--forced] [--fail-input-overflow] [--tool-index path]
+  --model needle3.cact     the weights to run (required unless this build embeds them)
+  --tools tools.json       the functions the assistant may call, as a JSON array
+  --tool-index path        file holding this tool set's embeddings, reused when the schemas match
+  --system system.txt      session facts like date, locale, or device
+  --prompt "..."           answer one query and exit
+  --max N                  response token limit (default 512)
+  --depth N                endpoint-preserving ladder depth (2..full; default full)
+  --threads N              worker threads (default: the device's fast cores, at most 4)
+  --forced                 benchmark mode: always dispatch a call when tools are offered
+  --fail-input-overflow    refuse a turn that would not fit the context window instead of trimming it
+  --serve [--port N]       run an HTTP server (default port 8080): POST /complete {"input":"..."}, POST /reset
+
+═══ ٢) بدون معطيات ═══
+./needle: no model loaded; pass --model needle3.cact
+usage: ./needle [--model needle3.cact] [--tools tools.json] [--system system.txt] [--prompt "..."] [--serve] [--port N] [--max N] [--depth N] [--threads N] [--forced] [--fail-input-overflow] [--tool-index path]
+  --model needle3.cact     the weights to run (required unless this build embeds them)
+  --tools tools.json       the functions the assistant may call, as a JSON array
+  --tool-index path        file holding this tool set's embeddings, reused when the schemas match
+  --system system.txt      session facts like date, locale, or device
+  --prompt "..."           answer one query and exit
+  --max N                  response token limit (default 512)
+  --depth N                endpoint-preserving ladder depth (2..full; default full)
+  --threads N              worker threads (default: the device's fast cores, at most 4)
+  --forced                 benchmark mode: always dispatch a call when tools are offered
+  --fail-input-overflow    refuse a turn that would not fit the context window instead of trimming it
+  --serve [--port N]       run an HTTP server (default port 8080): POST /complete {"input":"..."}, POST /reset
+
+═══ ٣) محاولة تشغيل ═══
+./needle: no model loaded; pass --model needle3.cact
+usage: ./needle [--model needle3.cact] [--tools tools.json] [--system system.txt] [--prompt "..."] [--serve] [--port N] [--max N] [--depth N] [--threads N] [--forced] [--fail-input-overflow] [--tool-index path]
+  --model needle3.cact     the weights to run (required unless this build embeds them)
+  --tools tools.json       the functions the assistant may call, as a JSON array
+  --tool-index path        file holding this tool set's embeddings, reused when the schemas match
+  --system system.txt      session facts like date, locale, or device
+  --prompt "..."           answer one query and exit
+  --max N                  response token limit (default 512)
+  --depth N                endpoint-preserving ladder depth (2..full; default full)
+  --threads N              worker threads (default: the device's fast cores, at most 4)
+  --forced                 benchmark mode: always dispatch a call when tools are offered
+  --fail-input-overflow    refuse a turn that would not fit the context window instead of trimming it
+  --serve [--port N]       run an HTTP server (default port 8080): POST /complete {"input":"..."}, POST /reset
+
+═══ ٤) أدوات + عربي ═══
+-- عربي --
+./needle: no model loaded; pass --model needle3.cact
+usage: ./needle [--model needle3.cact] [--tools tools.json] [--system system.txt] [--prompt "..."] [--serve] [--port N] [--max N] [--depth N] [--threads N] [--forced] [--fail-input-overflow] [--tool-index path]
+  --model needle3.cact     the weights to run (required unless this build embeds them)
+  --tools tools.json       the functions the assistant may call, as a JSON array
+  --tool-index path        file holding this tool set's embeddings, reused when the schemas match
+  --system system.txt      session facts like date, locale, or device
+  --prompt "..."           answer one query and exit
+  --max N                  response token limit (default 512)
+  --depth N                endpoint-preserving ladder depth (2..full; default full)
+  --threads N              worker threads (default: the device's fast cores, at most 4)
+  --forced                 benchmark mode: always dispatch a call when tools are offered
+  --fail-input-overflow    refuse a turn that would not fit the context window instead of trimming it
+  --serve [--port N]       run an HTTP server (default port 8080): POST /complete {"input":"..."}, POST /reset
+-- إنجليزي (للمقارنة) --
+./needle: no model loaded; pass --model needle3.cact
+usage: ./needle [--model needle3.cact] [--tools tools.json] [--system system.txt] [--prompt "..."] [--serve] [--port N] [--max N] [--depth N] [--threads N] [--forced] [--fail-input-overflow] [--tool-index path]
+  --model needle3.cact     the weights to run (required unless this build embeds them)
+  --tools tools.json       the functions the assistant may call, as a JSON array
+  --tool-index path        file holding this tool set's embeddings, reused when the schemas match
+  --system system.txt      session facts like date, locale, or device
+  --prompt "..."           answer one query and exit
+  --max N                  response token limit (default 512)
+  --depth N                endpoint-preserving ladder depth (2..full; default full)
+  --threads N              worker threads (default: the device's fast cores, at most 4)
+  --forced                 benchmark mode: always dispatch a call when tools are offered
+  --fail-input-overflow    refuse a turn that would not fit the context window instead of trimming it
+  --serve [--port N]       run an HTTP server (default port 8080): POST /complete {"input":"..."}, POST /reset
+
+DONE-NEEDLE-TEST
