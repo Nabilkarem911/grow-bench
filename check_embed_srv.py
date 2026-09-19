@@ -1,45 +1,35 @@
 #!/usr/bin/env python3
-"""اختبار خدمة التمثيل من حاوية الفحص — بنفس الشبكة، بالاسم مباشرة."""
-import json, urllib.request, math, time
+"""نقرا سجلّات حاوية التمثيل مباشرة من Docker API (بدون exec)."""
+import http.client, json, socket
 
-BASE = "http://embedsrv:8080/v1/embeddings"
+SOCK = "/var/run/docker.sock"
 
-def emb(text):
-    rq = urllib.request.Request(BASE, data=json.dumps({"input": text, "model": "bge-m3"}).encode("utf-8"),
-                                headers={"Content-Type": "application/json"})
-    r = json.load(urllib.request.urlopen(rq, timeout=180))
-    return r["data"][0]["embedding"]
+class U(http.client.HTTPConnection):
+    def __init__(s, p): super().__init__("localhost"); s._p = p
+    def connect(s):
+        sk = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM); sk.settimeout(120); sk.connect(s._p); s.sock = sk
 
-def cos(a, b):
-    d = sum(x*y for x, y in zip(a, b))
-    na = math.sqrt(sum(x*x for x in a)); nb = math.sqrt(sum(y*y for y in b))
-    return d / (na * nb)
+def dk(m, p, b=None):
+    c = U(SOCK); data = json.dumps(b).encode() if b is not None else None
+    c.request(m, p, body=data, headers={"Content-Type": "application/json"} if b else {})
+    r = c.getresponse(); raw = r.read(); c.close()
+    return raw
 
-print("=== الاتصال بالخدمة ===")
-try:
-    t0 = time.time()
-    v = emb("اختبار")
-    print(f"  ✅ شغالة · الأبعاد: {len(v)} · الزمن: {round(time.time()-t0,2)} ث")
-except Exception as e:
-    print("  ❌ فشل الاتصال:", str(e)[:250])
-    raise SystemExit
-
-print("\n=== اختبار العربي: هل التشابه بقى منطقي؟ ===")
-pairs = [
-    ("نفس المعنى  ", "الطلب اتأخر وأنا محتاج حل بسرعة", "أوردري متأخر ومحتاج مساعدة سريعة"),
-    ("نفس المعنى ٢", "اسمي ابراهيم ورقمي 0555123456", "أنا ابراهيم تليفوني 0555123456"),
-    ("مختلف       ", "الطلب اتأخر وأنا محتاج حل بسرعة", "الطقس النهاردة جميل في ينبع"),
-    ("مختلف ٢     ", "عايز أشتري لابتوب جديد", "فاتورة الكهرباء الشهرية"),
-    ("مختلف ٣     ", "إزاي أصلح كود بايثون", "أفضل مطعم في ينبع"),
-]
-same, diff = [], []
-for lbl, a, b in pairs:
-    s = cos(emb(a), emb(b))
-    print(f"  {lbl}  {s:.3f}")
-    (same if lbl.startswith("نفس") else diff).append(s)
-
-ms, md = sum(same)/len(same), sum(diff)/len(diff)
-print(f"\n  متوسط «نفس المعنى»: {ms:.3f}")
-print(f"  متوسط «مختلف»:      {md:.3f}")
-print(f"  الفرق: {ms-md:.3f}   (المطلوب > 0.15)")
-print("  ➜ " + ("نجح ✓✓" if (ms > 0.85 and ms - md > 0.15) else "لسه محتاج تحسين ⚠️"))
+cs = json.loads(dk("GET", "/containers/json?all=1").decode("utf-8", "ignore"))
+svc = [c for c in cs if "embedsrv" in " ".join(c.get("Names") or [])]
+if not svc:
+    print("❌ مفيش حاوية embedsrv"); raise SystemExit
+c = svc[0]
+info = json.loads(dk("GET", f"/containers/{c['Id']}/json").decode("utf-8", "ignore"))
+st = info.get("State") or {}
+print("الحالة:", c.get("Status"), "· الإعادات:", info.get("RestartCount"), "· كود الخروج:", st.get("ExitCode"))
+print("مسار العمل:", (info.get("Config") or {}).get("WorkingDir"))
+print("الأمر:", str((info.get("Config") or {}).get("Cmd"))[:160])
+print("\n=== سجلّات الحاوية (آخر 2000 حرف) ===")
+raw = dk("GET", f"/containers/{c['Id']}/logs?stdout=1&stderr=1&tail=80")
+# إزالة ترويسات التدفق
+out, i = [], 0
+while i + 8 <= len(raw):
+    n = int.from_bytes(raw[i+4:i+8], "big"); out.append(raw[i+8:i+8+n].decode("utf-8", "ignore")); i += 8 + n
+txt = "".join(out) if out else raw.decode("utf-8", "ignore")
+print(txt[-2000:])
