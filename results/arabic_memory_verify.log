@@ -1,31 +1,27 @@
 ════════ اختبار خدمة التمثيل bge-m3 (من الشبكة الداخلية) ════════
-الحالة: Up 4 minutes · الإعادات: 0 · كود الخروج: 0
-مسار العمل: /app
-الأمر: ['sh', '-c', 'if [ "6" = "0" ]; then echo \'embedsrv idle\'; sleep infinity; else sed \'s/r$//\' /app/serve_embed.sh > /tmp/e.sh; sh /tmp/e.sh; fi']
+=== الاتصال ===
+  ✅ الأبعاد: 1024 · الزمن: 0.07 ث
 
-=== سجلّات الحاوية (آخر 2000 حرف) ===
-llama-server: /data/llama/llama-b10988/llama-server
-⬇️ بنثبّت المكتبات الناقصة (libgomp1)...
-✅ المكتبات: 1 libgomp
-🚀 تشغيل خدمة التمثيل على 8080 (bge-m3)
-0.00.014.866 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
-0.00.014.890 W srv  llama_server: embeddings enabled with n_batch (2048) > n_ubatch (512)
-0.00.014.891 W srv  llama_server: setting n_batch = n_ubatch = 512 to avoid assertion failure
-0.00.015.384 W srv  llama_server: -----------------
-0.00.015.401 W srv  llama_server: CORS is set to allow all origins ('*') and no API key is set
-0.00.015.402 W srv  llama_server: this can be a security risk (cross-origin attacks)
-0.00.015.402 W srv  llama_server: more info: https://github.com/ggml-org/llama.cpp/pull/25655
-0.00.015.402 W srv  llama_server: -----------------
-0.00.016.688 I srv    load_model: loading model '/data/moe/bge-m3-f16.gguf'
-0.01.465.720 W load: model vocab missing newline token, using special_pad_id instead
-0.01.702.013 W llama_init_from_model: model default pooling_type is [2], but [1] was specified
-0.01.705.467 I cmn          init: llama threadpool init, n_threads = 3
-0.01.736.828 W srv    load_model: speculative decoding not supported by this context
-0.01.736.839 I srv    load_model: initializing, n_slots = 4, n_ctx_slot = 8192, kv_unified = 'true'
-0.01.739.812 I srv  llama_server: model loaded
-0.01.739.826 I srv  llama_server: listening on http://0.0.0.0:8080
-0.01.739.826 W srv  llama_server: NOTICE: server default port will be changed to :9931 in a future release
-0.01.739.827 W srv  llama_server:         ref: https://github.com/ggml-org/llama.cpp/pull/26508
+=== جودة العربي: هل التشابه بقى منطقي؟ ===
+  نفس المعنى    0.831
+  نفس المعنى ٢  0.966
+  نفس المعنى ٣  0.884
+  مختلف         0.649
+  مختلف ٢       0.657
+  مختلف ٣       0.600
+  مختلف ٤       0.580
 
+  متوسط «نفس المعنى»: 0.894
+  متوسط «مختلف»:      0.621
+  الفرق: 0.272  (المطلوب > 0.15)
+  ➜ ✅ نجح — العربي بقى مفهوم ومميّز
+
+=== بحث حقيقي: هل بيرجّع الحاجة الصح؟ ===
+   [0.847] التوصيل اتأخر عن الميعاد
+   [0.840] أوردري متأخر ومحتاج مساعدة سريعة
+   [0.709] عايز أشتري لابتوب جديد
+   [0.646] الطقس النهاردة جميل في ينبع
+   [0.616] فاتورة الكهرباء الشهرية
+   ➜ الأول صح؟ ❌ لأ
 
 DONE-ARABIC-VERIFY
