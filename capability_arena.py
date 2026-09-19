@@ -29,14 +29,8 @@ LLAMA = "/data/llama"
 PORT = 8097
 
 MODELS = [
-    ("Qwen2.5-Coder-1.5B", "https://huggingface.co/bartowski/Qwen2.5-Coder-1.5B-Instruct-GGUF/resolve/main/Qwen2.5-Coder-1.5B-Instruct-Q4_K_M.gguf", f"{MOE}/Qwen2.5-Coder-1.5B-Q4_K_M.gguf"),
-    ("Yi-Coder-1.5B-Chat", "https://huggingface.co/bartowski/Yi-Coder-1.5B-Chat-GGUF/resolve/main/Yi-Coder-1.5B-Chat-Q4_K_M.gguf", f"{MOE}/Yi-Coder-1.5B-Q4_K_M.gguf"),
-    ("Arabic-Qwen2.5-3B", "https://huggingface.co/mradermacher/Arabic-Qwen2.5-3B-GGUF/resolve/main/Arabic-Qwen2.5-3B.Q4_K_M.gguf", f"{MOE}/Arabic-Qwen2.5-3B-Q4_K_M.gguf"),
-    ("MiniCPM5-1B", "https://huggingface.co/openbmb/MiniCPM5-1B-GGUF/resolve/main/MiniCPM5-1B-Q4_K_M.gguf", f"{MOE}/MiniCPM5-1B-Q4_K_M.gguf"),
-    ("SmolLM3-3B", "https://huggingface.co/ggml-org/SmolLM3-3B-GGUF/resolve/main/SmolLM3-Q4_K_M.gguf", f"{MOE}/SmolLM3-3B-Q4_K_M.gguf"),
-    ("LFM2.5-1.2B", None, f"{MOE}/LFM2.5-1.2B-Q4_K_M.gguf"),
+    ("Qwen3-8B", "https://huggingface.co/unsloth/Qwen3-8B-GGUF/resolve/main/Qwen3-8B-Q4_K_M.gguf", f"{MOE}/Qwen3-8B-Q4_K_M.gguf"),
     ("Qwen3-1.7B", None, f"{MOE}/Qwen3-1.7B-Q4_K_M.gguf"),
-    ("ERNIE-4.5-21B-A3B", None, f"{MOE}/ERNIE-4.5-21B-A3B-Q4_K_M.gguf"),
 ]
 
 # ── الاختبارات + التصحيح الآلي ─────────────────────────────────────────
