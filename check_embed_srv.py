@@ -84,10 +84,19 @@ for i, (mid, content) in enumerate(recs[:200]):
 print(f"  ✅ جاهز: {ok} · فشل: {fail}")
 
 if sqls:
+    import tarfile, io
     cp = find("titan-titan-wqx9l7-postgres")
-    import base64
-    payload = base64.b64encode("\n".join(sqls).encode()).decode()
-    exec_in(cp["Id"], ["sh", "-c", f"echo {payload} | base64 -d > /tmp/bf.sql"])
+    # نرفع ملف SQL للحاوية عبر Docker archive API (مفيش حدود طول هنا)
+    buf = io.BytesIO()
+    with tarfile.open(fileobj=buf, mode="w") as tf:
+        data = "\n".join(sqls).encode("utf-8")
+        ti = tarfile.TarInfo(name="bf.sql"); ti.size = len(data); ti.mode = 0o644
+        tf.addfile(ti, io.BytesIO(data))
+    buf.seek(0)
+    c = U(SOCK)
+    c.request("PUT", f"/containers/{cp['Id']}/archive?path=/tmp", body=buf.read(),
+              headers={"Content-Type": "application/x-tar"})
+    r = c.getresponse(); print("  رفع الملف:", r.status, r.read()[:80]); c.close()
     out = exec_in(cp["Id"], ["sh", "-c",
         f"export PGPASSWORD='{env.get('PASSWORD','')}'; psql -U {env.get('USER')} -d {env.get('DB')} -q -f /tmp/bf.sql 2>&1 | tail -3; "
         f"psql -U {env.get('USER')} -d {env.get('DB')} -tAc \"SELECT count(*) FROM memory_items WHERE embedding_vec IS NOT NULL\""])
