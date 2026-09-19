@@ -1,0 +1,17 @@
+════════ ١) حاويات تيتان ════════
+/app/verify_arabic_memory.sh: 9: docker: not found
+/app/verify_arabic_memory.sh: 11: docker: not found
+/app/verify_arabic_memory.sh: 12: docker: not found
+
+حاوية التمثيل: 
+حاوية قاعدة البيانات: 
+
+════════ ٢) النموذج والأبعاد (من جوه الحاوية) ════════
+/app/verify_arabic_memory.sh: 19: docker: not found
+
+════════ ٣) اختبار العربي الفعلي (المهم) ════════
+/app/verify_arabic_memory.sh: 31: docker: not found
+
+════════ ٤) المخزون الفعلي (embedding_vec) ════════
+
+DONE-ARABIC-VERIFY
