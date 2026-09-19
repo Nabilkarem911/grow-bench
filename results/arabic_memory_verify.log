@@ -1,5 +1,10 @@
 ════════ اختبار خدمة التمثيل bge-m3 (من الشبكة الداخلية) ════════
-=== الاتصال بالخدمة ===
-  ❌ فشل الاتصال: <urlopen error [Errno 111] Connection refused>
+الحالة: Up 19 minutes · الإعادات: 0 · كود الخروج: 0
+مسار العمل: /app
+الأمر: ['sh', '-c', 'if [ "1" = "0" ]; then echo \'embedsrv idle\'; sleep infinity; else sed \'s/r$//\' /app/serve_embed.sh > /tmp/e.sh; sh /tmp/e.sh; fi']
+
+=== سجلّات الحاوية (آخر 2000 حرف) ===
+⚠️ llama-server مش موجود على السيرفر
+
 
 DONE-ARABIC-VERIFY
