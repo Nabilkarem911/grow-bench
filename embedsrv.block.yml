@@ -1,0 +1,14 @@
+  # خدمة التمثيل متعددة اللغات (BAAI/bge-m3 · 1024 بُعد) — تخدم تيتان وأي مشروع تاني
+  embedsrv:
+    image: python:3.12-slim
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - grow_data:/data
+    environment:
+      - RUN_EMBED=${RUN_EMBED:-0}
+      - EMBED_MODEL=${EMBED_MODEL:-/data/moe/bge-m3-f16.gguf}
+    ports:
+      - "8095:8080"
+    command: sh -c "if [ \"${RUN_EMBED:-0}\" = \"0\" ]; then echo 'embedsrv idle'; sleep infinity; else sed 's/\r$//' /app/serve_embed.sh > /tmp/e.sh; sh /tmp/e.sh; fi"
+    restart: unless-stopped
