@@ -11,7 +11,10 @@
     ... 80
     ... 120
   ✅ جاهز: 125 · فشل: 0
-  نتيجة التحديث: psql: error: /tmp/bf.sql: No such file or directory
+  رفع الملف: 200 b''
+  نتيجة التحديث: psql:/tmp/bf.sql:125: ERROR:  syntax error at or near ":"
+LINE 1: ...2677,-0.010130,-0.015945]'::vector WHERE id=Answer: {"query"...
+                                                             ^
 0
 
 === 3) البحث الدلالي الحقيقي في ذاكرة تيتان ===
