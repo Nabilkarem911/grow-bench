@@ -1,52 +1,49 @@
 #!/usr/bin/env python3
-"""اختبار جودة خدمة التمثيل bge-m3 على العربي."""
-import json, urllib.request, math, time
+"""نلاقي العنوان اللي تقدر حاويات تيتان توصل بيه لخدمة التمثيل."""
+import json, socket, urllib.request, http.client, subprocess, math
 
-BASE = "http://embedsrv:8080/v1/embeddings"
+print("=== 1) عنوان الشبكة من جوه الحاوية ===")
+try:
+    print("  route:", subprocess.run(["sh","-c","ip route 2>/dev/null | head -5 || cat /proc/net/route | head -3"],
+                                    capture_output=True, text=True).stdout.strip())
+except Exception as e:
+    print("  ", e)
 
-def emb(text):
-    rq = urllib.request.Request(BASE, data=json.dumps({"input": text}).encode("utf-8"),
-                                headers={"Content-Type": "application/json"})
-    return json.load(urllib.request.urlopen(rq, timeout=300))["data"][0]["embedding"]
+print("\n=== 2) تجربة العناوين المرشحة لمنفذ 8095 ===")
+cands = []
+try:
+    out = subprocess.run(["sh","-c","ip route 2>/dev/null | awk '/default/ {print $3}'"], capture_output=True, text=True).stdout.split()
+    cands += [c.strip() for c in out if c.strip()]
+except Exception: pass
+cands += ["172.17.0.1", "172.18.0.1", "172.19.0.1", "host.docker.internal"]
 
-def cos(a, b):
-    d = sum(x*y for x, y in zip(a, b))
-    return d / (math.sqrt(sum(x*x for x in a)) * math.sqrt(sum(y*y for y in b)))
+BODY = json.dumps({"input": "اختبار"}).encode()
+def test(host, port=8095):
+    try:
+        rq = urllib.request.Request(f"http://{host}:{port}/v1/embeddings", data=BODY,
+                                    headers={"Content-Type": "application/json"})
+        r = json.load(urllib.request.urlopen(rq, timeout=20))
+        return "✅ شغال · الأبعاد " + str(len(r["data"][0]["embedding"]))
+    except Exception as e:
+        return "❌ " + str(e)[:60]
 
-print("=== الاتصال ===")
-t0 = time.time(); v = emb("اختبار")
-print(f"  ✅ الأبعاد: {len(v)} · الزمن: {round(time.time()-t0,2)} ث")
+for c in dict.fromkeys(cands):
+    print(f"  {c:24} {test(c)}")
 
-print("\n=== جودة العربي: هل التشابه بقى منطقي؟ ===")
-pairs = [
-    ("نفس المعنى  ", "الطلب اتأخر وأنا محتاج حل بسرعة", "أوردري متأخر ومحتاج مساعدة سريعة"),
-    ("نفس المعنى ٢", "اسمي ابراهيم ورقمي 0555123456", "أنا ابراهيم تليفوني 0555123456"),
-    ("نفس المعنى ٣", "عايز أعرف أسعار الشحن", "كام تكلفة التوصيل"),
-    ("مختلف       ", "الطلب اتأخر وأنا محتاج حل بسرعة", "الطقس النهاردة جميل في ينبع"),
-    ("مختلف ٢     ", "عايز أشتري لابتوب جديد", "فاتورة الكهرباء"),
-    ("مختلف ٣     ", "إزاي أصلح كود بايثون", "أفضل مطعم في ينبع"),
-    ("مختلف ٤     ", "شغل المحاسبة صعب", "ملعب الكورة بعيد"),
-]
-same, diff = [], []
-for lbl, a, b in pairs:
-    s = cos(emb(a), emb(b))
-    print(f"  {lbl}  {s:.3f}")
-    (same if lbl.startswith("نفس") else diff).append(s)
-
-ms, md = sum(same)/len(same), sum(diff)/len(diff)
-print(f"\n  متوسط «نفس المعنى»: {ms:.3f}")
-print(f"  متوسط «مختلف»:      {md:.3f}")
-print(f"  الفرق: {ms-md:.3f}  (المطلوب > 0.15)")
-ok = ms > 0.85 and (ms - md) > 0.15
-print("  ➜ " + ("✅ نجح — العربي بقى مفهوم ومميّز" if ok else "⚠️ لسه فيه مشكلة"))
-
-if ok:
-    print("\n=== بحث حقيقي: هل بيرجّع الحاجة الصح؟ ===")
-    Q = "الطلب اتأخر ومحتاج حل بسرعة"
-    items = ["الطقس النهاردة جميل في ينبع", "أوردري متأخر ومحتاج مساعدة سريعة",
-             "فاتورة الكهرباء الشهرية", "عايز أشتري لابتوب جديد", "التوصيل اتأخر عن الميعاد"]
-    qv = emb(Q)
-    scored = sorted(((cos(qv, emb(it)), it) for it in items), reverse=True)
-    for s, it in scored:
-        print(f"   [{s:.3f}] {it}")
-    print("   ➜ الأول صح؟", "✅ أيوة" if "متأخر" in scored[0][1] or "أوردري" in scored[0][1] else "❌ لأ")
+print("\n=== 3) الاختبار النهائي: جودة العربي من عنوان الشبكة ===")
+import math
+for host in dict.fromkeys(cands):
+    try:
+        def emb(t):
+            rq = urllib.request.Request(f"http://{host}:8095/v1/embeddings", data=json.dumps({"input": t}).encode(),
+                                        headers={"Content-Type": "application/json"})
+            return json.load(urllib.request.urlopen(rq, timeout=60))["data"][0]["embedding"]
+        def cos(a,b):
+            return sum(x*y for x,y in zip(a,b))/(math.sqrt(sum(x*x for x in a))*math.sqrt(sum(y*y for y in b)))
+        s = cos(emb("الطلب اتأخر ومحتاج حل"), emb("أوردري متأخر ومحتاج مساعدة"))
+        d = cos(emb("الطلب اتأخر ومحتاج حل"), emb("الطقس جميل في ينبع"))
+        print(f"  {host}: نفس المعنى {s:.3f} · مختلف {d:.3f} · الفرق {s-d:.3f}")
+        print(f"  ➜ العنوان الصالح لتيتان: http://{host}:8095/v1")
+        break
+    except Exception as e:
+        continue
