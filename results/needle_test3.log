@@ -1,0 +1,27 @@
+###### ١) رسالة مخلوطة: عربي + أرقام إنجليزي ######
+
+==============================================
+▶ mixed-1
+==============================================
+{"type":"call","success":true,"error":null,"error_code":null,"reason":null,"function_calls":[],"suppressed_calls":[{"name":"record_customer_issue","arguments":{"customer_name":"أنا أحمد،","phone":"0555987654","order_id":"7745","amount":890.0,"urgency":"low","problem":"اتأخر 5"}}],"reasoning":"customer_name 'أنا أحمد،' from query; phone '0555987654' from query; order_id '7745' from query; amount 890 from query; urgency 'low' from 'اتأخر 5'","confidence":0.0000,"prefill_tps":747.7,"decode_tps":135.9,"peak_ram_mb":73.8,"validation":{"ungrounded":[],"negation":false}}
+
+###### ٢) رسالة بالإنجليزي جواها عربي للأكل ######
+
+==============================================
+▶ mixed-2
+==============================================
+{"type":"call","success":true,"error":null,"error_code":null,"reason":null,"function_calls":[{"name":"record_customer_issue","arguments":{"customer_name":"Sara","phone":"0566112233","order_id":"4412","amount":320.0,"problem":"low"}}],"suppressed_calls":[],"reasoning":"customer_name 'Sara' from query; phone '0566112233' from query; order_id '44412' from query; amount 320 from query; problem 'low' from 'very late'","confidence":0.9870,"prefill_tps":1339.2,"decode_tps":470.5,"peak_ram_mb":73.8,"validation":{"ungrounded":["record_customer_issue.problem"],"negation":false}}
+
+###### ٣) رسالة عربية خالص (سطر واحد واضح) ######
+
+==============================================
+▶ ar-clean
+==============================================
+{"type":"call","success":true,"error":null,"error_code":null,"reason":null,"function_calls":[{"name":"record_customer_issue","arguments":{"customer_name":"خالد","phone":"0500998877","order_id":"1122","problem":"خالد رقمي"}}],"suppressed_calls":[],"reasoning":"'خالد رقمي 0500998877 عندي شكوى على الأوردر 1122' -> customer_name 'خالد', phone '0500998877', order_id '1122'.","confidence":0.3052,"prefill_tps":517.2,"decode_tps":190.5,"peak_ram_mb":73.8,"validation":{"ungrounded":[],"negation":false}}
+
+###### ٤) وضع السيرفر مع reset بين كل طلب ######
+needle serving on http://127.0.0.1:8091  (POST /complete {"input":"..."}, POST /reset)
+[مخلوط] 0.19ث → {"type": "call", "success": true, "error": null, "error_code": null, "reason": null, "function_calls": [], "suppressed_calls": [], "reasoning": "No tool available to access or access customer service services.", "confidence": 1.0, "prefill_tps": 61.6, "decode_tps": 207.6, "peak_ram_mb": 73.8}
+[إنجليزي] 0.05ث → {"type": "call", "success": true, "error": null, "error_code": null, "reason": null, "function_calls": [], "suppressed_calls": [], "reasoning": "No tool available to access or access customer service services.", "confidence": 1.0, "prefill_tps": 927.1, "decode_tps": 497.9, "peak_ram_mb": 73.8}
+
+DONE-NEEDLE-TEST
