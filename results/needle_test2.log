@@ -1,0 +1,50 @@
+-rwxr-xr-x 1 root root  1164120 Sep 19 12:40 needle
+-rw-r--r-- 1 root root 35335380 Sep 19 12:40 needle3.cact
+###### ١) طلب مالوش أداة — إنجليزي ######
+
+==============================================
+▶ no-tool EN
+==============================================
+{"type":"call","success":true,"error":null,"error_code":null,"reason":null,"function_calls":[],"suppressed_calls":[],"reasoning":"No weather tool available.","confidence":0.8573,"prefill_tps":840.5,"decode_tps":448.4,"peak_ram_mb":73.8}
+[الزمن: 193 مللي · exit: 0]
+
+###### ٢) طلب مالوش أداة — عربي ######
+
+==============================================
+▶ no-tool AR
+==============================================
+{"type":"call","success":false,"error":"tool call truncated: token budget exhausted","error_code":"truncated","reason":"runtime_failure","function_calls":[],"suppressed_calls":[],"reasoning":"'إيه الطقس النهاردة في ينبع؟' -> الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الط","confidence":0.1238,"prefill_tps":1430.8,"decode_tps":281.7,"peak_ram_mb":73.8}
+[الزمن: 2036 مللي · exit: 0]
+
+###### ٣) استخراج من رسالة عميل ملخبطة — عربي ######
+
+==============================================
+▶ extract AR
+==============================================
+{"type":"call","success":true,"error":null,"error_code":null,"reason":null,"function_calls":[],"suppressed_calls":[{"name":"record_customer_issue","arguments":{"customer_name":"السلام","phone":"8821","order_id":"8821","amount":8821.0,"urgency":"low","problem":"اسم"}}],"reasoning":"customer_name 'السلام' from query; phone '8821' from query; order_id '8821' from query; amount 8821 from query; urgency 'low' from 'اسم'","confidence":0.0000,"prefill_tps":1192.6,"decode_tps":175.4,"peak_ram_mb":73.8,"validation":{"ungrounded":[],"negation":false}}
+[الزمن: 1070 مللي · exit: 0]
+
+###### ٤) نفس الاستخراج — إنجليزي ######
+
+==============================================
+▶ extract EN
+==============================================
+{"type":"call","success":true,"error":null,"error_code":null,"reason":null,"function_calls":[{"name":"record_customer_issue","arguments":{"customer_name":"Ibrahim","phone":"0555123456","order_id":"8821","amount":1450.0,"urgency":"low","problem":""}}],"suppressed_calls":[],"reasoning":"customer_name 'Ibrahim' from query; phone '0555123456' from query; order_id '8821' from query; amount 1450 from '1450 SAR'; urgency 'low' from 'a week ago' and 'never arrived'.","confidence":0.6609,"prefill_tps":484.9,"decode_tps":456.3,"peak_ram_mb":73.8,"validation":{"ungrounded":[],"negation":true}}
+[الزمن: 683 مللي · exit: 0]
+
+###### ٥) أقصى قصّ — عمق 2 طبقة ######
+
+==============================================
+▶ depth 2
+==============================================
+{"type":"call","success":true,"error":null,"error_code":null,"reason":null,"function_calls":[{"name":"send_whatsapp","arguments":{"phone":"966501234567","text":"the order is late"}}],"suppressed_calls":[],"reasoning":"phone '966501234567' from query; text 'the order is late' from query; send_whatsapp tool chosen","confidence":1.0000,"prefill_tps":1275.5,"decode_tps":464.9,"peak_ram_mb":73.8,"validation":{"ungrounded":[],"negation":false}}
+[الزمن: 317 مللي · exit: 0]
+
+###### ٦) وضع السيرفر (--serve على 8090) ######
+--- سجل الإقلاع ---
+needle serving on http://127.0.0.1:8090  (POST /complete {"input":"..."}, POST /reset)
+[عربي] 0.17ث → {"type": "call", "success": true, "error": null, "error_code": null, "reason": null, "function_calls": [{"name": "check_order", "arguments": {"order_id": ""}}], "suppressed_calls": [], "reasoning": "User wants to check order status. No order_id given, so check_order with default order_id.", "confidence": 0.9918, "prefill_tps": 106.6, "decode_tps": 471.1, "peak_ram_mb": 73.8, "validation": {"ungrou
+[إنجليزي] 0.09ث → {"type": "call", "success": true, "error": null, "error_code": null, "reason": null, "function_calls": [{"name": "check_order", "arguments": {"order_id": ""}}], "suppressed_calls": [], "reasoning": "order status checked; user wants to know if it's ready for pickup.", "confidence": 0.991, "prefill_tps": 1057.5, "decode_tps": 487.2, "peak_ram_mb": 73.8, "validation": {"ungrounded": [], "negation": f
+--- إغلاق ---
+
+DONE-NEEDLE-TEST
