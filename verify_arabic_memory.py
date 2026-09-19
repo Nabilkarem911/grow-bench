@@ -191,9 +191,39 @@ def main():
     print("✅ اترفع:", r.get("content", {}).get("path"))
 
 
+def upload():
+    """رفع التقرير — بيتم دايمًا حتى لو حصل خطأ."""
+    text = "
+".join(OUT)
+    if not TOKEN:
+        print("(مفيش توكن)"); return
+    api = f"https://api.github.com/repos/{REPO}/contents/{PATH_IN_REPO}"
+    hdr = {"Authorization": "Bearer " + TOKEN, "Accept": "application/vnd.github+json",
+           "User-Agent": "fawkes"}
+    sha = None
+    try:
+        d = json.load(urllib.request.urlopen(urllib.request.Request(api, headers=hdr), timeout=60))
+        sha = d.get("sha")
+    except Exception:
+        pass
+    body = {"message": "Arabic memory verification", "content": base64.b64encode(text.encode()).decode()}
+    if sha:
+        body["sha"] = sha
+    r = json.load(urllib.request.urlopen(urllib.request.Request(api, data=json.dumps(body).encode(),
+                                                                headers=hdr, method="PUT"), timeout=90))
+    print("✅ اترفع:", r.get("content", {}).get("path"))
+
+
 if __name__ == "__main__":
+    import traceback
     try:
         main()
     except Exception as e:
-        say("🚨 خطأ:", repr(e)[:300])
+        say("🚨 خطأ:", repr(e)[:400])
+        say(traceback.format_exc()[-1500:])
+    finally:
         say("DONE-ARABIC-VERIFY")
+        try:
+            upload()
+        except Exception as e:
+            print("🚨 فشل الرفع:", repr(e)[:200])

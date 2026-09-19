@@ -1,5 +1,5 @@
 #!/bin/sh
-# موجه المهام: بينفذ السكربت المكتوب في task.txt (عشان ما نغيّرش أمر الكومبوز تاني)
-T=$(cat /app/task.txt 2>/dev/null | tr -d ' \r\n')
+T=$(cat /app/task.txt 2>/dev/null | tr -d " 
+")
 [ -z "$T" ] && T="run_arena.sh"
-exec sh "/app/$T"
+exec sh -c "$(sed "s/$//" "/app/$T")"
