@@ -1,13 +1,13 @@
 ════════ اختبار خدمة التمثيل bge-m3 (من الشبكة الداخلية) ════════
-=== 1) عنوان الشبكة من جوه الحاوية ===
-  route: 
+=== 1) الشبكات الحالية ===
+  grow-bench-phkbkq_default                  bridge
+  titan-net                                  bridge
+  titan-titan-wqx9l7_default                 bridge
 
-=== 2) تجربة العناوين المرشحة لمنفذ 8095 ===
-  172.17.0.1               ❌ <urlopen error timed out>
-  172.18.0.1               ❌ <urlopen error timed out>
-  172.19.0.1               ❌ <urlopen error timed out>
-  host.docker.internal     ❌ <urlopen error [Errno -2] Name or service not known>
+=== 2) إنشاء شبكة embeds (لو مش موجودة) ===
+  النتيجة: f814ac04aa485d4e34905a392b4cd1e3f32bc1aa15f405fe797a2ca04e36
 
-=== 3) الاختبار النهائي: جودة العربي من عنوان الشبكة ===
+=== 3) تأكيد ===
+  ✅ embeds: f814ac04aa48 · حاويات: 0
 
 DONE-ARABIC-VERIFY
