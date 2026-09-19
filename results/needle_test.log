@@ -1,78 +1,59 @@
-موجود: needle
-موجود: needle3.cact
+موجود مسبقًا: needle 1137 كيلو
+موجود مسبقًا: needle3.cact 34507 كيلو
+###### ١) عربي: ابعت واتساب وقوله الأوردر اتأخر ######
 
-═══ ١) الواجهة (--help) ═══
-usage: ./needle [--model needle3.cact] [--tools tools.json] [--system system.txt] [--prompt "..."] [--serve] [--port N] [--max N] [--depth N] [--threads N] [--forced] [--fail-input-overflow] [--tool-index path]
-  --model needle3.cact     the weights to run (required unless this build embeds them)
-  --tools tools.json       the functions the assistant may call, as a JSON array
-  --tool-index path        file holding this tool set's embeddings, reused when the schemas match
-  --system system.txt      session facts like date, locale, or device
-  --prompt "..."           answer one query and exit
-  --max N                  response token limit (default 512)
-  --depth N                endpoint-preserving ladder depth (2..full; default full)
-  --threads N              worker threads (default: the device's fast cores, at most 4)
-  --forced                 benchmark mode: always dispatch a call when tools are offered
-  --fail-input-overflow    refuse a turn that would not fit the context window instead of trimming it
-  --serve [--port N]       run an HTTP server (default port 8080): POST /complete {"input":"..."}, POST /reset
+==============================================
+▶ عربي
+==============================================
+{"type":"call","success":true,"error":null,"error_code":null,"reason":null,"function_calls":[{"name":"send_whatsapp","arguments":{"phone":"966501234567","text":"اتأخر"}}],"suppressed_calls":[],"reasoning":"Query gives phone '966501234567' and text 'اتأخر' -> send_whatsapp","confidence":0.9617,"prefill_tps":1366.1,"decode_tps":407.1,"peak_ram_mb":73.8,"validation":{"ungrounded":[],"negation":false}}
+[الزمن: 579 مللي ثانية · رمز الخروج: 0]
 
-═══ ٢) بدون معطيات ═══
-./needle: no model loaded; pass --model needle3.cact
-usage: ./needle [--model needle3.cact] [--tools tools.json] [--system system.txt] [--prompt "..."] [--serve] [--port N] [--max N] [--depth N] [--threads N] [--forced] [--fail-input-overflow] [--tool-index path]
-  --model needle3.cact     the weights to run (required unless this build embeds them)
-  --tools tools.json       the functions the assistant may call, as a JSON array
-  --tool-index path        file holding this tool set's embeddings, reused when the schemas match
-  --system system.txt      session facts like date, locale, or device
-  --prompt "..."           answer one query and exit
-  --max N                  response token limit (default 512)
-  --depth N                endpoint-preserving ladder depth (2..full; default full)
-  --threads N              worker threads (default: the device's fast cores, at most 4)
-  --forced                 benchmark mode: always dispatch a call when tools are offered
-  --fail-input-overflow    refuse a turn that would not fit the context window instead of trimming it
-  --serve [--port N]       run an HTTP server (default port 8080): POST /complete {"input":"..."}, POST /reset
+###### ٢) إنجليزي (نفس الطلب للمقارنة) ######
 
-═══ ٣) محاولة تشغيل ═══
-./needle: no model loaded; pass --model needle3.cact
-usage: ./needle [--model needle3.cact] [--tools tools.json] [--system system.txt] [--prompt "..."] [--serve] [--port N] [--max N] [--depth N] [--threads N] [--forced] [--fail-input-overflow] [--tool-index path]
-  --model needle3.cact     the weights to run (required unless this build embeds them)
-  --tools tools.json       the functions the assistant may call, as a JSON array
-  --tool-index path        file holding this tool set's embeddings, reused when the schemas match
-  --system system.txt      session facts like date, locale, or device
-  --prompt "..."           answer one query and exit
-  --max N                  response token limit (default 512)
-  --depth N                endpoint-preserving ladder depth (2..full; default full)
-  --threads N              worker threads (default: the device's fast cores, at most 4)
-  --forced                 benchmark mode: always dispatch a call when tools are offered
-  --fail-input-overflow    refuse a turn that would not fit the context window instead of trimming it
-  --serve [--port N]       run an HTTP server (default port 8080): POST /complete {"input":"..."}, POST /reset
+==============================================
+▶ إنجليزي
+==============================================
+{"type":"call","success":true,"error":null,"error_code":null,"reason":null,"function_calls":[{"name":"send_whatsapp","arguments":{"phone":"966501234567","text":"the order is late"}}],"suppressed_calls":[],"reasoning":"phone '966501234567' from query; text 'the order is late' from query; send_whatsapp tool chosen","confidence":1.0000,"prefill_tps":702.8,"decode_tps":382.0,"peak_ram_mb":73.8,"validation":{"ungrounded":[],"negation":false}}
+[الزمن: 430 مللي ثانية · رمز الخروج: 0]
 
-═══ ٤) أدوات + عربي ═══
--- عربي --
-./needle: no model loaded; pass --model needle3.cact
-usage: ./needle [--model needle3.cact] [--tools tools.json] [--system system.txt] [--prompt "..."] [--serve] [--port N] [--max N] [--depth N] [--threads N] [--forced] [--fail-input-overflow] [--tool-index path]
-  --model needle3.cact     the weights to run (required unless this build embeds them)
-  --tools tools.json       the functions the assistant may call, as a JSON array
-  --tool-index path        file holding this tool set's embeddings, reused when the schemas match
-  --system system.txt      session facts like date, locale, or device
-  --prompt "..."           answer one query and exit
-  --max N                  response token limit (default 512)
-  --depth N                endpoint-preserving ladder depth (2..full; default full)
-  --threads N              worker threads (default: the device's fast cores, at most 4)
-  --forced                 benchmark mode: always dispatch a call when tools are offered
-  --fail-input-overflow    refuse a turn that would not fit the context window instead of trimming it
-  --serve [--port N]       run an HTTP server (default port 8080): POST /complete {"input":"..."}, POST /reset
--- إنجليزي (للمقارنة) --
-./needle: no model loaded; pass --model needle3.cact
-usage: ./needle [--model needle3.cact] [--tools tools.json] [--system system.txt] [--prompt "..."] [--serve] [--port N] [--max N] [--depth N] [--threads N] [--forced] [--fail-input-overflow] [--tool-index path]
-  --model needle3.cact     the weights to run (required unless this build embeds them)
-  --tools tools.json       the functions the assistant may call, as a JSON array
-  --tool-index path        file holding this tool set's embeddings, reused when the schemas match
-  --system system.txt      session facts like date, locale, or device
-  --prompt "..."           answer one query and exit
-  --max N                  response token limit (default 512)
-  --depth N                endpoint-preserving ladder depth (2..full; default full)
-  --threads N              worker threads (default: the device's fast cores, at most 4)
-  --forced                 benchmark mode: always dispatch a call when tools are offered
-  --fail-input-overflow    refuse a turn that would not fit the context window instead of trimming it
-  --serve [--port N]       run an HTTP server (default port 8080): POST /complete {"input":"..."}, POST /reset
+###### ٣) عربي مختلط: أداتين ######
+
+==============================================
+▶ أداتين
+==============================================
+{"type":"call","success":true,"error":null,"error_code":null,"reason":null,"function_calls":[{"name":"check_order","arguments":{"order_id":"4"}}],"suppressed_calls":[],"reasoning":"Query provides phone number 5521 وابعت إنه اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر اتأخر ","confidence":0.3162,"prefill_tps":1393.5,"decode_tps":234.8,"peak_ram_mb":73.8,"validation":{"ungrounded":[],"negation":false}}
+[الزمن: 2345 مللي ثانية · رمز الخروج: 0]
+
+###### ٤) طلب مالوش أداة (المفروض يرجع فاضي مش يخمّن) ######
+
+==============================================
+▶ مفيش أداة
+==============================================
+{"type":"call","success":false,"error":"tool call truncated: token budget exhausted","error_code":"truncated","reason":"runtime_failure","function_calls":[],"suppressed_calls":[],"reasoning":"'إيه الطقس النهاردة في ينبع؟' -> الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الطقس الط","confidence":0.1238,"prefill_tps":1440.7,"decode_tps":283.6,"peak_ram_mb":73.8}
+[الزمن: 1992 مللي ثانية · رمز الخروج: 0]
+
+###### ٥) اختبار «قصّ الموديل» (--depth) ######
+
+==============================================
+▶ عمق 3 طبقة (نفس الطلب العربي)
+==============================================
+{"type":"call","success":true,"error":null,"error_code":null,"reason":null,"function_calls":[{"name":"send_whatsapp","arguments":{"phone":"966501234567","text":"اتأخر"}}],"suppressed_calls":[],"reasoning":"Query gives phone '966501234567' and text 'اتأخر' -> send_whatsapp","confidence":0.9617,"prefill_tps":1418.2,"decode_tps":431.8,"peak_ram_mb":73.8,"validation":{"ungrounded":[],"negation":false}}
+[الزمن: 405 مللي ثانية · رمز الخروج: 0]
+
+==============================================
+▶ عمق 6 طبقة (نفس الطلب العربي)
+==============================================
+{"type":"call","success":true,"error":null,"error_code":null,"reason":null,"function_calls":[{"name":"send_whatsapp","arguments":{"phone":"966501234567","text":"اتأخر"}}],"suppressed_calls":[],"reasoning":"Query gives phone '966501234567' and text 'اتأخر' -> send_whatsapp","confidence":0.9617,"prefill_tps":1196.0,"decode_tps":106.3,"peak_ram_mb":73.8,"validation":{"ungrounded":[],"negation":false}}
+[الزمن: 933 مللي ثانية · رمز الخروج: 0]
+
+==============================================
+▶ عمق 12 طبقة (نفس الطلب العربي)
+==============================================
+{"type":"call","success":true,"error":null,"error_code":null,"reason":null,"function_calls":[{"name":"send_whatsapp","arguments":{"phone":"966501234567","text":"اتأخر"}}],"suppressed_calls":[],"reasoning":"Query gives phone '966501234567' and text 'اتأخر' -> send_whatsapp","confidence":0.9617,"prefill_tps":1297.7,"decode_tps":424.8,"peak_ram_mb":73.8,"validation":{"ungrounded":[],"negation":false}}
+[الزمن: 406 مللي ثانية · رمز الخروج: 0]
+
+###### ٦) الملفات ######
+-rwxr-xr-x 1 root root  1164120 Sep 19 12:40 needle
+-rw-r--r-- 1 root root 35335380 Sep 19 12:40 needle3.cact
 
 DONE-NEEDLE-TEST
