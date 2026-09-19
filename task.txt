@@ -1,1 +1,1 @@
-run_verify.sh
+run_embed_check.sh
