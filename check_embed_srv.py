@@ -61,11 +61,11 @@ print("  ", psql("SELECT format_type(atttypid,atttypmod) FROM pg_attribute WHERE
 print("  الترحيلات المطبقة:", psql("SELECT string_agg(name,',') FROM (SELECT table_name AS name FROM information_schema.tables WHERE table_name ILIKE '%migration%') t").strip()[:120])
 
 print("\n=== 2) إعادة توليد التمثيل (bge-m3 · 1024) ===")
-rows = psql("SELECT id||'|'||coalesce(left(content,600),'') FROM memory_items ORDER BY id")
-recs = []
-for line in rows.splitlines():
-    line = line.strip()
-    if "|" in line: recs.append(line.split("|", 1))
+raw = psql("SELECT coalesce(json_agg(json_build_object('id', id::text, 'content', left(coalesce(content,''),600))),'[]'::json) FROM memory_items")
+try:
+    recs = [(r["id"], r["content"]) for r in json.loads(raw.strip().splitlines()[-1])]
+except Exception as e:
+    print("  ⚠️ فشل قراءة العناصر:", str(e)[:80]); recs = []
 print(f"  عدد العناصر: {len(recs)}")
 sqls, ok, fail = [], 0, 0
 for i, (mid, content) in enumerate(recs[:200]):
@@ -76,7 +76,7 @@ for i, (mid, content) in enumerate(recs[:200]):
                                     headers={"Content-Type": "application/json"})
         vec = json.load(urllib.request.urlopen(rq, timeout=60))["data"][0]["embedding"]
         lit = "[" + ",".join(f"{x:.6f}" for x in vec) + "]"
-        sqls.append(f"UPDATE memory_items SET embedding_vec='{lit}'::vector WHERE id={mid};")
+        sqls.append("UPDATE memory_items SET embedding_vec='%s'::vector WHERE id::text='%s';" % (lit, str(mid).replace("'", "''")))
         ok += 1
     except Exception as e:
         fail += 1
