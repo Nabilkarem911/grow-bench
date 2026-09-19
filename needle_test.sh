@@ -2,6 +2,9 @@
 # needle_test.sh — تجربة Needle 3 على سيرفر نبيل (ARM64 · بلا كارت)
 # الهدف: (١) هل يشتغل؟ (٢) هل يفهم العربي في استدعاء الأدوات؟
 set -e
+LOG=/data/results/needle_test.log
+mkdir -p /data/results
+exec > "$LOG" 2>&1          # كل المخرجات تتسجل
 D=/data/needle
 mkdir -p "$D"
 cd "$D"
@@ -43,3 +46,23 @@ echo "-- إنجليزي (للمقارنة) --"
 ./needle needle3.cact --tools /tmp/tools.json "send a whatsapp to 966501234567 telling them the order is late" 2>&1 | head -40 || true
 echo ""
 echo "DONE-NEEDLE-TEST"
+
+# رفع النتيجة على GitHub (بنفس نمط الـuploader)
+python3 - <<'UPLOAD'
+import base64, json, os, urllib.request
+tok=os.environ.get("GITHUB_TOKEN","")
+if not tok:
+    print("مفيش توكن — النتيجة محفوظة محليًا بس"); raise SystemExit
+data=open("/data/results/needle_test.log","rb").read().decode("utf-8","ignore")
+api="https://api.github.com/repos/Nabilkarem911/grow-bench/contents/results/needle_test.log"
+hdr={"Authorization":"Bearer "+tok,"Accept":"application/vnd.github+json","User-Agent":"needle"}
+sha=None
+try:
+    d=json.load(urllib.request.urlopen(urllib.request.Request(api,headers=hdr),timeout=60)); sha=d.get("sha")
+except Exception: pass
+body={"message":"needle test log","content":base64.b64encode(data.encode()).decode()}
+if sha: body["sha"]=sha
+rq=urllib.request.Request(api,data=json.dumps(body).encode(),headers=hdr,method="PUT")
+r=json.load(urllib.request.urlopen(rq,timeout=90))
+print("✅ اترفع:", r.get("content",{}).get("path"))
+UPLOAD
