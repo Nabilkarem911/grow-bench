@@ -17,15 +17,23 @@ def dk(m, p, b=None):
     except Exception: return raw.decode("utf-8", "ignore")
 
 def exec_in(cid, cmd, wd="/"):
+    """بدون PTY — مع فك ترويسات التدفق (8 بايت لكل إطار) — يتجنب تعليق Tty."""
     ex = dk("POST", f"/containers/{cid}/exec",
-            {"Cmd": cmd, "AttachStdout": True, "AttachStderr": True, "Tty": True, "WorkingDir": wd})
+            {"Cmd": cmd, "AttachStdout": True, "AttachStderr": True, "Tty": False, "WorkingDir": wd})
     eid = (ex or {}).get("Id")
     if not eid: return "(فشل exec)"
     c = U(SOCK)
-    c.request("POST", f"/exec/{eid}/start", body=json.dumps({"Detach": False, "Tty": True}).encode(),
+    c.request("POST", f"/exec/{eid}/start",
+              body=json.dumps({"Detach": False, "Tty": False}).encode(),
               headers={"Content-Type": "application/json"})
     raw = c.getresponse().read(); c.close()
-    return raw.decode("utf-8", "ignore").strip()
+    out, i = [], 0
+    while i + 8 <= len(raw):
+        try: n = int.from_bytes(raw[i+4:i+8], "big")
+        except Exception: break
+        if n > len(raw) - i - 8: break
+        out.append(raw[i+8:i+8+n].decode("utf-8", "ignore")); i += 8 + n
+    return ("".join(out) if out else raw.decode("utf-8", "ignore")).strip()
 
 cs = dk("GET", "/containers/json")
 def find(sub):
