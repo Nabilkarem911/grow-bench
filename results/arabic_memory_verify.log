@@ -1,10 +1,35 @@
 ════════ اختبار خدمة التمثيل bge-m3 (من الشبكة الداخلية) ════════
-الحالة: Up 19 minutes · الإعادات: 0 · كود الخروج: 0
+الحالة: Restarting (127) 23 seconds ago · الإعادات: 13 · كود الخروج: 127
 مسار العمل: /app
-الأمر: ['sh', '-c', 'if [ "1" = "0" ]; then echo \'embedsrv idle\'; sleep infinity; else sed \'s/r$//\' /app/serve_embed.sh > /tmp/e.sh; sh /tmp/e.sh; fi']
+الأمر: ['sh', '-c', 'if [ "2" = "0" ]; then echo \'embedsrv idle\'; sleep infinity; else sed \'s/r$//\' /app/serve_embed.sh > /tmp/e.sh; sh /tmp/e.sh; fi']
 
 === سجلّات الحاوية (آخر 2000 حرف) ===
-⚠️ llama-server مش موجود على السيرفر
+d object file: No such file or directory
+🚀 تشغيل خدمة التمثيل على 8080 (bge-m3)
+llama-server: /data/llama/llama-b10988/llama-server
+🚀 تشغيل خدمة التمثيل على 8080 (bge-m3)
+/data/llama/llama-b10988/llama-server: error while loading shared libraries: libgomp.so.1: cannot open shared object file: No such file or directory
+llama-server: /data/llama/llama-b10988/llama-server
+🚀 تشغيل خدمة التمثيل على 8080 (bge-m3)
+/data/llama/llama-b10988/llama-server: error while loading shared libraries: libgomp.so.1: cannot open shared object file: No such file or directory
+llama-server: /data/llama/llama-b10988/llama-server
+🚀 تشغيل خدمة التمثيل على 8080 (bge-m3)
+/data/llama/llama-b10988/llama-server: error while loading shared libraries: libgomp.so.1: cannot open shared object file: No such file or directory
+llama-server: /data/llama/llama-b10988/llama-server
+🚀 تشغيل خدمة التمثيل على 8080 (bge-m3)
+/data/llama/llama-b10988/llama-server: error while loading shared libraries: libgomp.so.1: cannot open shared object file: No such file or directory
+llama-server: /data/llama/llama-b10988/llama-server
+🚀 تشغيل خدمة التمثيل على 8080 (bge-m3)
+/data/llama/llama-b10988/llama-server: error while loading shared libraries: libgomp.so.1: cannot open shared object file: No such file or directory
+llama-server: /data/llama/llama-b10988/llama-server
+🚀 تشغيل خدمة التمثيل على 8080 (bge-m3)
+/data/llama/llama-b10988/llama-server: error while loading shared libraries: libgomp.so.1: cannot open shared object file: No such file or directory
+llama-server: /data/llama/llama-b10988/llama-server
+🚀 تشغيل خدمة التمثيل على 8080 (bge-m3)
+/data/llama/llama-b10988/llama-server: error while loading shared libraries: libgomp.so.1: cannot open shared object file: No such file or directory
+llama-server: /data/llama/llama-b10988/llama-server
+🚀 تشغيل خدمة التمثيل على 8080 (bge-m3)
+/data/llama/llama-b10988/llama-server: error while loading shared libraries: libgomp.so.1: cannot open shared object file: No such file or directory
 
 
 DONE-ARABIC-VERIFY
