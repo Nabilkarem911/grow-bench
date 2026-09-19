@@ -1,17 +1,45 @@
-════════ ١) حاويات تيتان ════════
-/app/verify_arabic_memory.sh: 9: docker: not found
-/app/verify_arabic_memory.sh: 11: docker: not found
-/app/verify_arabic_memory.sh: 12: docker: not found
+════════ تشخيص الملفات على السيرفر ════════
+المسار الحالي: /app
 
-حاوية التمثيل: 
-حاوية قاعدة البيانات: 
+--- task.txt ---
+run_verify.sh
+--- سكربتات في /app ---
+-rw-r--r-- 1 root root  5165 Sep 19 15:52 /app/arena.py
+-rw-r--r-- 1 root root 10319 Sep 19 15:52 /app/arm.py
+-rw-r--r-- 1 root root  7483 Sep 19 15:52 /app/bench.py
+-rw-r--r-- 1 root root  4189 Sep 19 15:52 /app/bench_device.py
+-rw-r--r-- 1 root root  4550 Sep 19 15:52 /app/bench_device2.py
+-rw-r--r-- 1 root root  1740 Sep 19 15:52 /app/bench_moe.sh
+-rw-r--r-- 1 root root 12425 Sep 19 15:52 /app/capability_arena.py
+-rw-r--r-- 1 root root  4290 Sep 19 15:52 /app/cpu_bench.py
+-rw-r--r-- 1 root root  4365 Sep 19 15:52 /app/cpu_bench_server.py
+-rw-r--r-- 1 root root  2519 Sep 19 15:52 /app/diag_bpc.py
+-rw-r--r-- 1 root root  6815 Sep 19 15:52 /app/eval.py
+-rw-r--r-- 1 root root  4071 Sep 19 15:52 /app/eval_hf.py
+-rw-r--r-- 1 root root  2962 Sep 19 15:52 /app/exp_experts.sh
+-rw-r--r-- 1 root root 11283 Sep 19 15:52 /app/factory.py
+-rw-r--r-- 1 root root  8494 Sep 19 15:52 /app/finetune.py
+-rw-r--r-- 1 root root  6681 Sep 19 15:52 /app/ft_hf_lora.py
+-rw-r--r-- 1 root root  7103 Sep 19 15:52 /app/grow.py
+-rw-r--r-- 1 root root  7362 Sep 19 15:52 /app/grow_hf.py
+-rw-r--r-- 1 root root  2671 Sep 19 15:52 /app/llama_bench_server.sh
+-rw-r--r-- 1 root root  5264 Sep 19 15:52 /app/local_report.py
 
-════════ ٢) النموذج والأبعاد (من جوه الحاوية) ════════
-/app/verify_arabic_memory.sh: 19: docker: not found
+--- هل الثعبان موجود؟ ---
+/usr/local/bin/python3
+Python 3.12.14
 
-════════ ٣) اختبار العربي الفعلي (المهم) ════════
-/app/verify_arabic_memory.sh: 31: docker: not found
+--- أول أسطر من run_verify.sh ---
+#!/bin/sh
+# تشخيص: إيه اللي موجود على السيرفر فعلًا؟
+LOG=/data/results/arabic_memory_verify.log
+mkdir -p /data/results
+{
 
-════════ ٤) المخزون الفعلي (embedding_vec) ════════
+════════ تجربة تشغيل مباشرة ════════
+  File "/app/verify_arabic_memory.py", line 196
+    text = "
+           ^
+SyntaxError: unterminated string literal (detected at line 196)
 
 DONE-ARABIC-VERIFY
