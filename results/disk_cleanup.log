@@ -1,0 +1,76 @@
+════════ تنظيف مساحة السيرفر ════════
+=== 0) قبل أي حاجة: الموديل الشغال فعلًا على الخدمة ===
+  حاويات: grow-bench-phkbkq-sysinfo-1, grow-bench-phkbkq-uploader-1, grow-bench-phkbkq-embedsrv-1, grow-bench-phkbkq-llm-1, grow-bench-phkbkq-moebench-1, grow-bench-phkbkq-cpubench-1, grow-bench-phkbkq-factory-
+  نموذج llm الحالي: 
+
+=== 1) قبل ===
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda1       193G  155G   39G  81% /data
+
+
+=== 2) اللي هنمسحه (بقايا البطولات) ===
+   🗑️ هنمسح    13.1 GB  30B-Q3_K_M.gguf
+   🗑️ هنمسح     1.8 GB  Arabic-Qwen2.5-3B-Q4_K_M.gguf
+   🗑️ هنمسح    12.6 GB  ERNIE-4.5-21B-A3B-Q4_K_M.gguf
+   🗑️ هنمسح   697.0 MB  LFM2.5-1.2B-Q4_K_M.gguf
+   🗑️ هنمسح     9.3 GB  Ling-mini-2.0-Q4_K_M.gguf
+   🗑️ هنمسح   656.2 MB  MiniCPM5-1B-Q4_K_M.gguf
+   🗑️ هنمسح   940.4 MB  Qwen2.5-Coder-1.5B-Q4_K_M.gguf
+   ✅ بنحتفظ    1.0 GB  Qwen3-1.7B-Q4_K_M.gguf
+   🗑️ هنمسح     9.7 GB  Qwen3-30B-A3B-IQ2_M.gguf
+   🗑️ هنمسح     2.3 GB  Qwen3-4B-Q4_K_M.gguf
+   🗑️ هنمسح     4.7 GB  Qwen3-8B-Q4_K_M.gguf
+   🗑️ هنمسح     2.6 GB  Qwen3.5-4B-Q4_K_M.gguf
+   🗑️ هنمسح     1.8 GB  SmolLM3-3B-Q4_K_M.gguf
+   🗑️ هنمسح   919.0 MB  Yi-Coder-1.5B-Q4_K_M.gguf
+   ✅ بنحتفظ    1.1 GB  bge-m3-f16.gguf
+   🗑️ هنمسح     9.7 GB  exp2.gguf
+   🗑️ هنمسح     9.7 GB  exp4.gguf
+   🗑️ هنمسح   976.2 MB  granite-4.0-1b-Q4_K_M.gguf
+  الإجمالي الممسوح من الموديلات: 81.3 GB · عدد: 16
+  ملفات تجارب: 1.8 GB (5 ملف)
+  مجلدات تجارب: /data/hf, /data/ft, /data/factory
+
+=== 3) بنمسح ===
+    اتمسح: 30B-Q3_K_M.gguf
+    اتمسح: Arabic-Qwen2.5-3B-Q4_K_M.gguf
+    اتمسح: ERNIE-4.5-21B-A3B-Q4_K_M.gguf
+    اتمسح: LFM2.5-1.2B-Q4_K_M.gguf
+    اتمسح: Ling-mini-2.0-Q4_K_M.gguf
+    اتمسح: MiniCPM5-1B-Q4_K_M.gguf
+    اتمسح: Qwen2.5-Coder-1.5B-Q4_K_M.gguf
+    اتمسح: Qwen3-30B-A3B-IQ2_M.gguf
+    اتمسح: Qwen3-4B-Q4_K_M.gguf
+    اتمسح: Qwen3-8B-Q4_K_M.gguf
+    اتمسح: Qwen3.5-4B-Q4_K_M.gguf
+    اتمسح: SmolLM3-3B-Q4_K_M.gguf
+    اتمسح: Yi-Coder-1.5B-Q4_K_M.gguf
+    اتمسح: exp2.gguf
+    اتمسح: exp4.gguf
+    اتمسح: granite-4.0-1b-Q4_K_M.gguf
+  ✅ خلص حذف الموديلات والملفات
+
+=== 4) كاش البناء والصور المعلّقة (تبعنا) ===
+   prune
+
+  كاش البناء: {"CachesDeleted":null,"SpaceReclaimed":0}
+
+  صور معلّقة: {"ImagesDeleted":null,"SpaceReclaimed":0}
+
+
+=== 5) بعد ===
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda1       193G   71G  123G  37% /data
+
+
+=== 6) تأكيد إن اللي شغال لسه موجود ===
+total 2.2G
+-rw-r--r-- 1 root root 1.1G Sep 17 14:59 Qwen3-1.7B-Q4_K_M.gguf
+-rw-r--r-- 1 root root 1.1G Sep 19 16:49 bge-m3-f16.gguf
+
+ARCH
+llama-b10988
+
+
+DONE-DISK-CLEAN
+
