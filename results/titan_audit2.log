@@ -1,0 +1,36 @@
+════════ فحص تيتان (الجزء الثاني) ════════
+=== المجموعات (collections) الموجودة ===
+f434baf1-92d7-4214-9f0e-c6db6ee52069 | name=global | items=120 | created=06-23 20:47
+
+=== العناصر بتتوزّع إزاي على المجموعات ===
+global → 359 عنصر
+
+=== آخر الرسايل (المحادثة الحقيقية) ===
+09-20 15:55 [assistant] ٨٠٠<ds_safety>用户询问“اخبارك اي يا حب”（你好吗，
+09-20 15:54 [user] اخبارك اي يا حب
+09-15 12:39 [assistant] الجواب ببساطة هو **٤**. الجمع الأساسي لـ
+09-15 12:39 [user] what is 2+2?
+09-15 12:38 [assistant] الجواب ببساطة هو **٤**. الجمع الأساسي لـ
+09-15 12:38 [user] what is 2+2?
+
+=== الجلسات ===
+5c488c80-0b83-4fba-b0da-5662bd2f6f11 (09-10), 05e5f604-1d4c-4648-bdcb-b1e13779c72e (09-10), d5ddb6a7-c817-40e6-a771-501a54eb7da3 (06-23), 8c201198-b928-4c9c-a81e-25a9f56722c4 (06-23)
+
+=== الوكلاء (agents) ===
+  agent_profiles: 31
+  agent_runs آخر 5: 09-20 15:54 · 09-15 12:38 · 09-15 12:37 · 09-15 12:18 · 09-15 12:16
+  إعدادات المساعد: General Assistant(-), Code Helper(-), Web Researcher(-), Data Analyst(-), Content Writer(-)
+
+=== المفاتيح والمستخدمين ===
+  users: system@titan.local/Titan System, nabilkarem@gmail.com/Nabil karem
+  api_keys: 8 · آخر استخدام: 2026-09-15 12:39:43.
+
+=== الجدول الزمني: آخر شغل حصل إمتى ===
+  heuristics               آخر صف: 2026-09-20 19:17:23
+  synthesized_skills       آخر صف: 2026-09-10 17:07:37
+  curiosity_explorations   آخر صف: 2026-09-09 17:50:24
+  agent_runs               آخر صف: 2026-09-20 15:54:35
+  memory_messages          آخر صف: 2026-09-20 15:55:30
+
+DONE-TITAN-AUDIT2
+
