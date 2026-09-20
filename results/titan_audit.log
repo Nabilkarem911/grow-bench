@@ -1,0 +1,71 @@
+════════ فحص تيتان الحقيقي ════════
+=== 1) حاويات تيتان الشغالة ===
+   titan-titan-wqx9l7-core-1                      Up 3 hours (healthy)
+   titan-titan-wqx9l7-worker-1                    Up 3 hours (healthy)
+   titan-titan-wqx9l7-postgres-1                  Up 10 days (healthy)
+   titan-titan-wqx9l7-redis-1                     Up 10 days (healthy)
+
+=== 2) كل الجداول وعدد الصفوف (الأهم: إيه مستخدَم فعلًا) ===
+
+  ✅ جداول فيها بيانات فعلية (40):
+     heuristics                                   19156 صف
+     synthesized_skills                           4541 صف
+     curiosity_explorations                       4540 صف
+     agent_steps                                  1295 صف
+     benchmark_results                            640 صف
+     meta_learning_results                        399 صف
+     memory_messages                              373 صف
+     memory_items                                 359 صف
+     hyper_agent_cycles                           308 صف
+     hyper_agent_performance                      308 صف
+     agent_runs                                   173 صف
+     neuro_symbolic_rules                         172 صف
+     execution_checkpoints                        149 صف
+     experiences                                  118 صف
+     capability_registry                          109 صف
+     benchmark_suites                             80 صف
+     emotion_readings                             38 صف
+     tom_analyses                                 38 صف
+     tom_models                                   38 صف
+     sessions                                     37 صف
+     titan_migrations                             37 صف
+     agent_profiles                               31 صف
+     self_improvement_proposals                   30 صف
+     multilayer_guardrail_results                 29 صف
+     guardrail_results                            28 صف
+     sycophancy_assessments                       28 صف
+     desktop_devices                              16 صف
+     plugin_versions                              16 صف
+     plugins                                      16 صف
+     hyper_agent_patterns                         13 صف
+     skill_synthesis_results                      10 صف
+     user_context                                 9 صف
+     api_keys                                     8 صف
+     tool_execution_stats                         7 صف
+     environment_entities                         3 صف
+     environment_events                           3 صف
+     inner_monologue_threads                      3 صف
+     environment_relations                        2 صف
+     users                                        2 صف
+     memory_collections                           1 صف
+
+  ⚠️ جداول فاضية تمامًا (80) — دي حزم/خواص اتبنت وما اتستخدمتش:
+     agent_economy_accounts · agent_economy_audit_log · agent_economy_escrows · agent_economy_listings · agent_economy_offers · agent_economy_reputation · apex_patches · apex_principles · autonomous_loop_results · code_symbols · conversation_summaries · curiosity_knowledge_gaps · dag_executions · digital_twin_snapshots · discovered_tools · dream_insights · dream_reports · episodic_buffer_items · federated_updates · hypothesis_tests · indexed_documents · integrations · introspection_reports · introspection_reports_v2 · marketplace_listings · marketplace_reviews · mcp_governance_audit · metacognitive_meta_knowledge · metacognitive_micro_lessons · metacognitive_reflections · model_router_usage · multilayer_guardrail_results_v2 · narrative_history · neuro_symbolic_results · normative_commitments · normative_conflicts · normative_revisions · notifications · plugin_installs · plugin_ratings · project_context · prompt_variants · rl_episodes · rl_q_table · run_feedback · safety_memory_entries · screen_alerts · self_healing_attempts · self_healing_lessons · self_play_archive · self_rewrite_pipelines · self_rewrite_versions · strategy_tuner_records · swarm_artifacts · swarm_collective_memory · swarm_federation_tasks · swarm_messages · swarm_notes · swarm_topologies · temporal_events
+
+=== 3) آخر استخدام حقيقي (المحادثات) ===
+  آخر 5 محادثات: 09-20 15:55 · 09-20 15:54 · 09-15 12:39 · 09-15 12:39 · 09-15 12:38
+  عدد الرسايل: 373
+  قنوات/جلسات: 31
+
+=== 4) الأدوات المتاحة للمساعد ===
+ERROR:  column "metadata" does not exist
+LINE 1: ...) FROM (SELECT jsonb_array_elements_text(coalesce(metadata->...
+                                                             ^
+
+=== 5) حالة التشغيل (آخر runs) ===
+failed = 16
+completed = 141
+running = 16
+
+DONE-TITAN-AUDIT
+
