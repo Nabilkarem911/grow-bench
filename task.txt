@@ -1,1 +1,1 @@
-run_disk_cleanup.sh
+run_model_test.sh
