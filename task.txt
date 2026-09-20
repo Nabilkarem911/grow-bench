@@ -1,1 +1,1 @@
-run_model_test.sh
+run_fact_extract.sh
