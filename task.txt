@@ -1,1 +1,1 @@
-run_fact_extract.sh
+run_clean_facts.sh
