@@ -72,28 +72,57 @@ print("\n=== 1) أبعاد العمود بعد الترحيل ===")
 print("  ", psql("SELECT format_type(atttypid,atttypmod) FROM pg_attribute WHERE attrelid='memory_items'::regclass AND attname='embedding_vec'"))
 print("  الترحيلات المطبقة:", psql("SELECT string_agg(name,',') FROM (SELECT table_name AS name FROM information_schema.tables WHERE table_name ILIKE '%migration%') t").strip()[:120])
 
-print("\n=== 2) إعادة توليد التمثيل (bge-m3 · 1024) ===")
-raw = psql("SELECT coalesce(json_agg(json_build_object('id', id::text, 'content', left(coalesce(content,''),600))),'[]'::json) FROM memory_items")
+print("\n=== 1b) شكل جدول الذاكرة ===")
+schema = psql("SELECT column_name||' '||data_type||CASE WHEN is_nullable='NO' THEN ' NOT-NULL' END||coalesce(' DEFAULT '||left(column_default,25),'') FROM information_schema.columns WHERE table_name='memory_items' ORDER BY ordinal_position")
+for line in schema.splitlines():
+    if line.strip(): print("   ", line.strip())
+print("   حسب المجموعة:", " · ".join(l.strip() for l in psql("SELECT collection_id::text||' = '||count(*) FROM memory_items GROUP BY collection_id").splitlines() if l.strip())[:200])
+
+print("\n=== 2) إعادة توليد التمثيل + عناصر مركّزة (سؤال / إجابة) ===")
+raw = psql("SELECT coalesce(json_agg(json_build_object('id', id::text, 'cid', collection_id::text, 'content', left(coalesce(content,''),900))),'[]'::json) FROM memory_items")
 try:
-    recs = [(r["id"], r["content"]) for r in json.loads(raw.strip().splitlines()[-1])]
+    recs = [(r["id"], r["cid"], r["content"]) for r in json.loads(raw.strip().splitlines()[-1])]
 except Exception as e:
     print("  ⚠️ فشل قراءة العناصر:", str(e)[:80]); recs = []
 print(f"  عدد العناصر: {len(recs)}")
-sqls, ok, fail = [], 0, 0
-for i, (mid, content) in enumerate(recs[:200]):
+
+def emb_of(t):
+    rq = urllib.request.Request("https://embed.orcanox.xyz/v1/embeddings",
+                                data=json.dumps({"input": t}).encode("utf-8"),
+                                headers={"Content-Type": "application/json"})
+    return json.load(urllib.request.urlopen(rq, timeout=60))["data"][0]["embedding"]
+
+def lit(v): return "[" + ",".join(f"{x:.6f}" for x in v) + "]"
+def q1(s): return str(s).replace("'", "''")
+
+sqls, ok, fail, der = [], 0, 0, 0
+for i, (mid, cid, content) in enumerate(recs[:200]):
     text = content.replace("\\", " ").replace("'", " ") or " "
     try:
-        rq = urllib.request.Request("https://embed.orcanox.xyz/v1/embeddings",
-                                    data=json.dumps({"input": embedding_text(text)}).encode("utf-8"),
-                                    headers={"Content-Type": "application/json"})
-        vec = json.load(urllib.request.urlopen(rq, timeout=60))["data"][0]["embedding"]
-        lit = "[" + ",".join(f"{x:.6f}" for x in vec) + "]"
-        sqls.append("UPDATE memory_items SET embedding_vec='%s'::vector WHERE id::text='%s';" % (lit, str(mid).replace("'", "''")))
+        sqls.append("UPDATE memory_items SET embedding_vec='%s'::vector WHERE id::text='%s';"
+                    % (lit(emb_of(embedding_text(text))), q1(mid)))
+        flat = " ".join(text.split())
+        mq = re.search(r"Prompt:\s*(.*?)(?:\s*Answer:|$)", flat, re.I)
+        ma = re.search(r"Answer:\s*(.*)$", flat, re.I)
+        prompt = (mq.group(1).strip() if mq and mq.group(1).strip() else flat[:200])
+        answer = (ma.group(1).strip() if ma else "")[:600]
+        if prompt:
+            c = "سؤال: " + prompt[:400]
+            sqls.append("INSERT INTO memory_items (collection_id, external_id, content, embedding_vec, metadata, updated_at) "
+                        "VALUES ('%s','%s','%s','%s'::vector,'{\"derived\":\"prompt\"}'::jsonb, now()) ON CONFLICT DO NOTHING;"
+                        % (q1(cid), q1(mid + ":q"), q1(c), lit(emb_of(c))))
+            der += 1
+        if answer:
+            c = "إجابة: " + answer
+            sqls.append("INSERT INTO memory_items (collection_id, external_id, content, embedding_vec, metadata, updated_at) "
+                        "VALUES ('%s','%s','%s','%s'::vector,'{\"derived\":\"answer\"}'::jsonb, now()) ON CONFLICT DO NOTHING;"
+                        % (q1(cid), q1(mid + ":a"), q1(c), lit(emb_of(c))))
+            der += 1
         ok += 1
     except Exception as e:
         fail += 1
-    if (i+1) % 40 == 0: print(f"    ... {i+1}")
-print(f"  ✅ جاهز: {ok} · فشل: {fail}")
+    if (i+1) % 20 == 0: print(f"    ... {i+1} (مركّزة: {der})")
+print(f"  ✅ أصلية: {ok} · مركّزة: {der} · فشل: {fail}")
 
 if sqls:
     import tarfile, io
