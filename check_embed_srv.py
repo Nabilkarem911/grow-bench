@@ -2,6 +2,18 @@
 """الاختبار النهائي: إعادة تمثيل ذاكرة تيتان بخدمة bge-m3 + بحث عربي حقيقي."""
 import http.client, json, socket, urllib.request, math, re
 
+
+def embedding_text(content, max_len=900):
+    """نفس قاعدة embeddingText في تيتان بالظبط (لازم تتطابق)."""
+    flat = " ".join((content or "").split())
+    if not flat: return ""
+    parts = []
+    m = re.search(r"Prompt:\s*(.*?)(?:\s*Answer:|$)", flat, re.I)
+    a = re.search(r"Answer:\s*(.*)$", flat, re.I)
+    if m and m.group(1).strip(): parts.append(m.group(1).strip())
+    if a and a.group(1).strip(): parts.append(a.group(1).strip()[:300])
+    return ((" | ".join(parts)) if parts else flat)[:max_len]
+
 SOCK = "/var/run/docker.sock"
 class U(http.client.HTTPConnection):
     def __init__(s, p): super().__init__("localhost"); s._p = p
@@ -72,7 +84,7 @@ for i, (mid, content) in enumerate(recs[:200]):
     text = content.replace("\\", " ").replace("'", " ") or " "
     try:
         rq = urllib.request.Request("https://embed.orcanox.xyz/v1/embeddings",
-                                    data=json.dumps({"input": text[:500]}).encode("utf-8"),
+                                    data=json.dumps({"input": embedding_text(text)}).encode("utf-8"),
                                     headers={"Content-Type": "application/json"})
         vec = json.load(urllib.request.urlopen(rq, timeout=60))["data"][0]["embedding"]
         lit = "[" + ",".join(f"{x:.6f}" for x in vec) + "]"
@@ -103,7 +115,7 @@ if sqls:
     print("  نتيجة التحديث:", out)
 
 print("\n=== 3) البحث الدلالي الحقيقي في ذاكرة تيتان ===")
-for q in ["الطلب اتأخر ومحتاج حل بسرعة", "مشكلة في الفاتورة", "تسويق وتسويق المنتجات"]:
+for q in ["تسويق المنتجات", "إيه اسمي", "قواعد الأمان"]:
     rq = urllib.request.Request("https://embed.orcanox.xyz/v1/embeddings",
                                 data=json.dumps({"input": q}).encode("utf-8"),
                                 headers={"Content-Type": "application/json"})
