@@ -1,0 +1,117 @@
+════════ فحص مساحة السيرفر ════════
+=== 1) القرص ===
+Filesystem      Size  Used Avail Use% Mounted on
+overlay         193G  160G   33G  84% /
+/dev/sda1       193G  160G   33G  84% /data
+
+
+=== 2) اللي في المجلد المشترك /data (أكبر 20) ===
+4.0K	/data/metrics.json
+248K	/data/results
+3.7M	/data/factory
+19M	/data/model_final.pt
+31M	/data/llama
+35M	/data/needle
+57M	/data/checkpoint.pt
+57M	/data/ft
+68M	/data/corpus.txt
+469M	/data/qwen2.5-0.5b-instruct-q4_k_m.gguf
+954M	/data/hf
+1.2G	/data/qwen2.5-0.5b-instruct-fp16.gguf
+84G	/data/moe
+
+
+=== 3) الموديلات اللي نزّلناها ===
+84G	/data/moe
+total 84G
+-rw-r--r-- 1 root root  14G Sep 17 14:45 30B-Q3_K_M.gguf
+-rw-r--r-- 1 root root  13G Sep 17 17:16 ERNIE-4.5-21B-A3B-Q4_K_M.gguf
+-rw-r--r-- 1 root root 9.8G Sep 16 16:46 Qwen3-30B-A3B-IQ2_M.gguf
+-rw-r--r-- 1 root root 9.8G Sep 16 17:49 exp2.gguf
+-rw-r--r-- 1 root root 9.8G Sep 16 17:43 exp4.gguf
+-rw-r--r-- 1 root root 9.3G Sep 17 16:56 Ling-mini-2.0-Q4_K_M.gguf
+-rw-r--r-- 1 root root 4.7G Sep 19 13:23 Qwen3-8B-Q4_K_M.gguf
+-rw-r--r-- 1 root root 2.6G Sep 17 16:58 Qwen3.5-4B-Q4_K_M.gguf
+-rw-r--r-- 1 root root 2.4G Sep 16 17:51 Qwen3-4B-Q4_K_M.gguf
+-rw-r--r-- 1 root root 1.8G Sep 17 19:20 Arabic-Qwen2.5-3B-Q4_K_M.gguf
+-rw-r--r-- 1 root root 1.8G Sep 17 19:36 SmolLM3-3B-Q4_K_M.gguf
+-rw-r--r-- 1 root root 1.1G Sep 19 16:49 bge-m3-f16.gguf
+-rw-r--r-- 1 root root 1.1G Sep 17 14:59 Qwen3-1.7B-Q4_K_M.gguf
+-rw-r--r-- 1 root root 977M Sep 17 15:07 granite-4.0-1b-Q4_K_M.gguf
+-rw-r--r-- 1 root root 941M Sep 17 19:05 Qwen2.5-Coder-1.5B-Q4_K_M.gguf
+-rw-r--r-- 1 root root 920M Sep 17 19:12 Yi-Coder-1.5B-Q4_K_M.gguf
+-rw-r--r-- 1 root root 698M Sep 17 15:14 LFM2.5-1.2B-Q4_K_M.gguf
+-rw-r--r-- 1 root root 657M Sep 17 19:28 MiniCPM5-1B-Q4_K_M.gguf
+
+
+=== 4) llama.cpp ===
+31M	/data/llama
+ARCH
+llama-b10988
+
+
+=== 5) مساحة Docker الحقيقية ===
+  طبقات الصور: 27.7 GB
+  حاويات (كتابة): 126.7 MB
+  فوليومات: 87.6 GB
+  كاش البناء: 8.0 GB  (123 عنصر)
+
+  أكبر 12 صورة:
+       3.0 GB  (بلا وسم)
+       2.6 GB  nousresearch/hermes-agent:v0.19.1-rollback
+       2.6 GB  devlikeapro/waha:arm
+       2.5 GB  nousresearch/hermes-agent:latest
+       2.5 GB  nousresearch/hermes-agent:v2026.9.14
+       2.0 GB  app-program-wireless-card-jjowxt:latest
+       1.6 GB  louislam/uptime-kuma:2.1.0
+       1.5 GB  smartmenu-smartmenu-07mpad:latest
+       1.4 GB  gpackdemo-gpackdemo-dykoel-ai-service:latest
+       1.1 GB  app-bypass-bluetooth-bus-q8zcis:latest
+       1.0 GB  titan-titan-wqx9l7-core:latest
+       1.0 GB  (بلا وسم)
+
+  أكبر 6 فوليومات:
+      86.3 GB  grow-bench-phkbkq_grow_data
+     534.4 MB  agents-openclaw-bqj9vd_browser-data
+     174.6 MB  titan-titan-wqx9l7_postgres_data
+      68.0 MB  gpackdemo-gpack-lpnfpj-data
+      66.7 MB  dokploy-postgres
+      65.9 MB  postgres-calculate-digital-array-qv782i-data
+
+=== 6) حاويات بأكبر مساحة كتابة ===
+        0.0 B  grow-bench-phkbkq-sysinfo-1
+        0.0 B  compose-calculate-open-source-matrix-wsqnis-fonts-
+        0.0 B  hermes
+        0.0 B  titan-titan-wqx9l7-core-1
+        0.0 B  titan-titan-wqx9l7-worker-1
+        0.0 B  code-fonts-app-1
+        0.0 B  grow-bench-phkbkq-uploader-1
+        0.0 B  gpackdemo-gpackdemo-dykoel-notification-worker-1
+        0.0 B  gpackdemo-gpackdemo-dykoel-frontend-1
+        0.0 B  gpackdemo-gpackdemo-dykoel-backend-1
+
+=== 7) ملفات كبيرة (>200 ميجا) في /data ===
+-rw-r--r-- 1 root root 943M Sep 15 20:21 /data/hf/hub/models--Qwen--Qwen2.5-0.5B/blobs/88c142557820ccad55bb59756bfcfcf891de9cc6202816bd346445188a0ed342
+-rw-r--r-- 1 root root 469M Sep 15 20:25 /data/qwen2.5-0.5b-instruct-q4_k_m.gguf
+-rw-r--r-- 1 root root 1.2G Sep 15 20:25 /data/qwen2.5-0.5b-instruct-fp16.gguf
+-rw-r--r-- 1 root root 977M Sep 17 15:07 /data/moe/granite-4.0-1b-Q4_K_M.gguf
+-rw-r--r-- 1 root root 941M Sep 17 19:05 /data/moe/Qwen2.5-Coder-1.5B-Q4_K_M.gguf
+-rw-r--r-- 1 root root 2.4G Sep 16 17:51 /data/moe/Qwen3-4B-Q4_K_M.gguf
+-rw-r--r-- 1 root root 1.1G Sep 17 14:59 /data/moe/Qwen3-1.7B-Q4_K_M.gguf
+-rw-r--r-- 1 root root 14G Sep 17 14:45 /data/moe/30B-Q3_K_M.gguf
+-rw-r--r-- 1 root root 2.6G Sep 17 16:58 /data/moe/Qwen3.5-4B-Q4_K_M.gguf
+-rw-r--r-- 1 root root 1.8G Sep 17 19:20 /data/moe/Arabic-Qwen2.5-3B-Q4_K_M.gguf
+-rw-r--r-- 1 root root 9.8G Sep 16 17:49 /data/moe/exp2.gguf
+-rw-r--r-- 1 root root 657M Sep 17 19:28 /data/moe/MiniCPM5-1B-Q4_K_M.gguf
+-rw-r--r-- 1 root root 1.8G Sep 17 19:36 /data/moe/SmolLM3-3B-Q4_K_M.gguf
+-rw-r--r-- 1 root root 9.8G Sep 16 17:43 /data/moe/exp4.gguf
+-rw-r--r-- 1 root root 13G Sep 17 17:16 /data/moe/ERNIE-4.5-21B-A3B-Q4_K_M.gguf
+-rw-r--r-- 1 root root 9.3G Sep 17 16:56 /data/moe/Ling-mini-2.0-Q4_K_M.gguf
+-rw-r--r-- 1 root root 698M Sep 17 15:14 /data/moe/LFM2.5-1.2B-Q4_K_M.gguf
+-rw-r--r-- 1 root root 1.1G Sep 19 16:49 /data/moe/bge-m3-f16.gguf
+-rw-r--r-- 1 root root 9.8G Sep 16 16:46 /data/moe/Qwen3-30B-A3B-IQ2_M.gguf
+-rw-r--r-- 1 root root 920M Sep 17 19:12 /data/moe/Yi-Coder-1.5B-Q4_K_M.gguf
+
+
+DONE-DISK-AUDIT
+
