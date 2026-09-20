@@ -1,1 +1,1 @@
-run_titan_audit2.sh
+run_model_test.sh
