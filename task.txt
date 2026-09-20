@@ -1,1 +1,1 @@
-run_disk_audit.sh
+run_disk_cleanup.sh
