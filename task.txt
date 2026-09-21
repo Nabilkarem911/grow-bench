@@ -1,1 +1,1 @@
-run_reply_check.sh
+run_comprehensive.sh
