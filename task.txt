@@ -1,1 +1,1 @@
-run_dated_audit.sh
+run_test4.sh
