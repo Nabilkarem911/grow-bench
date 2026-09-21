@@ -1,0 +1,36 @@
+════════ قياس استهلاك الكوتا الحقيقي ════════
+=== 1) استهلاك التوكنات الحقيقي لكل رسالة (من agent_runs) ===
+ERROR:  column "tokensused" does not exist
+LINE 1: ...ل المقاسة: '||count(*)||' | المتوسط: '||round(avg(tokensUsed...
+                                                             ^
+HINT:  Perhaps you meant to reference the column "agent_runs.tokens_used".
+
+=== 2) آخر 15 رسالة (توكنات + خطوات) ===
+ERROR:  column "tokensused" does not exist
+LINE 1: ...char(created_at,'MM-DD HH24:MI')||' | '||coalesce(tokensUsed...
+                                                             ^
+HINT:  Perhaps you meant to reference the column "agent_runs.tokens_used".
+
+=== 3) حجم الرسايل الفعلي (مش التوكنات — عدد الحروف) ===
+متوسط حروف رسالة المستخدم: 111 | متوسط رد المساعد: 111
+أطول رسالة مستخدم: 4096 حرف
+
+=== 4) حجم الذاكرة المحقونة (اللي بيتحوّل لبرومبت) ===
+متوسط طول عنصر ذاكرة: 245 حرف | الإجمالي: 88051 حرف
+أكبر عنصر: 3563 حرف
+
+=== 5) عدد الخطوات (كل خطوة = نداء للـAPI) ===
+ERROR:  column "steps" does not exist
+LINE 1: SELECT 'متوسط الخطوات: '||round(avg(steps),1)||' | أقصى: '||...
+                                            ^
+ERROR:  column "steps" does not exist
+LINE 1: SELECT coalesce(steps,0)||' خطوة → '||count(*)||' مرة' FROM ...
+                        ^
+
+=== 6) الأدوات المُستخدمة (كل أداة = دور إضافي) ===
+ERROR:  column "calls" does not exist
+LINE 1: SELECT 'إجمالي استخدامات الأدوات: '||coalesce(sum(calls),0) ...
+                                                          ^
+
+DONE-QUOTA-AUDIT
+
