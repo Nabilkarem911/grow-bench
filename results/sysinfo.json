@@ -1,12 +1,12 @@
 {
   "nproc": 4,
   "mem_total_mb": 23974,
-  "mem_available_mb": 15445,
-  "mem_free_mb": 1302,
+  "mem_available_mb": 15617,
+  "mem_free_mb": 5843,
   "swap_total_mb": 0,
-  "disk_free_gb_data_volume": 115,
-  "disk_free_gb_root": 115,
+  "disk_free_gb_data_volume": 119,
+  "disk_free_gb_root": 119,
   "cpu_model": "",
-  "loadavg": "1.09 2.58 1.83 5/17638 21",
+  "loadavg": "0.76 0.66 0.75 8/17684 21",
   "note": "فحص قراءة فقط — مفيش أي تعديل على أي حاجة"
 }
