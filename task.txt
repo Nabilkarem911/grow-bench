@@ -1,1 +1,1 @@
-run_comprehensive.sh
+run_phase0.sh
