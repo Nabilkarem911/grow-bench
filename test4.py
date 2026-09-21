@@ -65,20 +65,20 @@ print(psql("SELECT string_agg(to_char(created_at,'HH24:MI:SS')||' → '||to_char
 print("\n=== 2) تفصيل كل خطوة (زمن + توكنات) لآخر 5 رسائل ===")
 print(psql("""
 SELECT string_agg(txt, E'\\n') FROM (
-  SELECT r.created_at, s.run_id, s.index,
-         '  '||to_char(r.created_at,'HH24:MI')||' ['||left(coalesce(r.prompt,''),22)||'] خطوة '||s.index||': '||
+  SELECT r.created_at, s.run_id, s.step_index,
+         '  '||to_char(r.created_at,'HH24:MI')||' ['||left(coalesce(r.prompt,''),22)||'] خطوة '||s.step_index||': '||
          coalesce(s.latency_ms::text,'?')||'ms · '||coalesce(s.tokens_used::text,'0')||' توكن · '||
-         coalesce(s.status,'?')||' · '||left(coalesce(s.tool_name, s.thought, s.reflection, ''),55) AS txt
+         coalesce(s.status,'?')||' · '||left(coalesce(s.action_name, s.thought, s.reflection, ''),55) AS txt
   FROM agent_steps s JOIN agent_runs r ON r.id = s.run_id
   WHERE r.created_at > now() - interval '3 hours'
-  ORDER BY r.created_at DESC, s.index ASC LIMIT 40
+  ORDER BY r.created_at DESC, s.step_index ASC LIMIT 40
 ) q
 """))
 
 print("\n=== 3) الأدوات اللي اتستخدمت ===")
 print(psql("""
 SELECT string_agg(tool||' ×'||n, ' · ') FROM (
-  SELECT coalesce(s.tool_name,'(بدون)') AS tool, count(*) n
+  SELECT coalesce(s.action_name,'(بدون)') AS tool, count(*) n
   FROM agent_steps s JOIN agent_runs r ON r.id=s.run_id
   WHERE r.created_at > now() - interval '3 hours' GROUP BY 1 ORDER BY 2 DESC LIMIT 10
 ) t
@@ -86,7 +86,7 @@ SELECT string_agg(tool||' ×'||n, ' · ') FROM (
 
 print("\n=== 4) الأخطاء في الخطوات ===")
 print(psql("""
-SELECT string_agg(to_char(r.created_at,'HH24:MI')||' خطوة '||s.index||': '||left(coalesce(s.error, s.status,''),90), E'\\n')
+SELECT string_agg(to_char(r.created_at,'HH24:MI')||' خطوة '||s.step_index||': '||left(coalesce(s.error, s.status,''),90), E'\\n')
 FROM agent_steps s JOIN agent_runs r ON r.id=s.run_id
 WHERE r.created_at > now() - interval '3 hours' AND (s.error IS NOT NULL OR s.status NOT IN ('completed'))
 LIMIT 10
