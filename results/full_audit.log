@@ -1,0 +1,69 @@
+════════ فحص تيتان الشامل والناقد ════════
+╔══════════════════════════════════════════════════════════════════════════╗
+║  فحص تيتان الشامل — قراءة فقط                                           ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+【1】 الحاويات والحالة
+   ✅ titan-titan-wqx9l7-core-1                    Up 57 minutes (healthy)
+   ✅ titan-titan-wqx9l7-worker-1                  Up 57 minutes (healthy)
+   ✅ titan-titan-wqx9l7-postgres-1                Up 10 days (healthy)
+   ✅ titan-titan-wqx9l7-redis-1                   Up 10 days (healthy)
+
+【2】 Redis (الكاش والطوابير)
+   NOAUTH Authentication required.
+   الذاكرة: 
+   مفاتيح: NOAUTH Authentication required.
+
+【3】 قاعدة البيانات
+   الاتصالات النشطة: 5
+   حجم القاعدة: 38 MB
+   أكبر 3 جداول: memory_items (7536 kB), heuristics (5832 kB), synthesized_skills (3752 kB)
+   اتصالات مفتوحة طويلة (>5 دقايق): 0
+
+【4】 واجهة تيتان (API)
+   {"type":"https://titan.local/problems/not-found","title":"Not found","status":404,"code":"E3001","details":{"method":"GET","url":"/health"}}
+   {"type":"https://titan.local/problems/not-found","title":"Not found","status":404,"code":"E3001","details":{"method":"GET","url":"/api/health"}}
+
+【5】 اللوجات (آخر 120 سطر — بنحسب الأخطاء)
+   core: 120 سطر · 8 فيهم خطأ
+      ⚠️ {"level":"warn","time":"2026-09-21T14:08:06.847Z","service":"titan-core","version":"0.1.0","env":"production","pid":8,"name":"titan-core","component":
+      ⚠️ {"level":"info","time":"2026-09-21T14:08:06.847Z","service":"titan-core","version":"0.1.0","env":"production","pid":8,"name":"titan-core","component":
+      ⚠️ {"level":"warn","time":"2026-09-21T14:09:07.848Z","service":"titan-core","version":"0.1.0","env":"production","pid":8,"name":"titan-core","component":
+      ⚠️ {"level":"warn","time":"2026-09-21T14:09:07.848Z","service":"titan-core","version":"0.1.0","env":"production","pid":8,"name":"titan-core","component":
+   worker: 120 سطر · 0 فيهم خطأ
+
+【6】 الرسايل: حالة + أداء
+   التوزيع: completed=143 · failed=17 · running=16
+   معلقة (running أقدم من 10 دقايق): 16
+   فاشلة آخر 24 ساعة: 1
+
+   آخر 10 رسايل (وقت | توكن | خطوات | حالة):
+   13:59 12516t 4s completed | 13:07 3120t 1s completed | 15:54 13965t 4s completed | 12:38 13727t 4s completed | 12:18 2829t 1s completed | 12:16 33040t 10s completed | 12:07 3007t 1s completed | 17:58 36570t 10s completed | 17:45 43876t 10s completed | 17:45 3294t 1s completed
+
+   إحصاء: المتوسط 9867 · الوسيط 12516 · أقصى 13965 · عينة 3
+   قبل التحويل: المتوسط 120433 · الوسيط 70130 · عينة 141
+
+【7】 جودة الردود (آخر 40 رد)
+   صيني/كوري/روسي: 1
+   ردود فاضية: 9
+   تسريب إعدادات (ds_safety/</system): 1
+   رسائل مكررة (نفس الوقت): 63
+
+【8】 الذاكرة
+   العناصر: 368 · فيهم تمثيل: 368
+   التوزيع: ERROR:  ORDER BY position 2 is not in select list · LINE 1: ...||'='||count(*) FROM memory_items GROUP BY 1 ORDER BY 2 DESC · ^
+   عناصر بلا تمثيل: 0
+   رسايل محفوظة: 379 · جلسات: 37
+
+【9】 الأدوات
+   إحصاءات التنفيذ: ERROR:  column "calls" does not exist
+LINE 1: SELECT string_agg(tool_name||'='||calls, ', ') FROM (SELECT ...
+                                          ^
+
+【10】 تليجرام
+   مندوب البوت موجود ✓ (الطول 46)
+   الويبهوك: https://titan.orcanox.xyz/telegram/webhook
+   آخر خطأ: None
+
+DONE-FULL-AUDIT
+
