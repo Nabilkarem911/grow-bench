@@ -1,1 +1,1 @@
-run_stuck.sh
+run_profile.sh
