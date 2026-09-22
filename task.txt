@@ -1,1 +1,1 @@
-run_msverify.sh
+run_learnverify.sh
