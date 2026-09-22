@@ -1,1 +1,1 @@
-run_feed2.sh
+run_keysfix.sh
