@@ -1,0 +1,21 @@
+containers: core=1 pg=1
+
+━━━ ① المفتاح + الـAPI من جوه حاوية الكور ━━━
+KEY_PRESENT
+[eval]:1
+const k=process.env.MILLISECONDS_API_KEY||;fetch('https://api.milliseconds.ai/v1/decision-machine-1/extract',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+k},body:JSON.stringify({text:'نبيل كريم من ينبع ورقمه 0555123456',schema:{type:'object',properties:{الاسم:{type:'string'},المدينة:{type:'string'}}}})}).then(r=>r.text()).then(t=>console.log('API_OK',t.slice(0,220))).catch(e=>console.log('API_FAIL',String(e).slice(0,150)));
+                                          ^
+Expression expected
+
+SyntaxError: Unexpected token ';'
+    at makeContextifyScript (node:internal/vm:185:14)
+    at compileScript (node:internal/process/execution:383:10)
+
+━━━ ② تيتان بيستخدم الأداة؟ (رسالة حقيقية) ━━━
+  الويبهوك: 200
+  ✅ 14412 توكن · 4 خطوة · completed · 33.458848 ثانية
+  الأدوات المستخدمة: ERROR: column "tool_name" does not exist LINE 1: SELECT coalesce(string_agg(DISTINCT tool_name, ','),'(مفيش)'... ^
+  الرد: وصلتني نفس الرسالة ٤ مرات يا نبيل 😅 — الرد ثابت: **نبيل كريم** · **ينبع** · **0555123456** لو ده اختبار وإن الرسالة بتتكرر عندك في النظام من غير سبب، قولي وأشوفلك ليه بيحصل دبل-ديليفري في الـ queue أو الـ webhook.
+
+DONE-MS-VERIFY
+
