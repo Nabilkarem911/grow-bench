@@ -143,7 +143,10 @@ if steps:
     print("  عدد الخطوات: %d" % len(steps))
     for line in steps:
         p = line.split("|")
-        print("   خطوة %s: %s · زمن الموديل %s مللي · %s توكن" % (p[4], p[0], p[2], p[3]))
+        idx = p[4] if len(p) > 4 else "?"
+        lat = p[2] if len(p) > 2 else "0"
+        tok = p[3] if len(p) > 3 else "0"
+        print("   خطوة %s: %s · موديل %s مللي · %s توكن" % (idx, p[0] if p else "?", lat, tok))
     total_lat = sum(int(x.split("|")[2] or 0) for x in steps)
     total_tok = sum(int(x.split("|")[3] or 0) for x in steps)
     print("  إجمالي زمن الموديل: %s مللي (%.2f ثانية)" % (total_lat, total_lat / 1000))
