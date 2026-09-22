@@ -1,1 +1,1 @@
-run_keysfix.sh
+run_clean.sh
