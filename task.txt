@@ -1,1 +1,1 @@
-run_phase0.sh
+run_phase1.sh
