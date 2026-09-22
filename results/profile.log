@@ -3,9 +3,9 @@
 ██████████████████████████████████████████████████████████████████████████████
 
 ━━━ ① موارد حاويات تيتان (قبل) ━━━
-  titan-titan-wqx9l7-core-1                CPU=0.4   %  RAM=87/1024 MB
-  titan-titan-wqx9l7-worker-1              CPU=0.0   %  RAM=70/1024 MB
-  titan-titan-wqx9l7-postgres-1            CPU=0.0   %  RAM=208/1024 MB
+  titan-titan-wqx9l7-core-1                CPU=0.0   %  RAM=86/1024 MB
+  titan-titan-wqx9l7-worker-1              CPU=1.6   %  RAM=71/1024 MB
+  titan-titan-wqx9l7-postgres-1            CPU=0.0   %  RAM=211/1024 MB
   titan-titan-wqx9l7-redis-1               CPU=0.5   %  RAM=15/512 MB
 
 ━━━ ② نبعث «صباح الخير» ونسجّل كل نقطة زمن ━━━
