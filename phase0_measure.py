@@ -4,7 +4,7 @@
 الطريقة الطويلة (10 رسايل) بتُقتل لأن أي إعادة نشر بتقفل الحاوية.
 الطريقة القصيرة دي بتخلص في دقايق فبتنجح.
 """
-import http.client, json, re, socket, time, urllib.request
+import http.client, json, os, re, socket, time, urllib.request
 
 SOCK = "/var/run/docker.sock"
 W = "https://titan.orcanox.xyz/telegram/webhook"
