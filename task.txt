@@ -1,1 +1,1 @@
-run_phase1.sh
+run_msverify.sh
