@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/app/phase0_measure.py", line 13, in <module>
+    _env = os.environ.get("MEASURE_MSGS")
+           ^^
+NameError: name 'os' is not defined. Did you forget to import 'os'?
