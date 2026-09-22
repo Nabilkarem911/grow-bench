@@ -1,1 +1,1 @@
-run_clean.sh
+run_stuck.sh
