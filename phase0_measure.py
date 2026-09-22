@@ -10,7 +10,8 @@ SOCK = "/var/run/docker.sock"
 W = "https://titan.orcanox.xyz/telegram/webhook"
 CHAT = 495185511
 
-MSGS = [("سلام (متوقع خطوة واحدة)", "صباح الخير"),
+_env = os.environ.get("MEASURE_MSGS")
+MSGS = json.loads(_env) if _env else [("سلام (متوقع خطوة واحدة)", "صباح الخير"),
         ("مهمة (متوقع 4 خطوات)", "اكتبلي دالة بايثون تقرا ملف وتجمع عمود")]
 
 
