@@ -1,1 +1,1 @@
-run_learnverify.sh
+run_learn2.sh
