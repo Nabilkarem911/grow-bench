@@ -3,19 +3,25 @@
 ██████████████████████████████████████████████████████████████████████████████
 
 ━━━ ① موارد حاويات تيتان (قبل) ━━━
-  titan-titan-wqx9l7-core-1                CPU=0.2   %  RAM=84/1024 MB
+  titan-titan-wqx9l7-core-1                CPU=0.4   %  RAM=87/1024 MB
   titan-titan-wqx9l7-worker-1              CPU=0.0   %  RAM=70/1024 MB
   titan-titan-wqx9l7-postgres-1            CPU=0.0   %  RAM=208/1024 MB
-  titan-titan-wqx9l7-redis-1               CPU=0.7   %  RAM=15/512 MB
+  titan-titan-wqx9l7-redis-1               CPU=0.5   %  RAM=15/512 MB
 
 ━━━ ② نبعث «صباح الخير» ونسجّل كل نقطة زمن ━━━
-  T0 إرسال → T1 الويبهوك رد: 0.40 ثانية (كود 200)
-  T2 الـrun اتخلق: 0.41 ثانية بعد الإرسال
+  T0 إرسال → T1 الويبهوك رد: 0.05 ثانية (كود 200)
+  T2 الـrun اتخلق: 0.06 ثانية بعد الإرسال
 
 ━━━ ③ خطوات التفكير (agent loop) ━━━
   عدد الخطوات: 3
+   خطوة ?: ERROR:  column "index" does not exist · موديل 0 مللي · 0 توكن
+   خطوة ': LINE 1: ...' · موديل coalesce(tokens_used::text,'0') مللي ·  توكن
+   خطوة ?:                                                              ^ · موديل 0 مللي · 0 توكن
 Traceback (most recent call last):
-  File "/app/profile_titan.py", line 146, in <module>
-    print("   خطوة %s: %s · زمن الموديل %s مللي · %s توكن" % (p[4], p[0], p[2], p[3]))
-                                                              ~^^^
+  File "/app/profile_titan.py", line 150, in <module>
+    total_lat = sum(int(x.split("|")[2] or 0) for x in steps)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/profile_titan.py", line 150, in <genexpr>
+    total_lat = sum(int(x.split("|")[2] or 0) for x in steps)
+                        ~~~~~~~~~~~~^^^
 IndexError: list index out of range
