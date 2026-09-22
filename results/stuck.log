@@ -1,0 +1,9 @@
+أعمدة agent_runs النصية:
+  agent_id prompt status final_answer
+معلّقين قبل: 16
+التنفيذ: 
+بعد: 0
+كل الـrunning دلوقتي: 1
+failed: 33
+completed: 196
+DONE-STUCK
