@@ -1,0 +1,69 @@
+██████████████████████████████████████████████████████████████████████████████
+█  ① قبل التنضيف
+██████████████████████████████████████████████████████████████████████████████
+  المالك (owner_id): dc2add38-5d14-4227-aa67-deb5e02dc2f5
+  صفوف user_context: 19
+  عناصر memory_items: 509
+   وهمي «فاطمة» → user_context=1 · memory_items=3
+   وهمي «مصطفى» → user_context=1 · memory_items=5
+   وهمي «أكبر أقمار» → user_context=0 · memory_items=2
+   وهمي «زحل» → user_context=0 · memory_items=2
+   وهمي «نيكست فيت» → user_context=1 · memory_items=0
+   وهمي «NextFit» → user_context=1 · memory_items=0
+   وهمي «الشاي بالنعناع» → user_context=2 · memory_items=15
+
+██████████████████████████████████████████████████████████████████████████████
+█  ② الحذف (أنماط محددة بس)
+██████████████████████████████████████████████████████████████████████████████
+  «فاطمة»: اتمسح 1 من user_context و 3 من memory_items
+  «مصطفى»: اتمسح 1 من user_context و 5 من memory_items
+  «أكبر أقمار»: اتمسح 0 من user_context و 2 من memory_items
+  «زحل»: اتمسح 0 من user_context و 0 من memory_items
+  «نيكست فيت»: اتمسح 1 من user_context و 0 من memory_items
+  «NextFit»: اتمسح 0 من user_context و 0 من memory_items
+  «الشاي بالنعناع»: اتمسح 1 من user_context و 12 من memory_items
+  صفوف فاضية: اتمسحت 4
+  الإجمالي اللي اتمسح: 30 صف
+
+██████████████████████████████████████████████████████████████████████████████
+█  ③ التغذية بالمعلومات الحقيقية
+██████████████████████████████████████████████████████████████████████████████
+
+
+██████████████████████████████████████████████████████████████████████████████
+█  ④ بعد التنضيف والتغذية
+██████████████████████████████████████████████████████████████████████████████
+  صفوف user_context: 25
+  عناصر memory_items: 487
+   وهمي «فاطمة» → user_context=0 · memory_items=0
+   وهمي «مصطفى» → user_context=0 · memory_items=0
+   وهمي «أكبر أقمار» → user_context=0 · memory_items=0
+   وهمي «زحل» → user_context=0 · memory_items=0
+   وهمي «نيكست فيت» → user_context=0 · memory_items=0
+   وهمي «NextFit» → user_context=0 · memory_items=0
+   وهمي «الشاي بالنعناع» → user_context=0 · memory_items=0
+
+  ── المعلومات الحقيقية اللي اتغذّت ──
+    age :: 36 سنة
+    city :: ينبع، السعودية
+    dislikes :: الادعاءات غير المؤكدة · التخمين في الألوان/الهوية
+    family_visits :: عيلته بتزوره من طنطا (مصر) عن طريق MOFA السعودية + تساهيل
+    _identity_preferences_json :: [{"key":"verbosity","value":"concise","confidence":1,"evidence":["what is 2+2? 4","what is 2+2? 4","say hello Hello!","w
+    _identity_profile_json :: {"userId":"dc2add38-5d14-4227-aa67-deb5e02dc2f5","preferredLanguage":"arabic-egyptian","expertise":["ml","backend"],"int
+    interest_perfumes_sa :: نبيل بيسأل كتير عن أسعار العطور في السعودية — مهتم بالعطور (عود/ديزاينر/نيتش) والسوق السعودي
+    job :: موظف في مؤسسة مطاعم عميد البحارة (موظف، مش المالك)
+    name :: نبيل كريم
+    prefers :: القياس الحقيقي مش النظري · اختبار قبل/بعد · مفيش فروع جانبية
+    pricing_reference_sa :: سُلّم تسعير العطور في السعودية (50ml/ريال): 45-90 يومي، 120-250 نقطة الدخول المثالية (هامش 55-65%)، 300-600 براند، 800+ 
+    project :: مشروع تجارة عطور وبخور — بيستهدف السوق السعودي (ريال)، محتاج تسعير وتحليل منافسين
+    projects_tools :: حروفي (Flutter أطفال) · رفيق · تيتان · مرصد الذهب · Smart Cloud Screen · QR Menu · grow · InferMesh · gpacksa
+    role :: مطور Full Stack
+    servers :: 84.8.106.69 (Hermes + Dokploy) · 187.127.76.226 (شغل)
+    son :: كنان نبيل — مواليد 7/2022
+    style :: بيحب المصري في الكلام والأرقام بالبلدي — مش الفصحى
+    telegram_id :: 495185511
+    wife :: سماح حمدي عبد المقصود النجار
+    workflow :: Windsurf + Devin للتنفيذ · فوكس (Hermes) مستشار ومقرر تقني
+    workflow_context :: نبيل و هيرمس بيشغلوا على تايتن: بيختبروه، بيصلحوا مشاكل فيه، وبيضيفوا له إضافات جديدة. يعني أي مشكلة تظهر ممكن تكون جزء
+
+DONE-FEED
